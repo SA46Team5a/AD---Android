@@ -23,7 +23,20 @@
         <!-- <activity -->
         <!-- android:name=".ApproveForm" -->
         <!-- android:label="@string/title_activity_approve_form"></activity> -->
-        <activity android:name=".DisbursementConfirm"></activity>
+        <activity android:name=".DisbursementConfirm" />
+        <activity android:name=".StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity" />
+        <activity android:name=".StoreRequisition.stationeryRetrieval.SubmitAdjustmentActivity" />
+        <activity android:name=".StoreRequisition.confirmDisbursementList.DisbursementListDeptActivity" />
+        <activity android:name=".StoreRequisition.viewEmpDisbursement.DisbursementListEmpActivity" />
+        <activity android:name=".Orders.restockInventory.RestockInventoryActivity" />
+        <activity android:name=".Orders.restockInventory.AddStockQuantityActivity" />
+        <activity android:name=".stockAdjustment.monthlyInventory.ManageInventoryActivity" />
+        <activity android:name=".stockAdjustment.manageMonthlyStockDiscrepency.ManageInventoryDetailsActivity" />
+        <activity android:name=".stockAdjustment.manageMonthlyStockDiscrepency.DiscrepancyItemsActivity" />
+        <activity android:name=".DepRequisition.ApproveRequisitionForm.ApproveRequestFormActivity" />
+        <activity android:name=".DepRequisition.DelegateAuthority.DelegateAuthorityActivity" />
+        <activity android:name=".DepRequisition.AppointDeptRep.AppointRepActivity" />
+        <activity android:name=".DepRequisition.ChangeCollectionPoint.UpdateLocationActivity"></activity>
     </application>
 
 </manifest>
