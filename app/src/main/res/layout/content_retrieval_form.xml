@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_retrieval_form">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="368dp"
+        android:layout_height="215dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp">
+
+            <TextView
+                android:id="@+id/pencillabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text=" 1.Pencil(Description)"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="25dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text=" "
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="25dp" />
+
+            <TextView
+                android:id="@+id/quantityview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:text="Quantity required:"
+                app:layout_constraintEnd_toStartOf="@+id/quantitynumberview"
+                tools:layout_editor_absoluteY="58dp" />
+
+            <TextView
+                android:id="@+id/quantitynumberview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11"
+                tools:layout_editor_absoluteX="236dp"
+                tools:layout_editor_absoluteY="57dp" />
+
+            <TextView
+                android:id="@+id/actualStocklabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="52dp"
+                android:layout_marginTop="12dp"
+                android:text="Actual Stock:"
+                app:layout_constraintEnd_toStartOf="@+id/actualstockview"
+                app:layout_constraintTop_toBottomOf="@+id/quantityview" />
+
+            <TextView
+                android:id="@+id/actualstockview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                tools:layout_editor_absoluteX="236dp"
+                tools:layout_editor_absoluteY="85dp" />
+
+            <TextView
+                android:id="@+id/totalabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Total Retrived :"
+                app:layout_constraintTop_toBottomOf="@+id/actualStocklabel"
+                tools:layout_editor_absoluteX="101dp" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:ems="10"
+                android:inputType="number"
+                android:text="9"
+                app:layout_constraintStart_toEndOf="@+id/totalabel"
+                tools:layout_editor_absoluteY="108dp" />
+
+            <Button
+                android:id="@+id/sumitadjustmentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Submit adjustment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.869" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+</android.widget.GridLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="department">
+        <item >department1</item>
+        <item >department2</item>
+        <item >department3</item>
+        <item >department4</item>
+        <item >department5</item>
+        <item >department6</item>
+        <item >department7</item>
+    </string-array>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/createform"
+            android:icon="@drawable/ic_add"
+            android:title="Create retrieval form" />
+        <item
+            android:id="@+id/confirmdisbursement"
+            android:icon="@drawable/ic_confirm"
+            android:title="Confirm disbursement" />
+        <item
+            android:id="@+id/restorckinventory"
+            android:icon="@drawable/ic_update"
+            android:title="Restock inventory" />
+        <item
+            android:id="@+id/manageinventory"
+            android:icon="@drawable/ic_modify"
+            android:title="Manager inventory" />
+    </group>
+
+</menu>
