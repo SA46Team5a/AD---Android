@@ -24,7 +24,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/collectionPoints"
         layout="@layout/content_update_location" />
 
 

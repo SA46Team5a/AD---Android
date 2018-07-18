@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <EditText
-        android:id="@+id/quantityview"
+        android:id="@+id/quantityView"
         android:layout_width="363dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -61,7 +61,7 @@
         android:text="@android:string/cancel"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quantityview" />
+        app:layout_constraintTop_toBottomOf="@+id/quantityView" />
 
     <Button
         android:id="@+id/okButton"
@@ -75,6 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toEndOf="@+id/cancelButton"
-        app:layout_constraintTop_toBottomOf="@+id/quantityview" />
+        app:layout_constraintTop_toBottomOf="@+id/quantityView" />
 
 </android.support.constraint.ConstraintLayout>

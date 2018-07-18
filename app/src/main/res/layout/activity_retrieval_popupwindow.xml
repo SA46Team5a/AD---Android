@@ -23,7 +23,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <TextView
-        android:id="@+id/categorylabel"
+        android:id="@+id/categoryLabel"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_marginEnd="8dp"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <TextView
-        android:id="@+id/itemnamelabel"
+        android:id="@+id/itemnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -47,10 +47,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.147"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorylabel" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
 
     <TextView
-        android:id="@+id/itemdesplabel"
+        android:id="@+id/itemdespLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -60,10 +60,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemnamelabel" />
+        app:layout_constraintTop_toBottomOf="@+id/itemnameLabel" />
 
     <TextView
-        android:id="@+id/itemdespview"
+        android:id="@+id/itemdespView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -74,10 +74,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemdesplabel" />
+        app:layout_constraintTop_toBottomOf="@+id/itemdespLabel" />
 
     <TextView
-        android:id="@+id/unitsview"
+        android:id="@+id/unitsView"
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginEnd="8dp"
@@ -88,10 +88,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/unitlabel" />
+        app:layout_constraintTop_toBottomOf="@+id/unitLabel" />
 
     <TextView
-        android:id="@+id/stockrecordview"
+        android:id="@+id/stockrecordView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -102,10 +102,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stockrecordlabel" />
+        app:layout_constraintTop_toBottomOf="@+id/stockrecordLabel" />
 
     <TextView
-        android:id="@+id/datelabel"
+        android:id="@+id/dateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -115,10 +115,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stockrecordview" />
+        app:layout_constraintTop_toBottomOf="@+id/stockrecordView" />
 
     <TextView
-        android:id="@+id/stockrecordlabel"
+        android:id="@+id/stockrecordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -128,10 +128,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.229"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/unitsview" />
+        app:layout_constraintTop_toBottomOf="@+id/unitsView" />
 
     <TextView
-        android:id="@+id/unitlabel"
+        android:id="@+id/unitLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -141,10 +141,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemdespview" />
+        app:layout_constraintTop_toBottomOf="@+id/itemdespView" />
 
     <TextView
-        android:id="@+id/dateview"
+        android:id="@+id/dateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -155,49 +155,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datelabel" />
+        app:layout_constraintTop_toBottomOf="@+id/dateLabel" />
 
     <TextView
-        android:id="@+id/actuallabel"
+        android:id="@+id/actualLabel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
         android:text="Actual stock"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="363dp" />
+        app:layout_constraintTop_toBottomOf="@+id/dateView" />
 
     <TextView
-        android:id="@+id/resonlabel"
+        android:id="@+id/resonLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:text="Reaon"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actuallabel" />
+        app:layout_constraintTop_toBottomOf="@+id/actualLabel"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/actualstockLabel"
         android:layout_width="55dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/actuallabel"
-        tools:layout_editor_absoluteY="348dp" />
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toEndOf="@+id/actualLabel"
+        app:layout_constraintTop_toBottomOf="@+id/stockrecordLabel" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/reasonView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -207,11 +212,11 @@
         android:inputType="textMultiLine|textLongMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toEndOf="@+id/resonlabel"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintStart_toEndOf="@+id/resonLabel"
+        app:layout_constraintTop_toBottomOf="@+id/actualstockLabel" />
 
     <Button
-        android:id="@+id/submitbutton"
+        android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

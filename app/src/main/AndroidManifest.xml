@@ -23,7 +23,6 @@
         <!-- <activity -->
         <!-- android:name=".ApproveForm" -->
         <!-- android:label="@string/title_activity_approve_form"></activity> -->
-        <activity android:name=".DisbursementConfirm" />
         <activity android:name=".StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity" />
         <activity android:name=".StoreRequisition.stationeryRetrieval.SubmitAdjustmentActivity" />
         <activity android:name=".StoreRequisition.confirmDisbursementList.DisbursementListDeptActivity" />

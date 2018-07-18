@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/collectionllabel"
+        android:id="@+id/collectionlLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -20,10 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/departmentdropdownlist" />
+        app:layout_constraintTop_toBottomOf="@+id/departmentDropdownlist" />
 
     <Spinner
-        android:id="@+id/departmentdropdownlist"
+        android:id="@+id/departmentDropdownlist"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -42,7 +42,7 @@
         />
 
     <TextView
-        android:id="@+id/collectionview"
+        android:id="@+id/collectionView"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginEnd="8dp"
@@ -53,10 +53,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/collectionllabel" />
+        app:layout_constraintTop_toBottomOf="@+id/collectionlLabel" />
 
     <include
-        android:id="@+id/include2"
+        android:id="@+id/itemlist_Include"
         layout="@layout/content_disbursement_list"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
@@ -66,10 +66,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/collectionview" />
+        app:layout_constraintTop_toBottomOf="@+id/collectionView" />
 
     <TextView
-        android:id="@+id/representativelabel"
+        android:id="@+id/representativeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -78,14 +78,14 @@
         android:layout_marginTop="16dp"
         android:text="Representative Name :"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/representativenameview"
+        app:layout_constraintEnd_toStartOf="@+id/representativenameView"
         app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/itemlist_Include"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/representativenameview"
+        android:id="@+id/representativenameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -94,11 +94,11 @@
         android:text="Jacky Wong"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/itemlist_Include"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/codelabel"
+        android:id="@+id/codeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
@@ -107,13 +107,13 @@
         android:layout_marginTop="8dp"
         android:text="Code :"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editText4"
+        app:layout_constraintEnd_toStartOf="@+id/codeView"
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/representativelabel" />
+        app:layout_constraintTop_toBottomOf="@+id/representativeLabel" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/codeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -122,11 +122,11 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/representativenameview"
+        app:layout_constraintTop_toBottomOf="@+id/representativenameView"
         app:layout_constraintVertical_bias="0.206" />
 
     <Button
-        android:id="@+id/confrimbutton"
+        android:id="@+id/confrimButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -134,8 +134,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Confirm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/codeView" />
 </android.support.constraint.ConstraintLayout>

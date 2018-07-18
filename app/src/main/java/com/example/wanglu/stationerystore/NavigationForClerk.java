@@ -1,5 +1,6 @@
 package com.example.wanglu.stationerystore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.wanglu.stationerystore.Orders.restockInventory.RestockInventoryActivity;
+import com.example.wanglu.stationerystore.StoreRequisition.confirmDisbursementList.DisbursementListDeptActivity;
+import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
+import com.example.wanglu.stationerystore.stockAdjustment.monthlyInventory.ManageInventoryActivity;
 
 public class NavigationForClerk extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,13 +78,13 @@ public class NavigationForClerk extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.createform) {
-            // Handle the camera action
+            Intent intent= new Intent(this, StationeryRetrievalFormActivity.class);
         } else if (id == R.id.confirmdisbursement) {
-
+            Intent intent = new Intent(this, DisbursementListDeptActivity.class);
         } else if (id == R.id.restorckinventory) {
-
+            Intent intent = new Intent (this, RestockInventoryActivity.class);
         } else if (id == R.id.manageinventory) {
-
+            Intent intent = new Intent(this, ManageInventoryActivity.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
