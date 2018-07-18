@@ -79,12 +79,16 @@ public class NavigationForClerk extends AppCompatActivity
 
         if (id == R.id.createform) {
             Intent intent= new Intent(this, StationeryRetrievalFormActivity.class);
+            startActivity(intent);
         } else if (id == R.id.confirmdisbursement) {
             Intent intent = new Intent(this, DisbursementListDeptActivity.class);
+            startActivity(intent);
         } else if (id == R.id.restorckinventory) {
             Intent intent = new Intent (this, RestockInventoryActivity.class);
+            startActivity(intent);
         } else if (id == R.id.manageinventory) {
             Intent intent = new Intent(this, ManageInventoryActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
