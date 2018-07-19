@@ -11,70 +11,109 @@
 
 
     <Button
-        android:id="@+id/confrimButton"
+        android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="confirm"
+        android:text="Confirm"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <RadioButton
-        android:id="@+id/p1radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stationery Store- Administration Building(09:30)"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="66dp" />
-
-    <RadioButton
-        android:id="@+id/p2radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RadioGroup
+        android:id="@+id/radioGroupOfCollectionPoints"
+        android:layout_width="345dp"
+        android:layout_height="276dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Management School(11:00am)"
-        app:layout_constraintTop_toBottomOf="@+id/p1radioButton"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.288">
 
-    <RadioButton
-        android:id="@+id/p3radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Medical School(09:30am)"
-        app:layout_constraintTop_toBottomOf="@+id/p2radioButton"
-        tools:layout_editor_absoluteX="16dp" />
+        <RadioButton
+            android:id="@+id/collectPoint1RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Stationery Store- Administration Building(09:30)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="66dp" />
 
-    <RadioButton
-        android:id="@+id/p4radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Engineering School(11:00am)"
-        app:layout_constraintTop_toBottomOf="@+id/p3radioButton"
-        tools:layout_editor_absoluteX="16dp" />
+        <RadioButton
+            android:id="@+id/collectPoint2RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Management School(11:00am)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.139"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collectPoint1RadioButton" />
 
-    <RadioButton
-        android:id="@+id/p5radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Science School(09:30am)"
-        app:layout_constraintTop_toBottomOf="@+id/p4radioButton"
-        tools:layout_editor_absoluteX="16dp" />
+        <RadioButton
+            android:id="@+id/collectPoint3RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Medical School(09:30am)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.114"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collectPoint2RadioButton" />
 
-    <RadioButton
-        android:id="@+id/p6radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="University Hospital(11:00am)"
-        app:layout_constraintTop_toBottomOf="@+id/p5radioButton"
-        tools:layout_editor_absoluteX="16dp" />
+        <RadioButton
+            android:id="@+id/collectPoint4RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Engineering School(11:00am)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collectPoint3RadioButton" />
+
+        <RadioButton
+            android:id="@+id/collectPoint5RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Science School(09:30am)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.114"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collectPoint4RadioButton" />
+
+        <RadioButton
+            android:id="@+id/collectPoint6RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:text="University Hospital(11:00am)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.129"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collectPoint5RadioButton" />
+    </RadioGroup>
 
     <TextView
         android:id="@+id/digitpasscodeLabel"
@@ -85,24 +124,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="4-digit passcode"
-        app:layout_constraintBottom_toTopOf="@+id/confrimButton"
+        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p6radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupOfCollectionPoints"
         app:layout_constraintVertical_bias="0.622" />
 
-    <EditText
-        android:id="@+id/digitpasscodeView"
+    <TextView
+
+        android:id="@+id/passcodeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="numberPassword"
-        app:layout_constraintBottom_toTopOf="@+id/confrimButton"
+        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
+        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toEndOf="@+id/digitpasscodeLabel"
-        app:layout_constraintTop_toBottomOf="@+id/p6radioButton"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupOfCollectionPoints"
+        app:layout_constraintVertical_bias="0.618" />
 
 
 </android.support.constraint.ConstraintLayout>
