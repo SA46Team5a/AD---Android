@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <RadioButton
-        android:id="@+id/p1radioButton"
+        android:id="@+id/collectPoint1RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stationery Store- Administration Building(09:30)"
@@ -32,48 +32,48 @@
         tools:layout_editor_absoluteY="66dp" />
 
     <RadioButton
-        android:id="@+id/p2radioButton"
+        android:id="@+id/collectPoint2RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Management School(11:00am)"
-        app:layout_constraintTop_toBottomOf="@+id/p1radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/collectPoint1RadioButton"
         tools:layout_editor_absoluteX="16dp" />
 
     <RadioButton
-        android:id="@+id/p3radioButton"
+        android:id="@+id/collectPoint3RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Medical School(09:30am)"
-        app:layout_constraintTop_toBottomOf="@+id/p2radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/collectPoint2RadioButton"
         tools:layout_editor_absoluteX="16dp" />
 
     <RadioButton
-        android:id="@+id/p4radioButton"
+        android:id="@+id/collectPoint4RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Engineering School(11:00am)"
-        app:layout_constraintTop_toBottomOf="@+id/p3radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/collectPoint3RadioButton"
         tools:layout_editor_absoluteX="16dp" />
 
     <RadioButton
-        android:id="@+id/p5radioButton"
+        android:id="@+id/collectPoint5RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Science School(09:30am)"
-        app:layout_constraintTop_toBottomOf="@+id/p4radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/collectPoint4RadioButton"
         tools:layout_editor_absoluteX="16dp" />
 
     <RadioButton
-        android:id="@+id/p6radioButton"
+        android:id="@+id/collectPoint6RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="University Hospital(11:00am)"
-        app:layout_constraintTop_toBottomOf="@+id/p5radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/collectPoint5RadioButton"
         tools:layout_editor_absoluteX="16dp" />
 
     <TextView
