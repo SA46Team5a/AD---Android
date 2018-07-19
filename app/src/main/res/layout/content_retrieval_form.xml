@@ -20,7 +20,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp">
+            android:layout_height="281dp">
 
             <TextView
                 android:id="@+id/pencillabel"
@@ -69,14 +69,11 @@
                 android:id="@+id/quantitynumbervVew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="116dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="52dp"
                 android:text="11"
-                app:layout_constraintBottom_toTopOf="@+id/actualstockView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.81" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/actualstockLabel"
@@ -95,9 +92,11 @@
                 android:id="@+id/actualstockView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="116dp"
+                android:layout_marginTop="20dp"
                 android:text="10"
-                tools:layout_editor_absoluteX="236dp"
-                tools:layout_editor_absoluteY="93dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantitynumbervVew" />
 
             <TextView
                 android:id="@+id/totaLabel"
@@ -126,10 +125,10 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintBottom_toTopOf="@+id/sumitadjustmentButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toEndOf="@+id/totaLabel"
                 app:layout_constraintTop_toBottomOf="@+id/actualstockView"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.596" />
 
             <Button
                 android:id="@+id/sumitadjustmentButton"
@@ -143,9 +142,10 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.228"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.869" />
+                app:layout_constraintVertical_bias="1.0" />
 
         </android.support.constraint.ConstraintLayout>
 

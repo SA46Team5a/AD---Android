@@ -81,20 +81,28 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="4-digit passcode"
+        app:layout_constraintBottom_toTopOf="@+id/confrimButton"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="392dp" />
+        app:layout_constraintTop_toBottomOf="@+id/p6radioButton"
+        app:layout_constraintVertical_bias="0.622" />
 
     <EditText
         android:id="@+id/digitpasscodeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="numberPassword"
+        app:layout_constraintBottom_toTopOf="@+id/confrimButton"
         app:layout_constraintStart_toEndOf="@+id/digitpasscodeLabel"
-        tools:layout_editor_absoluteY="380dp" />
+        app:layout_constraintTop_toBottomOf="@+id/p6radioButton"
+        app:layout_constraintVertical_bias="0.666" />
 
 
 </android.support.constraint.ConstraintLayout>

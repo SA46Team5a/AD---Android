@@ -11,23 +11,23 @@
 
 
     <TextView
-        android:id="@+id/DelegateLabel"
+        android:id="@+id/appointRepLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Name of repersentative"
+        android:text="Name of Representative"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/representativeSpinner"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DelegateLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/appointRepLabel" />
 
     <Button
         android:id="@+id/confirmbutton"
@@ -41,6 +41,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner" />
+        app:layout_constraintTop_toTopOf="@+id/representativeSpinner" />
 
 </android.support.constraint.ConstraintLayout>
