@@ -1,4 +1,4 @@
-package com.example.wanglu.stationerystore.stockAdjustment.monthlyInventory;
+package com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

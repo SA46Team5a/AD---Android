@@ -1,9 +1,9 @@
-package com.example.wanglu.stationerystore.stockAdjustment.manageMonthlyStockDiscrepency;
+package com.example.wanglu.stationerystore.StoreRequisition.ViewEmpDisbursement;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ManageInventoryDetailsActivity extends AppCompatActivity {
+public class DisbursementListEmpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
