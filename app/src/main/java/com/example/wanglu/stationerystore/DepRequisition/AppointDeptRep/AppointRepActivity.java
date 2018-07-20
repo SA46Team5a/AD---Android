@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
-
+//Author: WangLu
 public class AppointRepActivity extends AppCompatActivity {
     ArrayList<String> list=new ArrayList<String>()
     {
@@ -36,7 +36,6 @@ public class AppointRepActivity extends AppCompatActivity {
 
         spinner = findViewById(R.id.representativeSpinner);
 
-
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter );
@@ -55,8 +54,15 @@ public class AppointRepActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast t = Toast.makeText(getApplicationContext(),selected,Toast.LENGTH_SHORT);
+                if (selected==null)
+                {
+                    Toast t = Toast.makeText(getApplicationContext(),"You need to select a representative",Toast.LENGTH_SHORT);
                     t.show();
+                }
+                else {
+                    Toast t = Toast.makeText(getApplicationContext(), selected, Toast.LENGTH_SHORT);
+                    t.show();
+                }
             }
         });
     }
