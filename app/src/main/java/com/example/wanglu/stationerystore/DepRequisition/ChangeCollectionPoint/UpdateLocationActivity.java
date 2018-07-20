@@ -61,8 +61,6 @@ public class UpdateLocationActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
 }
