@@ -24,7 +24,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/delegateInclude"
         layout="@layout/content_delegate_approval" />
 
 

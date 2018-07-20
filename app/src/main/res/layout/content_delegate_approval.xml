@@ -9,7 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_delegate_form">
 
-
     <TextView
         android:id="@+id/appointRepLabel"
         android:layout_width="wrap_content"
@@ -78,6 +77,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.371" />
 
+
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
@@ -100,5 +100,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toEndOf="@+id/confirmButton" />
+
 
 </android.support.constraint.ConstraintLayout>
