@@ -77,7 +77,7 @@ public class MyAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
 
         ApproveRequestFormActivity.ViewHolder holder;
-
+// initialize controls
         if (view == null) {
             holder = new ApproveRequestFormActivity.ViewHolder();
             view = mInflater.inflate(R.layout.content_approve_form, null);
@@ -93,10 +93,10 @@ public class MyAdapter extends BaseAdapter {
         else {
             holder = (ApproveRequestFormActivity.ViewHolder) view.getTag();
         }
-
+// set texts
         holder.date.setText((String) data.get(position).get("date"));
         holder.empName.setText((String) data.get(position).get("empName"));
-
+//set lists texts
         List<Map<String, String>> itemList = (List) data.get(position).get("items");
         holder.listitems.removeAllViews();
         for (Map<String, String> item : itemList) {
