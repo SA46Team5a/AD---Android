@@ -102,11 +102,15 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, emplist);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         empDropdownlist.setAdapter(adapter );
-        empDropdownlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedEmpName= adapterView.getItemAtPosition(i).toString();
                 empIDlist.get( emplist.indexOf(selectedEmpName));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                 Toast.makeText(getApplicationContext(),"You must select one employee",Toast.LENGTH_LONG).show();
             }
         });
 
