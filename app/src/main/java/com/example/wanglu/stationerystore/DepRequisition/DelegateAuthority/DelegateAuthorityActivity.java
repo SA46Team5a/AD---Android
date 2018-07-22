@@ -37,7 +37,7 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         String currentDateString= DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        if()
+
         if(targetBtn.getId()==R.id.startButton)
         {
             startText.setText(currentDateString);
