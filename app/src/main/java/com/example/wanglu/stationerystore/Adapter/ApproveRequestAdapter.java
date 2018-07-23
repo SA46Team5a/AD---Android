@@ -25,7 +25,7 @@ import java.util.Map;
 
 import static java.security.AccessController.getContext;
 
-public class MyAdapter extends BaseAdapter {
+public class ApproveRequestAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
 
@@ -54,7 +54,7 @@ public class MyAdapter extends BaseAdapter {
         return list;
     }
 
-    public MyAdapter(Context context) {
+    public ApproveRequestAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
     }
 
