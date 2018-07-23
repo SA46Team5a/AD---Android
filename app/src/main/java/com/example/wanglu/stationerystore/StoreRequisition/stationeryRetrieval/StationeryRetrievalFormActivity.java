@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -30,7 +31,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
 
     Button submitbutton;
     Button adjustmentbutton;
-    private PopupWindow mpopup;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +40,26 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         setContentView(R.layout.activity_retrieval_form);
 
         ListView listView;
-        GridLayout gridLayout = null;
+        // GridLayout gridLayout = null;
         listView = findViewById(R.id.listview);
-        gridLayout = findViewById(R.id.gridlayout);
+        //gridLayout = findViewById(R.id.gridlayout);
         RetrievalFormAdapter adapter = new RetrievalFormAdapter(this);
         submitbutton = findViewById(R.id.submitButton);
         adjustmentbutton = findViewById(R.id.submitadjustmentButton);
+        checkBox = findViewById(R.id.retrivalformCheckbox);
         listView.setAdapter(adapter);
         submitbutton.setOnClickListener((View.OnClickListener) this);
     }
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Submit successfully", Toast.LENGTH_SHORT).show();
-        mpopup.dismiss();
+        Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show();
+
+//        if (checkBox.isSelected())
+//        {
+//            Toast.makeText(this, "Submit successfully", Toast.LENGTH_SHORT).show();
+//        }
+//        else
+//            Toast.makeText(this, "You must select all information", Toast.LENGTH_SHORT).show();
     }
 }

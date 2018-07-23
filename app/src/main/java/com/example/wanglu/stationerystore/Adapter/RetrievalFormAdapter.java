@@ -4,24 +4,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wanglu.stationerystore.MainActivity;
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
-import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.SubmitAdjustmentActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +30,12 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class RetrievalFormAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private PopupWindow mpopup;
+    private Boolean mCheckable = false;
 
     private static final String TAG = "ContentAdapter";
     private List<String> mContentList;
     private StationeryRetrievalFormActivity activity;
+    public List<String> checkedItem=new ArrayList<String>();
 
 
     private List<Map<String, Object>> data = getData();
@@ -50,11 +49,13 @@ public class RetrievalFormAdapter extends BaseAdapter {
             map.put("quantityRequired", "12 Dozen");
             map.put("actualStock", "12 Dozen");
             map.put("totalRetrieved", " 9 Dozen");
+            map.put("CHECK",mCheckable);
 
             list.add(map);
         }
         return list;
     }
+
     public RetrievalFormAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.activity = (StationeryRetrievalFormActivity) context;
@@ -90,7 +91,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
             holder.quantityRequired = (TextView) view.findViewById(R.id.quantityLabel);
             holder.actualstockNumber = view.findViewById(R.id.actualstockView);
             holder.quantityNumber = view.findViewById(R.id.quantitynumbervView);
-            holder.stockLabel = view.findViewById(R.id.actualstockView);
+            holder.stockLabel = view.findViewById(R.id.actualstockLabel);
             holder.totalRetrived = view.findViewById(R.id.totalLabel);
             holder.retrievalNumber = view.findViewById(R.id.totalretrivedView);
             holder.submitadjustmentBtn = view.findViewById(R.id.submitadjustmentButton);
@@ -113,6 +114,13 @@ public class RetrievalFormAdapter extends BaseAdapter {
                 alertBuilder.show();
             }
         });
+        holder.retrivalCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+            }
+        });
+
         holder.submitadjustmentBtn.setTag(position);
 
         return view;
@@ -127,10 +135,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
          public TextView actualstockNumber;
          public EditText retrievalNumber;
          public Button submitadjustmentBtn;
+         public CheckBox retrivalCheckbox;
 
-        public TextView itemdesp;
     }
-
 
     private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
 
@@ -140,44 +147,17 @@ public class RetrievalFormAdapter extends BaseAdapter {
         private submitAdjustmentDialogBuilder(@NonNull final Context context, int position) {
             super(context);
             Map<String, Object> dataItem = data.get(position);
-            //TextView itemdesp = (TextView) v.findViewById(R.id.itemdespLabel);
+
             TextView itemview = (TextView) v.findViewById(R.id.itemdespView);
-           // TextView unites = (TextView) v.findViewById(R.id.unitLabel);
-            TextView unitview = v.findViewById(R.id.unitsView);
-           // TextView balance = v.findViewById(R.id.stockrecordLabel);
+            //TextView unitview = v.findViewById(R.id.unitsView);
             TextView balanceview = v.findViewById(R.id.stockrecordView);
-          //  TextView actualstock = v.findViewById(R.id.actualLabel);
-            // TextView reason = v.findViewById(R.id.reasonLabel);
-            EditText actualstockview = v.findViewById(R.id.actualstockView);
-            EditText reasonview = v.findViewById(R.id.reasonView);
+            EditText actualstockview = v.findViewById(R.id.actualstockLabel);
+            //EditText reasonview = v.findViewById(R.id.reasonView);
 
             itemview.setText((String)dataItem.get("itemDescription"));
             balanceview.setText((String)dataItem.get("quantityRequired"));
             actualstockview.setText((String)dataItem.get("actualStock"));
 
-
-//            TextView input2 = new TextView(context);
-//            input2.setText("ohlhsag");
-//            input2.setLayoutParams(params);
-//            container.addView(input2);
-//            EditText input3 = new EditText(context);
-//            input3.setText("6");
-//            input3.setLayoutParams(params);
-//            container.addView(input3);
-
-//            itemdesp.setText("ktisme");
-//            itemdesp.setLayoutParams(params);
-//            container.addView(itemdesp);
-//            EditText input3 = new EditText(context);
-
-//            itemview.setText("hahaha");
-
-//            itemview.setLayoutParams(params);
-
-//            container.addView(itemview);
-
-            
-//            setTitle("Stock Adjustment");
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
