@@ -34,7 +34,7 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter(this);
         itemlistview.setAdapter(adapter);
     }
-
+// initialize ViewHolder for adapter.
     public static class ViewHolder{
         public TextView date;
         public TextView empName;
