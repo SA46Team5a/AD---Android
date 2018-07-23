@@ -23,7 +23,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/disbursementInclude"
         layout="@layout/content_disbursement_confirm" />
 
 

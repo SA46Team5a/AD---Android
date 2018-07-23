@@ -89,6 +89,7 @@ public class MyAdapter extends BaseAdapter {
             holder.listitems = (LinearLayout) view.findViewById(R.id.LinearLayoutforlist);
 
             view.setTag(holder);
+
         }
         else {
             holder = (ApproveRequestFormActivity.ViewHolder) view.getTag();
