@@ -42,10 +42,8 @@ public class DiscrepancyItemsAdapter extends ArrayAdapter<DiscrepancyItemsModel>
                 tv.setText(discrepancyItem.get(keys[i]));
 
             }
-            TextInputEditText tiet = (TextInputEditText) v.findViewById(R.id.reasonTextInputEditText);
-            tiet.setText(discrepancyItem.get("reason"));
-            //EditText e2 = (EditText) v.findViewById(R.id.reasonEditText);
-            //e2.setText(inventoryItem.get(""));
+            EditText e = (EditText) v.findViewById(R.id.reasonEditText);
+            e.setText(discrepancyItem.get("reason"));
 
         }
         return v;

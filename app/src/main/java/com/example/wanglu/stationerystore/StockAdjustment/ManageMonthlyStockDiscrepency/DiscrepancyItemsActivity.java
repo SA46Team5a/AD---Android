@@ -24,6 +24,9 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
         discrepancyItemList = new ArrayList<DiscrepancyItemsModel>();
         discrepancyItemList.add(new DiscrepancyItemsModel("C100", "Pen 2B with eraser", "50",
                 "Dozen", "280", "Damaged"));
+        discrepancyItemList.add(new DiscrepancyItemsModel("C101", "Ring file", "-20",
+                "Dozen", "120", "Missing"));
+
 
     }
 

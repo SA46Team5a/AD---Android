@@ -29,6 +29,9 @@ public class ManageInventoryDetailsActivity extends AppCompatActivity {
         inventoryItemList = new ArrayList<ManageInventoryDetailsModel>();
         inventoryItemList.add(new ManageInventoryDetailsModel("P010", "Pen Ballpoint Black", "Dozen",
                 "500", "500", "none"));
+        inventoryItemList.add(new ManageInventoryDetailsModel("P011", "Ring file", "Dozen",
+                "200", "200", "none"));
+
 
     }
 
