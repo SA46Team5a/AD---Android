@@ -83,7 +83,7 @@ public class MyAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.content_approve_form, null);
             holder.date = (TextView) view.findViewById(R.id.dateLabel);
             holder.empName = (TextView) view.findViewById(R.id.employeenameLabel);
-            holder.itemlistview = (ListView) view.findViewById(R.id.requisitionListview);
+            //holder.itemlistview = (ListView) view.findViewById(R.id.Listview);
             holder.approve = (Button) view.findViewById(R.id.approveButton);
             holder.reject = (Button) view.findViewById(R.id.rejectButton);
             holder.listitems = (LinearLayout) view.findViewById(R.id.LinearLayoutforlist);

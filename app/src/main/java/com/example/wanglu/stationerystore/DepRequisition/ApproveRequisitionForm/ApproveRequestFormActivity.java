@@ -28,9 +28,9 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_request_itemlist);
-        approveform = findViewById(R.id.requestItemInclude);
-        itemlistview = findViewById(R.id.requisitionListview);
+        setContentView(R.layout.activity_approve_form);
+        //approveform = findViewById(R.id.requestItemInclude);
+        itemlistview = findViewById(R.id.Listview);
         MyAdapter adapter = new MyAdapter(this);
         itemlistview.setAdapter(adapter);
     }
