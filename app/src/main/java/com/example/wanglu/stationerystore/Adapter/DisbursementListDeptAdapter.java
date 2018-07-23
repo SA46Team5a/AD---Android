@@ -82,20 +82,6 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
         holder.quantityView.setText(quantityList.get(position));
         holder.quantitycollectedLabel.setText("Quantity Collected:");
         holder.reasonLabel.setText("Shortage Reason");
-
-//        holder.date.setText((String) data.get(position).get("date"));
-//        holder.empName.setText((String) data.get(position).get("empName"));
-//
-//        List<Map<String, String>> itemList = (List) data.get(position).get("items");
-//        holder.listitems.removeAllViews();
-//        for (Map<String, String> item : itemList) {
-//            View v = mInflater.inflate(R.layout.content_itemlist, null);
-//            TextView descriptionView = v.findViewById(R.id.descriptionView);
-//            TextView quantityView = v.findViewById(R.id.quantityView);
-//            descriptionView.setText(item.get("itemDetail"));
-//            quantityView.setText(item.get("quantity"));
-//            holder.listitems.addView(v);
-//        }
         return view;
     }
 }
