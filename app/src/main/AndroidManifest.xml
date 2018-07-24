@@ -42,6 +42,10 @@
         <activity android:name=".DepRequisition.DelegateAuthority.DelegateAuthorityActivity" />
         <activity android:name=".DepRequisition.AppointDeptRep.AppointRepActivity" />
         <activity android:name=".DepRequisition.ChangeCollectionPoint.UpdateLocationActivity" />
+        <activity android:name=".NavigationForClerk"/>
+        <activity android:name=".NavigationForManager"/>
+        <activity android:name=".NavigationForHead"/>
+
         <!--<activity-->
             <!--android:name=".LoginActivity"-->
             <!--android:label="@string/title_activity_login"></activity>-->

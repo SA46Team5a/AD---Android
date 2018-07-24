@@ -71,22 +71,49 @@ public class LoginActivity extends Activity  implements OnClickListener{
 
     @Override
     public void onClick(View v) {
+        String string;
+        string = username.getText().toString();
         switch (v.getId()){
             case R.id.login :
-                startActivity(MainActivity.class);
+                if (string.equals("storeclerk")){
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForClerk.class);
+                    startActivity(intent);
+                }
+                else if (string.equals("departmenthead")){
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForHead.class);
+                    startActivity(intent);
+                }
+                else if (string.equals("storemanager")){
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForManager.class);
+                    startActivity(intent);
+                }
+                else  {
+                    Intent intent = new Intent();
+                    intent.setClass(this,MainActivity.class);
+                    startActivity(intent);
                 break;
+                }
             case  R.id.bt_pwd_eye:
                 if (password.getInputType()==(InputType.TYPE_CLASS_TEXT| InputType.TYPE_TEXT_VARIATION_PASSWORD)){
-                    bt_pwd_eye.setBackgroundResource(R.drawable.password_close);
+                    bt_pwd_eye.setBackgroundResource(R.drawable.password_open);
+                    password.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_NORMAL);
                 }
+                else {
+                    bt_pwd_eye.setBackgroundResource(R.drawable.password_close);
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                password.setSelection(password.getText().toString().length());
+                break;
+            }
         }
 
-    }
-
-    private void startActivity(Class<MainActivity> mainActivityClass) {
-        Intent intent = new Intent();
-        intent.setClass(this,MainActivity.class);
-        startActivity(intent);
-    }
+//    private void startActivity(Class<MainActivity> mainActivityClass) {
+//        Intent intent = new Intent();
+//        intent.setClass(this,NavigationForClerk.class);
+//        startActivity(intent);
+//    }
 }
 
