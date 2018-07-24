@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -35,10 +36,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
     private static final String TAG = "ContentAdapter";
     private List<String> mContentList;
     private StationeryRetrievalFormActivity activity;
-    public List<String> checkedItem=new ArrayList<String>();
+    public List<Boolean> checkedItem=new ArrayList<>();
 
-
-    private List<Map<String, Object>> data = getData();
+     private List<Map<String, Object>> data = getData();
     //  Read hashmap inside list
     public List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<>();
@@ -49,11 +49,17 @@ public class RetrievalFormAdapter extends BaseAdapter {
             map.put("quantityRequired", "12 Dozen");
             map.put("actualStock", "12 Dozen");
             map.put("totalRetrieved", " 9 Dozen");
-            map.put("CHECK",mCheckable);
+            map.put("checked",false);
 
+            checkedItem.add(false);
             list.add(map);
         }
         return list;
+    }
+    //method used to test if all checkbox being checked
+    public boolean isAllChecked()
+    {
+        return !checkedItem.contains(false);
     }
 
     public RetrievalFormAdapter(Context context) {
@@ -65,6 +71,16 @@ public class RetrievalFormAdapter extends BaseAdapter {
     public int getCount() {
         Log.i(TAG, "getCount");
         return data.size();
+    }
+    //need to include getViewTypeCount otherwise listViewItem change position when scrolling
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -83,8 +99,8 @@ public class RetrievalFormAdapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup viewGroup) {
         Log.i(TAG, "getView");
 
-        ViewHolder holder;
-        if (view ==null) {
+        final ViewHolder holder;
+        if (view == null) {
             holder = new ViewHolder();
             view = mInflater.inflate(R.layout.controls,null);
             holder.itemName = view.findViewById(R.id.itemnameLabel);
@@ -95,6 +111,22 @@ public class RetrievalFormAdapter extends BaseAdapter {
             holder.totalRetrived = view.findViewById(R.id.totalLabel);
             holder.retrievalNumber = view.findViewById(R.id.totalretrivedView);
             holder.submitadjustmentBtn = view.findViewById(R.id.submitadjustmentButton);
+            holder.retrivalCheckbox=view.findViewById(R.id.retrivalformCheckbox);
+
+            holder.submitadjustmentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    submitAdjustmentDialogBuilder alertBuilder = new submitAdjustmentDialogBuilder(activity, position);
+                    alertBuilder.show();
+                }
+            });
+            holder.retrivalCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    checkedItem.set(position, isChecked);
+                    activity.setSubmitButtonState(isAllChecked());
+                    }
+            });
 
             view.setTag(holder);
         }
@@ -106,21 +138,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
         holder.quantityNumber.setText((String) data.get (position).get("quantityRequired"));
         holder.actualstockNumber.setText((String) data.get(position).get("actualStock"));
         holder.retrievalNumber.setText((String) data.get(position).get("totalRetrieved"));
-
-        holder.submitadjustmentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitAdjustmentDialogBuilder alertBuilder = new submitAdjustmentDialogBuilder(activity, position);
-                alertBuilder.show();
-            }
-        });
-        holder.retrivalCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-
-            }
-        });
-
+        holder.retrivalCheckbox.setChecked(checkedItem.get(position));
         holder.submitadjustmentBtn.setTag(position);
 
         return view;

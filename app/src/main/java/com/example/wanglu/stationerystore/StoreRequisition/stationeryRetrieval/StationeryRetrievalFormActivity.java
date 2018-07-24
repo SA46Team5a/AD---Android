@@ -33,6 +33,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     Button adjustmentbutton;
     CheckBox checkBox;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +46,20 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         //gridLayout = findViewById(R.id.gridlayout);
         RetrievalFormAdapter adapter = new RetrievalFormAdapter(this);
         submitbutton = findViewById(R.id.submitButton);
-        adjustmentbutton = findViewById(R.id.submitadjustmentButton);
-        checkBox = findViewById(R.id.retrivalformCheckbox);
+        //adjustmentbutton = findViewById(R.id.submitadjustmentButton);
+//        checkBox = findViewById(R.id.retrivalformCheckbox);
         listView.setAdapter(adapter);
         submitbutton.setOnClickListener((View.OnClickListener) this);
+        submitbutton.setEnabled(false);
     }
-
+    public void setSubmitButtonState(boolean bool)
+    {
+        submitbutton.setEnabled(bool);
+    }
     @Override
     public void onClick(View v) {
         Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show();
 
-//        if (checkBox.isSelected())
-//        {
-//            Toast.makeText(this, "Submit successfully", Toast.LENGTH_SHORT).show();
-//        }
-//        else
-//            Toast.makeText(this, "You must select all information", Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -8,6 +8,8 @@ import android.widget.ListView;
 import com.example.wanglu.stationerystore.Adapter.RestockInventoryAdapter;
 import com.example.wanglu.stationerystore.R;
 
+import java.util.ArrayList;
+
 public class RestockInventoryActivity extends AppCompatActivity {
 
     @Override
@@ -17,6 +19,10 @@ public class RestockInventoryActivity extends AppCompatActivity {
         ListView inventoryItemList=findViewById(R.id.inventoryItemList);
         RestockInventoryAdapter inventoryAdapter=new RestockInventoryAdapter(this);
         inventoryItemList.setAdapter(inventoryAdapter);
+
+        ArrayList<String> categoryList=new ArrayList<String>(){{add("Pen");add("Paper");add("Ruler");add("Tape");add("Ink");}};
+        ArrayList<String> descriptionList=new ArrayList<String>(){{add("pen1");add("pen2");add("pen3");add("pen4");add("pen5");}};
+        ArrayList<String> stockList=new ArrayList<String>(){{add("5");}{add("4");}{add("3");}{add("2");}{add("1");}};
 
     }
 }
