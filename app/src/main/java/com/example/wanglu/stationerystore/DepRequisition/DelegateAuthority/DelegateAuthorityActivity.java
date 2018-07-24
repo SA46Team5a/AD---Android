@@ -21,7 +21,7 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+//Author: Luo Chao
 public class DelegateAuthorityActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private ConstraintLayout delegateLayout=null;
     TextView startText;

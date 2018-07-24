@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
-
+//Author:Luo Chao
 public class UpdateLocationActivity extends AppCompatActivity {
     ArrayList<String> nameList=new ArrayList<String>(){{add("pointA");add("pointB");add("pointC");add("pointD");add("pointE");}};
     //need default selection array

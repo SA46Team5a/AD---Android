@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
+//Author:Luo Chao
 public class RestockInventoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private RestockInventoryActivity stockActivity;

@@ -15,7 +15,7 @@ import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList.DisbursementListDeptActivity;
 
 import java.util.ArrayList;
-
+//Author:Luo Chao
 public class RestockInventoryActivity extends AppCompatActivity {
 
     @Override

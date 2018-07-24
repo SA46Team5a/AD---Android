@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
+//Author:Wang Lu
 public class RetrievalFormAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Boolean mCheckable = false;

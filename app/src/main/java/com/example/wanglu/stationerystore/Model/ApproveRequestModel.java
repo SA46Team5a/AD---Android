@@ -1,7 +1,7 @@
 package com.example.wanglu.stationerystore.Model;
 
 import java.util.HashMap;
-
+//Author:Luo Chao
 public class ApproveRequestModel extends HashMap<String,String>{
     public ApproveRequestModel(String reqId, String reqDate, String empName)
     {

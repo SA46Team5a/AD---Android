@@ -13,7 +13,7 @@ import com.example.wanglu.stationerystore.Model.DiscrepancyItemsModel;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
-
+//Author: Benedict
 public class DiscrepancyItemsActivity extends AppCompatActivity {
 
     ArrayList<DiscrepancyItemsModel> discrepancyItemList;
