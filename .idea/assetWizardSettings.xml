@@ -23,6 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="paddingPercent" value="50" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -34,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/Software/Android/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_remove_red_eye_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/Software/Android/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_down_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -55,8 +56,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="D:\WANG LU\Documents\icons\icons8-book-shelf-64.png" />
-                                      <entry key="outputName" value="password_open" />
+                                      <entry key="imageAsset" value="C:\Users\WANG LU\Desktop\icons8-sort-down-16.png" />
+                                      <entry key="outputName" value="btn_botton" />
                                     </map>
                                   </option>
                                 </PersistentState>
