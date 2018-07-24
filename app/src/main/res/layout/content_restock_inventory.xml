@@ -55,83 +55,26 @@
         android:id="@+id/searchButton"
         android:layout_width="72dp"
         android:layout_height="35dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Search"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplierDropdownlist" />
 
-    <TableLayout
+    <ListView
+        android:id="@+id/inventoryItemList"
         android:layout_width="368dp"
-        android:layout_height="268dp"
-        android:stretchColumns="1"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="270dp">
+        android:layout_height="295dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/categorycolumn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Category"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/descreptioncolumn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descreption"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/stockcolumn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stock" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pencil"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/descreption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pen BallPoint Black"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/stock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="30"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="60dp"
-                android:layout_height="38dp"
-                android:text="Add"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
-        </TableRow>
-
-        <!--four table row means have 4 columns-->
-
-        <!--table's column and row need to define in activity.-->
-    </TableLayout>
 </android.support.constraint.ConstraintLayout>

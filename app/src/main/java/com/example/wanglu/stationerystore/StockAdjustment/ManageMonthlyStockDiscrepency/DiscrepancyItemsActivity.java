@@ -2,7 +2,6 @@ package com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDis
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +10,7 @@ import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.DiscrepancyItemsAdapter;
 import com.example.wanglu.stationerystore.Model.DiscrepancyItemsModel;
-import com.example.wanglu.stationerystore.Model.ManageInventoryDetailsModel;
 import com.example.wanglu.stationerystore.R;
-import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
 
 import java.util.ArrayList;
 

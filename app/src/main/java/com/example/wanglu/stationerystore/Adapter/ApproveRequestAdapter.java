@@ -25,7 +25,7 @@ import java.util.Map;
 
 import static java.security.AccessController.getContext;
 
-public class MyAdapter extends BaseAdapter {
+public class ApproveRequestAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
 
@@ -54,7 +54,7 @@ public class MyAdapter extends BaseAdapter {
         return list;
     }
 
-    public MyAdapter(Context context) {
+    public ApproveRequestAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
     }
 
@@ -77,26 +77,27 @@ public class MyAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
 
         ApproveRequestFormActivity.ViewHolder holder;
-
+// initialize controls
         if (view == null) {
             holder = new ApproveRequestFormActivity.ViewHolder();
             view = mInflater.inflate(R.layout.content_approve_form, null);
             holder.date = (TextView) view.findViewById(R.id.dateLabel);
             holder.empName = (TextView) view.findViewById(R.id.employeenameLabel);
-            holder.itemlistview = (ListView) view.findViewById(R.id.requisitionListview);
+            //holder.itemlistview = (ListView) view.findViewById(R.id.Listview);
             holder.approve = (Button) view.findViewById(R.id.approveButton);
             holder.reject = (Button) view.findViewById(R.id.rejectButton);
             holder.listitems = (LinearLayout) view.findViewById(R.id.LinearLayoutforlist);
 
             view.setTag(holder);
+
         }
         else {
             holder = (ApproveRequestFormActivity.ViewHolder) view.getTag();
         }
-
+// set texts
         holder.date.setText((String) data.get(position).get("date"));
         holder.empName.setText((String) data.get(position).get("empName"));
-
+//set lists texts
         List<Map<String, String>> itemList = (List) data.get(position).get("items");
         holder.listitems.removeAllViews();
         for (Map<String, String> item : itemList) {
