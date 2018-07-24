@@ -23,9 +23,8 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/include"
-        layout="@layout/content_manager_inventory"
-        />
+        android:id="@+id/contentManagerInventory"
+        layout="@layout/content_manager_inventory" />
 
 
 

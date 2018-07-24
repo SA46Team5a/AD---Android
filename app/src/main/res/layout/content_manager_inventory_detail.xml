@@ -58,18 +58,15 @@
         app:layout_constraintStart_toEndOf="@+id/DateLabel"
         app:layout_constraintTop_toBottomOf="@+id/categoryView" />
 
-    <include
-        android:id="@+id/include3"
-        layout="@layout/content_inventory_detail"
-        android:layout_width="369dp"
-        android:layout_height="298dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+    <ListView
+        android:id="@+id/manageInventoryListView"
+        android:layout_width="match_parent"
+        android:layout_height="341dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/DateView" />
 
     <Button
         android:id="@+id/submitButton"
@@ -78,10 +75,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:onClick="onClickSubmit"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include3" />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

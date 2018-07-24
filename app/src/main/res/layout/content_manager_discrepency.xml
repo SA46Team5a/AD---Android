@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_manager_discrepency"
-    >
+    tools:showIn="@layout/activity_manager_discrepency">
 
 
     <TextView
@@ -34,11 +32,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <include
-            android:id="@+id/include4"
-            layout="@layout/content_discrepency_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/discrepencyItemListView"
+            android:layout_width="match_parent"
+            android:layout_height="285dp" />
 
         <Button
             android:id="@+id/submitButton"
@@ -48,11 +45,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:onClick="onClickSubmit"
             android:text="Submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include4"
-            app:layout_constraintVertical_bias="0.483" />
+            app:layout_constraintTop_toBottomOf="@+id/discrepencyItemListView" />
+
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
