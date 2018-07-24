@@ -34,6 +34,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,25 +76,26 @@ public class LoginActivity extends Activity  implements OnClickListener{
         string = username.getText().toString();
         switch (v.getId()){
             case R.id.login :
-                if (string.equals("storeclerk")){
+                if (string.equals("clerk")){
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForClerk.class);
                     startActivity(intent);
                 }
-                else if (string.equals("departmenthead")){
+                else if (string.equals("head")){
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForHead.class);
                     startActivity(intent);
                 }
-                else if (string.equals("storemanager")){
+                else if (string.equals("manager")){
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForManager.class);
                     startActivity(intent);
                 }
                 else  {
-                    Intent intent = new Intent();
-                    intent.setClass(this,MainActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(this, "Please use correct username", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent();
+//                    intent.setClass(this,MainActivity.class);
+//                    startActivity(intent);
                 break;
                 }
             case  R.id.bt_pwd_eye:
