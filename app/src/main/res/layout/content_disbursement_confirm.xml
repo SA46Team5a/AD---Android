@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="Collection Point"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.029"
@@ -24,22 +24,24 @@
 
     <Spinner
         android:id="@+id/departmentDropdownlist"
-        android:layout_width="368dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:addStatesFromChildren="false"
+        android:autofillHints="Choose department"
+        android:background="@drawable/spinner"
+        android:popupElevation="@dimen/cardview_compat_inset_shadow"
         android:tooltipText="Choose a department"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016"
-        android:entries="@array/department"
-        />
+        app:layout_constraintVertical_bias="0.016" />
 
     <TextView
         android:id="@+id/collectionView"
@@ -64,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:text="Representative Name :"
         app:layout_constraintEnd_toStartOf="@+id/representativenameView"
-        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemsListView" />
 
@@ -73,10 +75,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginTop="8dp"
         android:text="Jacky Wong"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemsListView"
+        app:layout_constraintVertical_bias="0.216" />
 
     <TextView
         android:id="@+id/codeLabel"
@@ -87,22 +92,23 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Code :"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/codeView"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/representativeLabel"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/representativeLabel" />
 
     <EditText
         android:id="@+id/codeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
+        android:singleLine="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/representativenameView"
@@ -116,20 +122,23 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="Department"
         android:text="Confirm"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeView" />
+        app:layout_constraintTop_toBottomOf="@+id/codeView"
+         />
 
     <ListView
         android:id="@+id/itemsListView"
         android:layout_width="378dp"
-        android:layout_height="266dp"
+        android:layout_height="273dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/collectionView" />

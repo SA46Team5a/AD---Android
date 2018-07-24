@@ -24,7 +24,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     TextView collectionlLabel;
     TextView collectionView;
     TextView representativeLabel;
-    TextView codeLabel;
+    //TextView codeLabel;
     TextView representativenameView;
     EditText codeView;
     String selectedDept;
@@ -38,7 +38,6 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         DisbursementListDeptAdapter adapter=new DisbursementListDeptAdapter(this);
         itemsListView.setAdapter(adapter);
         representativeLabel=findViewById(R.id.representativeLabel);
-        representativeLabel.setText("Representative name");
         collectionView=findViewById(R.id.collectionView);
         representativenameView=findViewById(R.id.representativenameView);
         codeView=findViewById(R.id.codeView);
