@@ -16,7 +16,7 @@ import com.example.wanglu.stationerystore.Adapter.DisbursementListDeptAdapter;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
-
+//Author:Luo Chao
 public class DisbursementListDeptActivity extends AppCompatActivity {
     private ConstraintLayout disbursementInclude=null;
     ListView itemsListView;
