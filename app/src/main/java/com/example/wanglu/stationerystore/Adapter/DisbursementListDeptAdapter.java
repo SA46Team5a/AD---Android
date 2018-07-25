@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//Author:Luo Chao
 public class DisbursementListDeptAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     //create data to list

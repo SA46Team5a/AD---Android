@@ -16,7 +16,7 @@ import com.example.wanglu.stationerystore.Navigation.NavigationForManager;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
-
+//Author: Benedict
 public class DiscrepancyItemsActivity extends AppCompatActivity {
     Button submitbtn;
 

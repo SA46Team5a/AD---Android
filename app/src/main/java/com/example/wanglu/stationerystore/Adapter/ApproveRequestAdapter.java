@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.security.AccessController.getContext;
-
+//Author: Wang Lu
 public class ApproveRequestAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;

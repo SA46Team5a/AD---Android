@@ -27,7 +27,6 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     TextView collectionlLabel;
     TextView collectionView;
     TextView representativeLabel;
-    //TextView codeLabel;
     TextView representativenameView;
     EditText codeView;
     Button confirmBtn;
@@ -72,7 +71,8 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
 
         final ArrayAdapter<String> dropdownlistAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, deptlist);
-        dropdownlistAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        dropdownlistAdapter.setDropDownViewResource(R.layout.spinner_item);
         departmentDropdownlist.setAdapter(dropdownlistAdapter);
         departmentDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -81,7 +81,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
                 selectedDept= adapterView.getItemAtPosition(i).toString();
 
                 String s =deptIDlist.get( deptlist.indexOf(selectedDept));
-                Toast.makeText(DisbursementListDeptActivity.this,s,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DisbursementListDeptActivity.this,s,Toast.LENGTH_SHORT).show();
 
                 collectionView.setText(selectedDept);
 

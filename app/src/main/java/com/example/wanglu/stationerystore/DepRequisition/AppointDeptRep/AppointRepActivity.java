@@ -41,7 +41,7 @@ public class AppointRepActivity extends AppCompatActivity {
         spinner = findViewById(R.id.representativeSpinner);
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter );
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
