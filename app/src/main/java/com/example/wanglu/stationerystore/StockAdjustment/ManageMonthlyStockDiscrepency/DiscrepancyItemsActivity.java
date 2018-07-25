@@ -2,19 +2,23 @@ package com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDis
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.DiscrepancyItemsAdapter;
 import com.example.wanglu.stationerystore.Model.DiscrepancyItemsModel;
+import com.example.wanglu.stationerystore.Navigation.NavigationForManager;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
 
 public class DiscrepancyItemsActivity extends AppCompatActivity {
+    Button submitbtn;
 
     ArrayList<DiscrepancyItemsModel> discrepancyItemList;
     private void getData(){
@@ -38,7 +42,23 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.discrepencyItemListView);
         listView.setAdapter(adapter);
 
+        submitbtn = (Button) findViewById(R.id.submitButton);
+        submitbtn.setEnabled(false);
+
+        submitbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DiscrepancyItemsActivity.this,"Submit Successful!",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(DiscrepancyItemsActivity.this, NavigationForManager.class);
+                startActivity(intent);
+            }
+        });
+
     }
+//    public void setSubmitButtonState(boolean bool) {
+//
+//        submitbtn.setEnabled(bool);
+//    }
 
     protected void onClickSubmit(View v){
         makeAlertDialog();

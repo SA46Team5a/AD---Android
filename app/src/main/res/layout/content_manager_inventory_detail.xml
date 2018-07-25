@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn="@layout/activity_manager_inventory_detail"
+    android:fitsSystemWindows="true"
     >
-
 
     <TextView
         android:id="@+id/categoryLabel"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="80dp"
         android:text="Category: "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
@@ -28,8 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="80dp"
         android:text="Pen"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.235"
         app:layout_constraintStart_toEndOf="@+id/categoryLabel"
@@ -39,9 +40,11 @@
         android:id="@+id/DateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="12dp"
         android:text="Date:"
+        app:layout_constraintBottom_toTopOf="@+id/manageInventoryListView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
 
@@ -49,10 +52,13 @@
         android:id="@+id/DateView"
         android:layout_width="88dp"
         android:layout_height="19dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="17/07/2018"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/manageInventoryListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toEndOf="@+id/DateLabel"
@@ -60,19 +66,22 @@
 
     <ListView
         android:id="@+id/manageInventoryListView"
-        android:layout_width="match_parent"
-        android:layout_height="341dp"
+        android:layout_width="345dp"
+        android:layout_height="335dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/shape"
         app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateView" />
+        app:layout_constraintTop_toBottomOf="@+id/DateView"
+        app:layout_constraintVertical_bias="0.729" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="onClickSubmit"

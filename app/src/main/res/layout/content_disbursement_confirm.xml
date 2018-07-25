@@ -31,10 +31,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:addStatesFromChildren="false"
-        android:autofillHints="Choose department"
         android:background="@drawable/spinner"
-        android:popupElevation="@dimen/cardview_compat_inset_shadow"
-        android:tooltipText="Choose a department"
+        android:dropDownWidth="match_parent"
+        android:verticalScrollbarPosition="left"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,9 +126,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeView"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/codeView" />
 
     <ListView
         android:id="@+id/itemsListView"
