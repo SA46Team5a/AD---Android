@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -102,6 +103,12 @@ public class RestockInventoryAdapter extends BaseAdapter {
         private addStockQtyDialogBuilder (@NonNull final Context context, int position) {
             super(context);
             final EditText quantityView=v.findViewById(R.id.quantityView);
+            quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    quantityView.setHint("e.g. 5");
+                }
+            });
 
 
 

@@ -67,6 +67,19 @@ public class LoginActivity extends Activity  implements OnClickListener{
 
         //initWatcher();
         //username.addTextChangedListener(username_watch);
+        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                username.setHint("User Name");
+            }
+
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                password.setHint("Password");
+            }
+        });
 
     }
 

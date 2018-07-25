@@ -19,6 +19,7 @@ import com.example.wanglu.stationerystore.R;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 //Author: Luo Chao
@@ -36,7 +37,8 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        String currentDateString= DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+        String currentDateString= dateFormat.format(c.getTime());
 
         if(targetBtn.getId()==R.id.startButton)
         {
@@ -71,10 +73,6 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         startBtn.setOnClickListener(new ClickListener());
         endBtn.setOnClickListener(new ClickListener());
         Button confirmBtn=findViewById(R.id.confirmButton);
-//        if(true)
-//        {
-//            startBtn.setEnabled(false);
-//        }
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +98,7 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         Spinner empDropdownlist = findViewById(R.id.authoritySpinner);
 
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, emplist);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         empDropdownlist.setAdapter(adapter );
         empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

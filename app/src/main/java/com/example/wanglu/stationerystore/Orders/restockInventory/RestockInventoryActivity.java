@@ -32,13 +32,13 @@ public class RestockInventoryActivity extends AppCompatActivity {
         //load orderIDdropdown
         ArrayList<String> orderIDList=new ArrayList<String>(){{add("5");}{add("4");}{add("3");}{add("2");}{add("1");}};
         final ArrayAdapter<String> orderIDdropdownlistAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, orderIDList);
-        orderIDdropdownlistAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderIDdropdownlistAdapter.setDropDownViewResource(R.layout.spinner_item);
         orderidDropdownlist.setAdapter(orderIDdropdownlistAdapter);
         orderidDropdownlist.setOnItemSelectedListener(dropdownlistener);
         //load supplierdropdownlist
         ArrayList<String> supplierList=new ArrayList<String>(){{add("supplier1");add("supplier2");add("supplier3");add("supplier4");add("supplier5");}};
         final ArrayAdapter<String> supplierDropdownistAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, supplierList);
-        supplierDropdownistAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        supplierDropdownistAdapter.setDropDownViewResource(R.layout.spinner_item);
         supplierDropdownlist.setAdapter(supplierDropdownistAdapter);
         supplierDropdownlist.setOnItemSelectedListener(dropdownlistener);
 

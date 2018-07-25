@@ -31,12 +31,14 @@
 
         <activity android:name=".StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity" />
         <activity android:name=".StoreRequisition.stationeryRetrieval.SubmitAdjustmentActivity" />
-        <activity android:name=".StoreRequisition.ConfirmDisbursementList.DisbursementListDeptActivity" />
+        <activity android:name=".StoreRequisition.ConfirmDisbursementList.DisbursementListDeptActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".StoreRequisition.ViewEmpDisbursement.DisbursementListEmpActivity" />
         <activity android:name=".Orders.restockInventory.RestockInventoryActivity" />
         <activity android:name=".Orders.restockInventory.AddStockQuantityActivity" />
         <activity android:name=".StockAdjustment.MonthlyInventory.ManageInventoryActivity" />
-        <activity android:name=".StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity" />
+        <activity android:name=".StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".StockAdjustment.ManageMonthlyStockDiscrepency.DiscrepancyItemsActivity" />
         <activity android:name=".DepRequisition.ApproveRequisitionForm.ApproveRequestFormActivity" />
         <activity android:name=".DepRequisition.DelegateAuthority.DelegateAuthorityActivity" />
