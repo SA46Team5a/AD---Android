@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Fragments.DatePickerFragment;
+import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
+import com.example.wanglu.stationerystore.Model.DelegateAuthorityModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity;
@@ -28,8 +32,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+
 //Author: Luo Chao
 public class DelegateAuthorityActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+    ArrayList<String> nameList=new ArrayList<>();
+    ArrayList<String> idlist=new ArrayList<>();
+    String ID;
     private ConstraintLayout delegateLayout=null;
     TextView startText;
     TextView endText;
@@ -86,42 +95,58 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
             }
         });
         //load dropdownlist
-        final ArrayList<String> emplist = new ArrayList<String>() {
-            {
-                add("empA");
-                add("empB");
-                add("empC");
-                add("empD");
-            }
-        };
-        final ArrayList<String> empIDlist = new ArrayList<String>() {
-            {
-                add("1");
-                add("2");
-                add("3");
-                add("4");
-            }
-        };
-
-        Spinner empDropdownlist = findViewById(R.id.authoritySpinner);
-
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DelegateAuthorityActivity.this,android.R.layout.simple_spinner_item, emplist);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        empDropdownlist.setAdapter(adapter );
-        empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//        final ArrayList<String> emplist = new ArrayList<String>() {
+//            {
+//                add("empA");
+//                add("empB");
+//                add("empC");
+//                add("empD");
+//            }
+//        };
+//        final ArrayList<String> empIDlist = new ArrayList<String>() {
+//            {
+//                add("1");
+//                add("2");
+//                add("3");
+//                add("4");
+//            }
+//        };
+        new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedEmpName = adapterView.getItemAtPosition(i).toString();
-                empIDlist.get(emplist.indexOf(selectedEmpName));
+            protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+                HashMap<String,ArrayList<String>> empMap=new HashMap<String,ArrayList<String>>();
+                empMap=DelegateAuthorityModel.getEmps();
+                return empMap;
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(getApplicationContext(), "You must select one employee", Toast.LENGTH_LONG).show();
-            }
-        });
+            protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
+                nameList= result.get("name");
+                idlist=result.get("ID");
+                Spinner empDropdownlist = findViewById(R.id.authoritySpinner);
+
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DelegateAuthorityActivity.this,android.R.layout.simple_spinner_item, nameList);
+                adapter.setDropDownViewResource(R.layout.spinner_item);
+                empDropdownlist.setAdapter(adapter );
+                empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedEmpName = adapterView.getItemAtPosition(i).toString();
+                        ID=idlist.get(nameList.indexOf(selectedEmpName));
+                        Toast.makeText(DelegateAuthorityActivity.this,ID,Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        Toast.makeText(getApplicationContext(), "You must select one employee", Toast.LENGTH_LONG).show();
+                    }
+                });
+                }
+
+        }.execute();
+
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 makeAlertDialog();
             }
         });

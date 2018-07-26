@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 //author: Luo Chao
 public class ChangeCollectionPointModel extends HashMap<String, String> {
+     static String deptID="STOR";
    public ChangeCollectionPointModel(String collectionPointID, String CollectionPointDetails)
     {
         put ("CollectionPointID", collectionPointID);
@@ -32,6 +33,17 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
             Log.e("CollectionPointDetails()","JSONArray error");
         }
         return collectPnt;
+    }
+    public static String getPasscode(){
+        JSONObject a= JSONParser.getJSONFromUrl(Constant.BASE_URL+"/deprep/passcode/"+deptID);
+        String passcode=null;
+        try {
+            passcode=a.toString();
+        }
+        catch (Exception e){
+            Log.e("getPasscode()","JSONArray error");
+        }
+        return passcode;
     }
 
 
