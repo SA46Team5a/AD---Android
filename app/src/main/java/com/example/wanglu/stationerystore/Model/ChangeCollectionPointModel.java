@@ -25,7 +25,7 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
                 detailList.add(b.get("CollectionPointDetails").toString());
                 IDList.add(b.get("CollectionPointID").toString());
                 }
-                collectPnt.put("detial",detailList);
+                collectPnt.put("detail",detailList);
                 collectPnt.put("ID",IDList);
         }
         catch (Exception e){
