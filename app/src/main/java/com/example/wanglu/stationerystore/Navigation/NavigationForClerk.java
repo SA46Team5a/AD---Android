@@ -19,7 +19,7 @@ import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDisc
 import com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList.DisbursementListDeptActivity;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
-
+// Wang Lu
 public class NavigationForClerk extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

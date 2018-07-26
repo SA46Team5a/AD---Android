@@ -21,7 +21,7 @@ import com.example.wanglu.stationerystore.DepRequisition.ChangeCollectionPoint.U
 import com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority.DelegateAuthorityActivity;
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
-
+//Wang Lu
 public class NavigationForHead extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

@@ -99,6 +99,8 @@ public class UpdateLocationActivity extends AppCompatActivity {
 
                 Toast.makeText(UpdateLocationActivity.this,ID,Toast.LENGTH_SHORT).show();
 
+                makeAlertDialog();
+
             }
         });
     }

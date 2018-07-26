@@ -17,7 +17,7 @@ import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.DiscrepancyItemsActivity;
 import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
-
+//Wang Lu
 public class NavigationForManager extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
