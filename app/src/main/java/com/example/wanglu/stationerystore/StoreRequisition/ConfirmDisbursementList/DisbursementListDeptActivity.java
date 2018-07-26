@@ -1,11 +1,13 @@
 package com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.DisbursementListDeptAdapter;
+import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -26,7 +29,9 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     TextView representativeLabel;
     TextView representativenameView;
     EditText codeView;
+    Button confirmBtn;
     String selectedDept;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +39,21 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_disbersment_confirm);
         disbursementInclude=findViewById(R.id.disbursementInclude);
         itemsListView=findViewById(R.id.itemsListView);
+        confirmBtn = findViewById(R.id.confirmButton);
         DisbursementListDeptAdapter adapter=new DisbursementListDeptAdapter(this);
         itemsListView.setAdapter(adapter);
         representativeLabel=findViewById(R.id.representativeLabel);
         collectionView=findViewById(R.id.collectionView);
         representativenameView=findViewById(R.id.representativenameView);
         codeView=findViewById(R.id.codeView);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisbursementListDeptActivity.this,NavigationForClerk.class);
+                startActivity(intent);
+                Toast.makeText(DisbursementListDeptActivity.this,"Submit Successful!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //load info to dropdownlist
         final ArrayList<String> deptlist=new ArrayList<String>()
@@ -56,15 +70,16 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         };
         departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
 
-
         final ArrayAdapter<String> dropdownlistAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, deptlist);
 
         dropdownlistAdapter.setDropDownViewResource(R.layout.spinner_item);
         departmentDropdownlist.setAdapter(dropdownlistAdapter);
         departmentDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedDept= adapterView.getItemAtPosition(i).toString();
+
                 String s =deptIDlist.get( deptlist.indexOf(selectedDept));
                 //Toast.makeText(DisbursementListDeptActivity.this,s,Toast.LENGTH_SHORT).show();
 

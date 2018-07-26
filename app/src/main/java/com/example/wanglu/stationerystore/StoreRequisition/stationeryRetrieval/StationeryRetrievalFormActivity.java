@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.RetrievalFormAdapter;
 import com.example.wanglu.stationerystore.MainActivity;
+import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.List;
@@ -58,7 +59,9 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     }
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent (StationeryRetrievalFormActivity.this,NavigationForClerk.class);
+        startActivity(intent);
+        Toast.makeText(this, "Submit Successful!", Toast.LENGTH_SHORT).show();
 
 
     }

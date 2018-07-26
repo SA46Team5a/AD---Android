@@ -1,6 +1,9 @@
 package com.example.wanglu.stationerystore.DepRequisition.AppointDeptRep;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -60,10 +64,28 @@ public class AppointRepActivity extends AppCompatActivity {
                     t.show();
                 }
                 else {
-                    Toast t = Toast.makeText(getApplicationContext(), selected, Toast.LENGTH_SHORT);
-                    t.show();
+                    makeAlertDialog();
                 }
             }
         });
+    }
+    void makeAlertDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle("Appoint representative")
+                .setMessage("Appoint representative will be submitted. Would you like to continue?")
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do post?
+                        startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(AppointRepActivity.this, getString(android.R.string.no), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

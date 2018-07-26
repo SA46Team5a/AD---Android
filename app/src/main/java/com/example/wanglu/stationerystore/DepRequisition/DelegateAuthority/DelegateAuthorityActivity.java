@@ -1,6 +1,9 @@
 package com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Fragments.DatePickerFragment;
+import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
+import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity;
+import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
@@ -65,56 +71,80 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delegate_form);
 
-        startText=findViewById(R.id.startdate);
-        endText=findViewById(R.id.enddate);
-        delegateLayout=findViewById(R.id.delegateInclude);
-        Button startBtn=findViewById(R.id.startButton);
-        Button endBtn=findViewById(R.id.endButton);
+        startText = findViewById(R.id.startdate);
+        endText = findViewById(R.id.enddate);
+        delegateLayout = findViewById(R.id.delegateInclude);
+        Button startBtn = findViewById(R.id.startButton);
+        Button endBtn = findViewById(R.id.endButton);
         startBtn.setOnClickListener(new ClickListener());
         endBtn.setOnClickListener(new ClickListener());
         Button confirmBtn=findViewById(R.id.confirmButton);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(DelegateAuthorityActivity.this,selectedEmpId,Toast.LENGTH_SHORT).show();
-
-
+                Toast.makeText(DelegateAuthorityActivity.this, selectedEmpId, Toast.LENGTH_SHORT).show();
             }
         });
         //load dropdownlist
-        final ArrayList<String> emplist=new ArrayList<String>()
-        {
+        final ArrayList<String> emplist = new ArrayList<String>() {
             {
-                add("empA");add("empB");add("empC");add("empD");
+                add("empA");
+                add("empB");
+                add("empC");
+                add("empD");
             }
         };
-        final ArrayList<String> empIDlist=new ArrayList<String>()
-        {
+        final ArrayList<String> empIDlist = new ArrayList<String>() {
             {
-                add("1");add("2");add("3");add("4");
+                add("1");
+                add("2");
+                add("3");
+                add("4");
             }
         };
 
         Spinner empDropdownlist = findViewById(R.id.authoritySpinner);
 
-        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, emplist);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DelegateAuthorityActivity.this,android.R.layout.simple_spinner_item, emplist);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         empDropdownlist.setAdapter(adapter );
         empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedEmpName= adapterView.getItemAtPosition(i).toString();
-                empIDlist.get( emplist.indexOf(selectedEmpName));
+                selectedEmpName = adapterView.getItemAtPosition(i).toString();
+                empIDlist.get(emplist.indexOf(selectedEmpName));
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                 Toast.makeText(getApplicationContext(),"You must select one employee",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "You must select one employee", Toast.LENGTH_LONG).show();
             }
         });
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeAlertDialog();
+            }
+        });
+    }
 
-
-
-
-
+    void makeAlertDialog(){
+        new AlertDialog.Builder(DelegateAuthorityActivity.this)
+                .setTitle("Delegate authority")
+                .setMessage("Delegated authority will be submitted. Would you like to continue?")
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do post?
+                        startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(DelegateAuthorityActivity.this, getString(android.R.string.no), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
+

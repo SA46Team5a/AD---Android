@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class ManageInventoryDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_manager_inventory_detail);
+        setContentView(R.layout.activity_manager_inventory_detail);
 
         TextView categoryView = findViewById(R.id.categoryView);
         categoryView.setText(getIntent().getStringExtra("categoryItem"));
@@ -51,12 +52,19 @@ public class ManageInventoryDetailsActivity extends AppCompatActivity {
                 (this, R.layout.content_inventory_detail, inventoryItemList);
         ListView listView = findViewById(R.id.manageInventoryListView);
         listView.setAdapter(adapter);
+        Button submitbtn = (Button) findViewById(R.id.submitButton);
+        submitbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeAlertDialog();
+            }
+        });
 
     }
 
-    protected void onClickSubmit(View v){
-        makeAlertDialog();
-    }
+//    protected void onClickSubmit(View v){
+//
+//    }
 
     void makeAlertDialog(){
         new AlertDialog.Builder(this)

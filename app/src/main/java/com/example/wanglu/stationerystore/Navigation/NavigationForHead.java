@@ -1,4 +1,4 @@
-package com.example.wanglu.stationerystore;
+package com.example.wanglu.stationerystore.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.example.wanglu.stationerystore.DepRequisition.AppointDeptRep.AppointRepActivity;
 import com.example.wanglu.stationerystore.DepRequisition.ApproveRequisitionForm.ApproveRequestFormActivity;
 import com.example.wanglu.stationerystore.DepRequisition.ChangeCollectionPoint.UpdateLocationActivity;
 import com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority.DelegateAuthorityActivity;
+import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
 public class NavigationForHead extends AppCompatActivity
@@ -38,6 +40,20 @@ public class NavigationForHead extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button approvalbtn = (Button) findViewById(R.id.approverequest_btn);
+        approvalbtn.setTag(1);
+        Button delegatebtn = (Button) findViewById(R.id.delegateauthority_btn);
+        delegatebtn.setTag(2);
+        Button appointbtn = (Button) findViewById(R.id.appointdept_btn);
+        appointbtn.setTag(3);
+        Button changebtn = (Button) findViewById(R.id.changepoint_btn);
+        changebtn.setTag(4);
+
+        approvalbtn.setOnClickListener(clickListener);
+        delegatebtn.setOnClickListener(clickListener);
+        appointbtn.setOnClickListener(clickListener);
+        changebtn.setOnClickListener(clickListener);
     }
 
     @Override
@@ -49,6 +65,32 @@ public class NavigationForHead extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int tag = (Integer) v.getTag();
+            switch (tag){
+                case 1:
+                    Intent intent= new Intent(NavigationForHead.this, ApproveRequestFormActivity.class);
+                    startActivity(intent);
+                    break;
+                case 2:
+                    Intent intent2 = new Intent(NavigationForHead.this,DelegateAuthorityActivity.class);
+                    startActivity(intent2);
+                    break;
+                case 3:
+                    Intent intent3 = new Intent(NavigationForHead.this,AppointRepActivity.class);
+                    startActivity(intent3);
+                    break;
+                case 4:
+                    Intent intent4 = new Intent(NavigationForHead.this,UpdateLocationActivity.class);
+                    startActivity(intent4);
+                    break;
+            }
+        }
+    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

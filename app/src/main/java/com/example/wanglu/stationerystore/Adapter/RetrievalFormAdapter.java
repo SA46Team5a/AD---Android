@@ -43,7 +43,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
     public List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map;
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 3; i++) {
             map = new HashMap<>();
             map.put("itemDescription", "1.pencil");
             map.put("quantityRequired", "12 Dozen");

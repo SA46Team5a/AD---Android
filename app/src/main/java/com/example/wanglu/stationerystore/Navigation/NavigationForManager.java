@@ -1,4 +1,4 @@
-package com.example.wanglu.stationerystore;
+package com.example.wanglu.stationerystore.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.DiscrepancyItemsActivity;
+import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
 public class NavigationForManager extends AppCompatActivity
@@ -32,6 +36,15 @@ public class NavigationForManager extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button managerbtn = (Button) findViewById(R.id.manager_btn);
+        managerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(NavigationForManager.this, DiscrepancyItemsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -43,6 +56,7 @@ public class NavigationForManager extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,16 +1,21 @@
 package com.example.wanglu.stationerystore.Orders.restockInventory;
 
 import android.app.LauncherActivity;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.RestockInventoryAdapter;
+import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList.DisbursementListDeptActivity;
 
@@ -41,6 +46,15 @@ public class RestockInventoryActivity extends AppCompatActivity {
         supplierDropdownistAdapter.setDropDownViewResource(R.layout.spinner_item);
         supplierDropdownlist.setAdapter(supplierDropdownistAdapter);
         supplierDropdownlist.setOnItemSelectedListener(dropdownlistener);
+
+        Button homebtn = (Button) findViewById( R.id.homeBtn);
+        homebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestockInventoryActivity.this, NavigationForClerk.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
