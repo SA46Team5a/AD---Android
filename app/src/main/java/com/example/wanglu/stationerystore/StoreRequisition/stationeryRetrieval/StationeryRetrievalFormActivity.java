@@ -27,7 +27,7 @@ import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.List;
-
+//Wang Lu
 public class StationeryRetrievalFormActivity extends AppCompatActivity implements AdapterView.OnClickListener {
 
     Button submitbutton;

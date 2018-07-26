@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.wanglu.stationerystore.R;
-
+//Wang Lu
 public class SubmitAdjustmentActivity extends AppCompatActivity {
 
     @Override

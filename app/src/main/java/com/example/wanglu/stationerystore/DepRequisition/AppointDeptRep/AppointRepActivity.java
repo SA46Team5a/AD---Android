@@ -1,7 +1,9 @@
 package com.example.wanglu.stationerystore.DepRequisition.AppointDeptRep;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,50 +12,52 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.wanglu.stationerystore.Model.AppointRepModel;
+import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
-//Author: WangLu
+import java.util.HashMap;
+
+//Author: Wang Lu
 public class AppointRepActivity extends AppCompatActivity {
-    ArrayList<String> list=new ArrayList<String>()
-    {
-        {
-            add("repA");add("repB");add("repC");add("repD");
-        }
-    };
+    ArrayList<String> empIDList=new ArrayList<>();
+    ArrayList<String> empNameList=new ArrayList<>();
+
 
     private ConstraintLayout employeedropdownlist = null;
     Spinner spinner;
     Button btn;
     String selected;
+
    // SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,android.R.layout.simple_dropdown_item_1line);
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delegate_form2);
         employeedropdownlist = findViewById(R.id.employeeItems);
 
-        spinner = findViewById(R.id.representativeSpinner);
 
-        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        spinner.setAdapter(adapter );
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                     selected=adapterView.getItemAtPosition(i).toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-               // Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
-            }
-        });
+
+
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                     selected=adapterView.getItemAtPosition(i).toString();
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//               // Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
+//            }
+//        });
         btn = findViewById(R.id.confirmButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +72,41 @@ public class AppointRepActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
+            @Override
+            protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+                HashMap<String,ArrayList<String>> empMap = new HashMap<>();
+                empMap= AppointRepModel.getEmloyee();
+                return empMap;
+            }
+            @Override
+            protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
+                empIDList = result.get("EmployeeID");
+                empNameList = result.get("EmployeeName");
+
+                spinner = findViewById(R.id.representativeSpinner);
+                final ArrayAdapter<String> adapter=new ArrayAdapter<String>(AppointRepActivity.this,android.R.layout.simple_spinner_item, empNameList);
+                adapter.setDropDownViewResource(R.layout.spinner_item);
+                spinner.setAdapter(adapter );
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selected=adapterView.getItemAtPosition(i).toString();
+
+                        String  id = empIDList.get(empNameList.indexOf(selected));
+                        Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        // Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }.execute();
+
     }
     void makeAlertDialog(){
         new AlertDialog.Builder(this)
