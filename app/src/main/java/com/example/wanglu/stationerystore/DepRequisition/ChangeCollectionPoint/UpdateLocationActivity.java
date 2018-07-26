@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 //Author:Luo Chao
 public class UpdateLocationActivity extends AppCompatActivity {
-
+    ArrayList<String> collectionPntList=new ArrayList<>();
 
     private ConstraintLayout collectionPoints=null;
 
@@ -28,27 +28,33 @@ public class UpdateLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_location);//set content view
-
+        final ArrayList<String> IDlist=new ArrayList<String>()
+        {
+            {
+                add("1");add("2");add("3");add("4");add("5");add("6");
+            }
+        };
 
         collectionPoints =  findViewById(R.id.collectionPoints);//initiate include(include ID is collectionPoints)
 
         //declare variables and buttons
         Button confirmButton;
         //start AsyncTask
-        new AsyncTask<Void, Void, ArrayList<String>>() {
+
+        new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
-            protected ArrayList<String> doInBackground(Void... params) {
-                      ArrayList<String> collectionPntList=new ArrayList<>();
-                      collectionPntList=ChangeCollectionPointModel.getCollectPntList();
-                return collectionPntList;
+            protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+                HashMap<String,ArrayList<String>> collectPnt=new HashMap<>();
+                collectPnt=ChangeCollectionPointModel.getCollectPntList();
+                return collectPnt;
             }
             @Override
-            protected void onPostExecute(ArrayList<String> collectionPntList) {
+            protected void onPostExecute(HashMap<String,ArrayList<String>> collectionPntList) {
                 int[] ids={R.id.collectPoint1RadioButton,R.id.collectPoint2RadioButton,R.id.collectPoint3RadioButton,R.id.collectPoint4RadioButton,R.id.collectPoint5RadioButton};
-                for(int i=0;i<collectionPntList.size();i++)
+                for(int i=0;i<collectionPntList.get("detail").size();i++)
                 {
                     //load text to radioButton
-                    String text=collectionPntList.get(i);
+                    String text=collectionPntList.get("detail").get(i);
                     RadioButton r=(RadioButton)findViewById(ids[i]);
                     r.setText(text);
 
@@ -74,6 +80,7 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 int selectedID=collectionPntGroup.getCheckedRadioButtonId();
                 RadioButton r=(RadioButton)findViewById(selectedID);
                 String selectedLocation=r.getText().toString();
+
                 Toast.makeText(UpdateLocationActivity.this,selectedLocation,Toast.LENGTH_SHORT).show();
             }
         });

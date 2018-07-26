@@ -14,19 +14,24 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
         put ("CollectionPointID", collectionPointID);
         put ("CollectionPointDetails", CollectionPointDetails);
     }
-    public static ArrayList<String> getCollectPntList() {
+    public static HashMap<String,ArrayList<String>> getCollectPntList() {
         ArrayList<String> detailList=new ArrayList<>();
+        ArrayList<String> IDList=new ArrayList<>();
+        HashMap<String,ArrayList<String>> collectPnt=new HashMap<>();
         JSONArray a= JSONParser.getJSONArrayFromUrl(Constant.BASE_URL+"/classification/collectionpoints");
         try {
             for(int i=0;i<a.length();i++){
                 JSONObject b=a.getJSONObject(i);
                 detailList.add(b.get("CollectionPointDetails").toString());
+                IDList.add(b.get("CollectionPointID").toString());
                 }
+                collectPnt.put("detial",detailList);
+                collectPnt.put("ID",IDList);
         }
         catch (Exception e){
             Log.e("CollectionPointDetails()","JSONArray error");
         }
-        return detailList;
+        return collectPnt;
     }
 
 
