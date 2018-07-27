@@ -2,12 +2,15 @@ package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,9 +18,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority.DelegateAuthorityActivity;
+import com.example.wanglu.stationerystore.Model.DelegateAuthorityModel;
+import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
@@ -36,41 +43,38 @@ public class RetrievalFormAdapter extends BaseAdapter {
     private static final String TAG = "ContentAdapter";
     private List<String> mContentList;
     private StationeryRetrievalFormActivity activity;
-    public List<Boolean> checkedItem=new ArrayList<>();
+    private HashMap<String,ArrayList<String>> retrieval;
+    private List<Boolean> checkedItem;
 
-     private List<Map<String, Object>> data = getData();
-    //  Read hashmap inside list
-    public List<Map<String, Object>> getData() {
-        List<Map<String, Object>> list = new ArrayList<>();
-        Map<String, Object> map;
-        for (int i = 0; i < 3; i++) {
-            map = new HashMap<>();
-            map.put("itemDescription", "1.pencil");
-            map.put("quantityRequired", "12 Dozen");
-            map.put("actualStock", "12 Dozen");
-            map.put("totalRetrieved", " 9 Dozen");
-            map.put("checked",false);
 
-            checkedItem.add(false);
-            list.add(map);
-        }
-        return list;
+    public RetrievalFormAdapter(Context context) {
+        this.mInflater = LayoutInflater.from(context);
+        this.activity = (StationeryRetrievalFormActivity) context;
+        retrieval = activity.retrievalMap;
+        checkedItem=fillupCheckedItem();
     }
+
+
+     public List<Boolean> fillupCheckedItem()
+     {
+         List<Boolean> a=new ArrayList<>();
+         for(int i=0;i<retrieval.get("ItemID").size();i++)
+         {
+             a.add(false);
+         }
+         return a;
+     }
+
     //method used to test if all checkbox being checked
     public boolean isAllChecked()
     {
         return !checkedItem.contains(false);
     }
 
-    public RetrievalFormAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-        this.activity = (StationeryRetrievalFormActivity) context;
-    }
-
     @Override
     public int getCount() {
         Log.i(TAG, "getCount");
-        return data.size();
+        return retrieval.get("ItemID").size();
     }
     //need to include getViewTypeCount otherwise listViewItem change position when scrolling
     @Override
@@ -134,10 +138,11 @@ public class RetrievalFormAdapter extends BaseAdapter {
         {
             holder = (ViewHolder) view.getTag();
         }
-        holder.itemName.setText((String) data.get(position).get("itemDescription"));
-        holder.quantityNumber.setText((String) data.get (position).get("quantityRequired"));
-        holder.actualstockNumber.setText((String) data.get(position).get("actualStock"));
-        holder.retrievalNumber.setText((String) data.get(position).get("totalRetrieved"));
+        holder.itemName.setText((String) retrieval.get("ItemName").get(position));
+        holder.quantityNumber.setText((String) retrieval.get("QtyToRetrieve").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
+        holder.actualstockNumber.setText((String) retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
+        holder.retrievalNumber.setText( retrieval.get("QtyToRetrieve").get(position)) ;
+
         holder.retrivalCheckbox.setChecked(checkedItem.get(position));
         holder.submitadjustmentBtn.setTag(position);
 
@@ -164,17 +169,15 @@ public class RetrievalFormAdapter extends BaseAdapter {
 
         private submitAdjustmentDialogBuilder(@NonNull final Context context, int position) {
             super(context);
-            Map<String, Object> dataItem = data.get(position);
+
 
             TextView itemview = (TextView) v.findViewById(R.id.itemdespView);
-            //TextView unitview = v.findViewById(R.id.unitsView);
             TextView balanceview = v.findViewById(R.id.stockrecordView);
             EditText actualstockview = v.findViewById(R.id.actualstockLabel);
-            //EditText reasonview = v.findViewById(R.id.reasonView);
+            EditText reasonview = v.findViewById(R.id.reasonView);
 
-            itemview.setText((String)dataItem.get("itemDescription"));
-            balanceview.setText((String)dataItem.get("quantityRequired"));
-            actualstockview.setText((String)dataItem.get("actualStock"));
+            itemview.setText(retrieval.get("ItemName").get(position));
+            balanceview.setText(retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
 
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
