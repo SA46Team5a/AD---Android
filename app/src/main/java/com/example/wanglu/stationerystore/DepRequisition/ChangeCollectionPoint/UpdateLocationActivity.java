@@ -35,24 +35,16 @@ public class UpdateLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_location);//set content view
-//        final ArrayList<String> IDlist=new ArrayList<String>()
-//        {
-//            {
-//                add("1");add("2");add("3");add("4");add("5");add("6");
-//            }
-//        };
-
         collectionPoints =  findViewById(R.id.collectionPoints);//initiate include(include ID is collectionPoints)
-
-        collectionPoints.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        collectionPoints.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         //declare variables and buttons
         Button confirmButton;
-        //start AsyncTask
+        //start AsyncTask to load locationDetail and ID
 
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
@@ -75,6 +67,21 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 }
             }
         }.execute();
+        //asyncTask to load passcode
+//        new AsyncTask<Void, Void, String>() {
+//            @Override
+//            protected String doInBackground(Void... params) {
+//                String pass=ChangeCollectionPointModel.getPasscode();
+//                return pass;
+//            }
+//            @Override
+//            protected void onPostExecute(String result) {
+//                TextView t=findViewById(R.id.passcodeView);
+//                t.setText(result);
+//
+//
+//            }
+//        }.execute();
 
         //need default selection array
 
