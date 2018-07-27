@@ -30,6 +30,7 @@ public class UpdateLocationActivity extends AppCompatActivity {
 
     private ConstraintLayout collectionPoints=null;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,6 @@ public class UpdateLocationActivity extends AppCompatActivity {
                     collectionPntIDList.add(collectionPntList.get("ID").get(i));
                     RadioButton r=(RadioButton)findViewById(ids[i]);
                     r.setText(text);
-
                 }
             }
         }.execute();

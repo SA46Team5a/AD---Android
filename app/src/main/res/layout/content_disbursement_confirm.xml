@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:addStatesFromChildren="false"
+        android:addStatesFromChildren="true"
         android:background="@drawable/spinner"
         android:dropDownWidth="match_parent"
         android:verticalScrollbarPosition="left"

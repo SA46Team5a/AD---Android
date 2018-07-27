@@ -29,13 +29,10 @@ public class AppointRepActivity extends AppCompatActivity {
     ArrayList<String> empIDList=new ArrayList<>();
     ArrayList<String> empNameList=new ArrayList<>();
 
-
     private ConstraintLayout employeedropdownlist = null;
     Spinner spinner;
     Button btn;
     String selected;
-
-   // SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,android.R.layout.simple_dropdown_item_1line);
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -44,20 +41,6 @@ public class AppointRepActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delegate_form2);
         employeedropdownlist = findViewById(R.id.employeeItems);
 
-
-
-
-
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                     selected=adapterView.getItemAtPosition(i).toString();
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//               // Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
-//            }
-//        });
         btn = findViewById(R.id.confirmButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +56,7 @@ public class AppointRepActivity extends AppCompatActivity {
             }
         });
 
-
+//Start AsyncTask
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
@@ -101,7 +84,7 @@ public class AppointRepActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
-                        // Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
                     }
                 });
             }

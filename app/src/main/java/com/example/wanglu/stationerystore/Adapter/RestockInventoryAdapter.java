@@ -25,6 +25,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class RestockInventoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private RestockInventoryActivity stockActivity;
+
+    ViewHolder holder;
     //create data to list
     ArrayList<String> categoryList=new ArrayList<String>(){{add("Pen");add("Paper");add("Ruler");add("Tape");add("Ink");}};
     ArrayList<String> descriptionList=new ArrayList<String>(){{add("pen1");add("pen2");add("pen3");add("pen4");add("pen5");}};
@@ -64,7 +66,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
 
-        ViewHolder holder;
+
 
         if (view == null) {
             holder = new ViewHolder();
@@ -102,17 +104,14 @@ public class RestockInventoryAdapter extends BaseAdapter {
 
         private addStockQtyDialogBuilder (@NonNull final Context context, int position) {
             super(context);
-            final EditText quantityView=v.findViewById(R.id.quantityView);
+            final EditText quantityView = v.findViewById(R.id.quantityView);
             quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
                     quantityView.setHint("e.g. 5");
                 }
             });
-
-
-
-
+            final String s = quantityView.getText().toString();
 
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -124,7 +123,16 @@ public class RestockInventoryAdapter extends BaseAdapter {
             setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(context, quantityView.getText().toString(), Toast.LENGTH_SHORT).show();
+                    if (s.isEmpty())
+                    {
+
+                        Toast.makeText(context, "You didn't add quantity.", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        holder.AddBtn.setEnabled(true);
+                        Toast.makeText(context, "Added successful!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
             setView(v);
