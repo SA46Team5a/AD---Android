@@ -49,7 +49,6 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disbersment_confirm);
-        adapter = new DisbursementListDeptAdapter(this);
 
         initializeViews();
         setEventListeners();
@@ -60,8 +59,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         disbursementInclude = findViewById(R.id.disbursementInclude);
         itemsListView = findViewById(R.id.itemsListView);
         confirmBtn = findViewById(R.id.confirmButton);
-        DisbursementListDeptAdapter adapter = new DisbursementListDeptAdapter(this);
-        itemsListView.setAdapter(adapter);
+        adapter = new DisbursementListDeptAdapter(this);
         representativeLabel = findViewById(R.id.representativeLabel);
         collectionView = findViewById(R.id.collectionView);
         representativenameView = findViewById(R.id.representativenameView);
@@ -86,6 +84,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
                 selectedDept= adapterView.getItemAtPosition(i).toString();
                 selectedDeptId =deptIDList.get(deptNameList.indexOf(selectedDept));
                 new getCollectionPoint().execute(selectedDeptId);
+                new getDepRep().execute(selectedDeptId);
                 new getDisbursementList().execute(selectedDeptId);
             }
 
@@ -156,8 +155,12 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<DisbursementDetailModel> disDetails) {
-            adapter.setData(disDetails);
-            itemsListView.setAdapter(adapter);
+            if (disDetails != null) {
+                adapter.setData(disDetails);
+                itemsListView.setAdapter(adapter);
+            } else {
+                Toast.makeText(DisbursementListDeptActivity.this, "No disbursements for this department", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

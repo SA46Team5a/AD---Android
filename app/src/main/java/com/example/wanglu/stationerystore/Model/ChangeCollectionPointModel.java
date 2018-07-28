@@ -37,7 +37,7 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
     }
 
     public static String getCollectionPointOfDept(String deptID){
-        JSONObject obj = JSONParser.getJSONFromUrl(Constant.BASE_URL + "api/deprep/collectionpoint/" + deptID);
+        JSONObject obj = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/deprep/collectionpoint/" + deptID);
         try {
             return obj.getString("CollectionPointDetails");
         } catch (JSONException e) {
