@@ -18,6 +18,7 @@ import com.example.wanglu.stationerystore.Orders.restockInventory.RestockInvento
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -25,12 +26,13 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class RestockInventoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private RestockInventoryActivity stockActivity;
+    private HashMap<String,ArrayList<String>> restock;
 
     ViewHolder holder;
     //create data to list
-    ArrayList<String> categoryList=new ArrayList<String>(){{add("Pen");add("Paper");add("Ruler");add("Tape");add("Ink");}};
-    ArrayList<String> descriptionList=new ArrayList<String>(){{add("pen1");add("pen2");add("pen3");add("pen4");add("pen5");}};
-    ArrayList<String> stockList=new ArrayList<String>(){{add("5");}{add("4");}{add("3");}{add("2");}{add("1");}};
+//    ArrayList<String> categoryList=new ArrayList<String>(){{add("Pen");add("Paper");add("Ruler");add("Tape");add("Ink");}};
+//    ArrayList<String> descriptionList=new ArrayList<String>(){{add("pen1");add("pen2");add("pen3");add("pen4");add("pen5");}};
+//    ArrayList<String> stockList=new ArrayList<String>(){{add("5");}{add("4");}{add("3");}{add("2");}{add("1");}};
 
     public static class ViewHolder{
         public TextView categoryLable;
@@ -46,11 +48,12 @@ public class RestockInventoryAdapter extends BaseAdapter {
     public RestockInventoryAdapter  (Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.stockActivity=(RestockInventoryActivity) context;
+        this.restock = stockActivity.ItemListMap;
     }
 
     @Override
     public int getCount() {
-        return categoryList.size();
+        return restock.get("ItemID").size();
     }
 
     @Override
@@ -83,9 +86,10 @@ public class RestockInventoryAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) view.getTag();
         }
-        holder.categoryView.setText(categoryList.get(position));
-        holder.descriptionView.setText(descriptionList.get(position));
-        holder.stockView.setText(stockList.get(position));
+
+        holder.categoryView.setText((String ) restock.get("ItemID").get(position));
+        holder.descriptionView.setText((String )restock.get("ItemName").get(position));
+        holder.stockView.setText((String ) restock.get("QtyInStock").get(position)+" "+ restock.get("UnitOfMeasure").get(position));
         holder.AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -14,9 +14,11 @@ import java.util.HashMap;
 
 //Author: Wang Lu
 public class RestockInventoryModel extends HashMap<String,String>{
-    public RestockInventoryModel (String orderId){
-        put ("orderId",orderId);
-    }
+//    public RestockInventoryModel (String orderId){
+//        put ("orderId",orderId);
+//    }
+    static String orderId = "1";
+    static String supplierId = "ALPA";
 
     public  static HashMap<String,ArrayList<String>> getOrderId(){
         HashMap<String,ArrayList<String>> orderMap = new HashMap<>();
@@ -54,6 +56,44 @@ public class RestockInventoryModel extends HashMap<String,String>{
             Log.e ("getSupplier()","JSONArray error");
         }
         return supplierMap ;
+    }
+
+    public static HashMap<String,ArrayList<String>> getInventoryDetail(String orderId,String supplierId) {
+
+        HashMap<String, ArrayList<String>> restock = new HashMap<>();
+
+        ArrayList<String> CategoryName = new ArrayList<>();
+        ArrayList<String> SupplierID = new ArrayList<>();
+        ArrayList<String> ItemID = new ArrayList<>();
+        ArrayList<String> ItemName = new ArrayList<>();
+        ArrayList<String> UnitOfMeasure = new ArrayList<>();
+        ArrayList<String> QtyInStock = new ArrayList<>();
+
+
+        JSONArray a = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/orders/orderdetails/" + orderId +"/" +supplierId);
+
+        try {
+            for (int i = 0; i < a.length(); i++) {
+                JSONObject obj = a.getJSONObject(i);
+                ItemID.add(obj.getString("ItemID"));
+                ItemName.add(obj.getString("ItemName"));
+                UnitOfMeasure.add(obj.getString("UnitOfMeasure"));
+                QtyInStock.add(obj.getString("QtyInStock"));
+                CategoryName.add(obj.getString("CategoryName"));
+                SupplierID.add(obj.getString("OrderSupplierDetailId"));
+
+            }
+            restock.put("ItemID", ItemID);
+            restock.put("ItemName", ItemName);
+            restock.put("UnitOfMeasure", UnitOfMeasure);
+            restock.put("QtyInStock", QtyInStock);
+            restock.put("CategoryName", CategoryName);
+            restock.put("OrderSupplierDetailId", SupplierID);
+
+        } catch (Exception e) {
+            Log.e("getInventoryDetail()", "JSONArray error");
+        }
+        return restock;
     }
 
 

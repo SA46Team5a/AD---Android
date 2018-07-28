@@ -33,7 +33,7 @@ public class ManageInventoryDetailsAdapter extends ArrayAdapter<ManageInventoryD
         ManageInventoryDetailsModel inventoryItem = items.get(position);
         if(inventoryItem!=null){
             int[] ids = {R.id.itemnamelabel, R.id.itemdespview, R.id.unitsview, R.id.stockrecordview};
-            String[] keys = {"itemCode", "description", "unitOfMeasure", "stockBalance"};
+            String[] keys = {"ItemID", "description", "unitOfMeasure", "stockBalance"};
             for(int i=0; i<keys.length; i++){
                 TextView tv = (TextView) v.findViewById(ids[i]);
                 tv.setText(inventoryItem.get(keys[i]));
