@@ -45,17 +45,50 @@ public class RetrievalFormAdapter extends BaseAdapter {
     private StationeryRetrievalFormActivity activity;
     private HashMap<String,ArrayList<String>> retrieval;
     private List<Boolean> checkedItem;
+    private ArrayList<EditText> editTexts;
 
-
-    public RetrievalFormAdapter(Context context) {
+    public RetrievalFormAdapter(Context context, HashMap<String,ArrayList<String>> data) {
         this.mInflater = LayoutInflater.from(context);
         this.activity = (StationeryRetrievalFormActivity) context;
-        retrieval = activity.retrievalMap;
+        retrieval = data;
         checkedItem=fillupCheckedItem();
+        editTexts = fillupEditTextList();
     }
 
+    public static class ViewHolder{
+        public TextView itemName;
+        public TextView quantityRequired;
+        public TextView quantityNumber;
+        public TextView stockLabel;
+        public TextView totalRetrived;
+        public TextView actualstockNumber;
+        public EditText retrievalNumber;
+        public Button submitadjustmentBtn;
+        public CheckBox retrivalCheckbox;
 
-     public List<Boolean> fillupCheckedItem()
+    }
+
+    private ArrayList<EditText> fillupEditTextList() {
+        ArrayList<EditText> editTexts = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++){
+            editTexts.add(null);
+        }
+        return editTexts;
+    }
+
+//    public int getTotalRetrievedOfPosition(int position) {
+//        return Integer.valueOf(editTexts.get(position).getText().toString());
+//    }
+
+    public ArrayList<String> getAllTotalRetrieved() {
+        ArrayList<String> ints = new ArrayList<>();
+        for (EditText e : editTexts) {
+            ints.add(e.getText().toString());
+        }
+        return ints;
+    }
+
+    public List<Boolean> fillupCheckedItem()
      {
          List<Boolean> a=new ArrayList<>();
          for(int i=0;i<retrieval.get("ItemID").size();i++)
@@ -90,6 +123,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         Log.i(TAG, "getItem");
+
         return null;
     }
 
@@ -98,6 +132,8 @@ public class RetrievalFormAdapter extends BaseAdapter {
         Log.i(TAG, "getItemId");
         return i;
     }
+
+
 
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
@@ -116,6 +152,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
             holder.retrievalNumber = view.findViewById(R.id.totalretrivedView);
             holder.submitadjustmentBtn = view.findViewById(R.id.submitadjustmentButton);
             holder.retrivalCheckbox=view.findViewById(R.id.retrivalformCheckbox);
+
+            editTexts.set(position, holder.retrievalNumber);
+
 
             holder.submitadjustmentBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,20 +188,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
         return view;
     }
 
-    public static class ViewHolder{
-         public TextView itemName;
-         public TextView quantityRequired;
-         public TextView quantityNumber;
-         public TextView stockLabel;
-         public TextView totalRetrived;
-         public TextView actualstockNumber;
-         public EditText retrievalNumber;
-         public Button submitadjustmentBtn;
-         public CheckBox retrivalCheckbox;
-
-    }
-
-    private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
+       private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_retrieval_popupwindow, null);

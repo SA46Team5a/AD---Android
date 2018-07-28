@@ -43,12 +43,17 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     Button adjustmentbutton;
     CheckBox checkBox;
     public HashMap<String,ArrayList<String>> retrievalMap=new HashMap<>();
+    public ArrayList<String> quantityList=new ArrayList<>();
+    RetrievalFormAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieval_form);
         ListView listView = findViewById(R.id.listview);
+        submitbutton = findViewById(R.id.submitButton);
+        submitbutton.setOnClickListener((View.OnClickListener) this);
+        submitbutton.setEnabled(false);
 
 
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
@@ -62,19 +67,15 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
                 retrievalMap=result;
                 Log.i("Size", String.valueOf(result.size()));
                 ListView listView = findViewById(R.id.listview);
-                RetrievalFormAdapter adapter= new RetrievalFormAdapter(StationeryRetrievalFormActivity.this);
+                adapter= new RetrievalFormAdapter(StationeryRetrievalFormActivity.this, result);
                 listView.setAdapter(adapter);
+               // quantityList=adapter.getAllTotalRetrieved();
+
+
             }
 
         }.execute();
 
-
-        submitbutton = findViewById(R.id.submitButton);
-        //adjustmentbutton = findViewById(R.id.submitadjustmentButton);
-//        checkBox = findViewById(R.id.retrivalformCheckbox);
-
-        submitbutton.setOnClickListener((View.OnClickListener) this);
-        submitbutton.setEnabled(false);
     }
     public void setSubmitButtonState(boolean bool)
     {
@@ -82,6 +83,19 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     }
     @Override
     public void onClick(View v) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                quantityList=adapter.getAllTotalRetrieved();
+               StationeryRetrievalFormModel.updateStationeryRetrievalform(retrievalMap.get("ItemID"),quantityList,retrievalMap.get("disDutyId"));
+               return null;
+            }
+            @Override
+            protected void onPostExecute(Void result) {
+
+            }
+
+        }.execute();
         Intent intent = new Intent (StationeryRetrievalFormActivity.this,NavigationForClerk.class);
         startActivity(intent);
         Toast.makeText(this, "Submit Successful!", Toast.LENGTH_SHORT).show();
