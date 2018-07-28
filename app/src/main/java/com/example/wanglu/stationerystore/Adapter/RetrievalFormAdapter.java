@@ -38,24 +38,51 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 //Author:Wang Lu
 public class RetrievalFormAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private Boolean mCheckable = false;
 
     private static final String TAG = "ContentAdapter";
-    private List<String> mContentList;
     private StationeryRetrievalFormActivity activity;
     private HashMap<String,ArrayList<String>> retrieval;
     private List<Boolean> checkedItem;
+    private ArrayList<EditText> editTexts;
 
-
-    public RetrievalFormAdapter(Context context) {
+    public RetrievalFormAdapter(Context context, HashMap<String,ArrayList<String>> data) {
         this.mInflater = LayoutInflater.from(context);
         this.activity = (StationeryRetrievalFormActivity) context;
-        retrieval = activity.retrievalMap;
+        retrieval = data;
         checkedItem=fillupCheckedItem();
+        editTexts = fillupEditTextList();
     }
 
+    public static class ViewHolder{
+        public TextView itemName;
+        public TextView quantityRequired;
+        public TextView quantityNumber;
+        public TextView stockLabel;
+        public TextView totalRetrived;
+        public TextView actualstockNumber;
+        public EditText retrievalNumber;
+        public Button submitadjustmentBtn;
+        public CheckBox retrivalCheckbox;
 
-     public List<Boolean> fillupCheckedItem()
+    }
+
+    private ArrayList<EditText> fillupEditTextList() {
+        ArrayList<EditText> editTexts = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++){
+            editTexts.add(null);
+        }
+        return editTexts;
+    }
+
+    public ArrayList<String> getAllTotalRetrieved() {
+        ArrayList<String> ints = new ArrayList<>();
+        for (EditText e : editTexts) {
+            ints.add(e.getText().toString());
+        }
+        return ints;
+    }
+
+    public List<Boolean> fillupCheckedItem()
      {
          List<Boolean> a=new ArrayList<>();
          for(int i=0;i<retrieval.get("ItemID").size();i++)
@@ -90,6 +117,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         Log.i(TAG, "getItem");
+
         return null;
     }
 
@@ -98,6 +126,8 @@ public class RetrievalFormAdapter extends BaseAdapter {
         Log.i(TAG, "getItemId");
         return i;
     }
+
+
 
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
@@ -116,6 +146,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
             holder.retrievalNumber = view.findViewById(R.id.totalretrivedView);
             holder.submitadjustmentBtn = view.findViewById(R.id.submitadjustmentButton);
             holder.retrivalCheckbox=view.findViewById(R.id.retrivalformCheckbox);
+
+            editTexts.set(position, holder.retrievalNumber);
+
 
             holder.submitadjustmentBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,39 +175,24 @@ public class RetrievalFormAdapter extends BaseAdapter {
         holder.quantityNumber.setText((String) retrieval.get("QtyToRetrieve").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
         holder.actualstockNumber.setText((String) retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
         holder.retrievalNumber.setText( retrieval.get("QtyToRetrieve").get(position)) ;
-
         holder.retrivalCheckbox.setChecked(checkedItem.get(position));
         holder.submitadjustmentBtn.setTag(position);
 
         return view;
     }
 
-    public static class ViewHolder{
-         public TextView itemName;
-         public TextView quantityRequired;
-         public TextView quantityNumber;
-         public TextView stockLabel;
-         public TextView totalRetrived;
-         public TextView actualstockNumber;
-         public EditText retrievalNumber;
-         public Button submitadjustmentBtn;
-         public CheckBox retrivalCheckbox;
-
-    }
-
-    private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
+       private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_retrieval_popupwindow, null);
 
-        private submitAdjustmentDialogBuilder(@NonNull final Context context, int position) {
+        private submitAdjustmentDialogBuilder(@NonNull final Context context, final int position) {
             super(context);
-
 
             TextView itemview = (TextView) v.findViewById(R.id.itemdespView);
             TextView balanceview = v.findViewById(R.id.stockrecordView);
-            EditText actualstockview = v.findViewById(R.id.actualstockLabel);
-            EditText reasonview = v.findViewById(R.id.reasonView);
+            final EditText actualstockview = v.findViewById(R.id.actualstockLabel);
+            final EditText reasonview = v.findViewById(R.id.reasonView);
 
             itemview.setText(retrieval.get("ItemName").get(position));
             balanceview.setText(retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
@@ -189,6 +207,20 @@ public class RetrievalFormAdapter extends BaseAdapter {
             setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            StationeryRetrievalFormModel.submitAdjustmentVoucher(
+                                    retrieval.get("ItemID").get(position),
+                                    actualstockview.getText().toString(),
+                                    StationeryRetrievalFormModel.clerkID,
+                                    reasonview.getText().toString());
+                           return null;
+                        }
+                        @Override
+                        protected void onPostExecute(Void result) {
+                        }
+                    }.execute();
                     Toast.makeText(context, "confirm is pressed", Toast.LENGTH_SHORT).show();
                 }
             });
