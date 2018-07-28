@@ -1,11 +1,11 @@
 package com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,15 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.DisbursementListDeptAdapter;
-import com.example.wanglu.stationerystore.Model.AppointRepModel;
+import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
+import com.example.wanglu.stationerystore.Model.DeptRepModel;
+import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.Model.DisbursementListDeptModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-//Author:Luo Chao
+//Author: Luo Chao, Wang Lu and Jack
 public class DisbursementListDeptActivity extends AppCompatActivity {
     private ConstraintLayout disbursementInclude=null;
     ListView itemsListView;
@@ -37,15 +40,23 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     EditText codeView;
     Button confirmBtn;
     String selectedDept;
+    String selectedDeptId;
     ArrayList<String > deptIDList = new ArrayList<>();
     ArrayList<String> deptNameList = new ArrayList<>();
+    DisbursementListDeptAdapter adapter;
 
-
-    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disbersment_confirm);
+        adapter = new DisbursementListDeptAdapter(this);
+
+        initializeViews();
+        setEventListeners();
+        new fillDropDown().execute();
+   }
+
+    protected void initializeViews(){
         disbursementInclude = findViewById(R.id.disbursementInclude);
         itemsListView = findViewById(R.id.itemsListView);
         confirmBtn = findViewById(R.id.confirmButton);
@@ -55,55 +66,113 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         collectionView = findViewById(R.id.collectionView);
         representativenameView = findViewById(R.id.representativenameView);
         codeView = findViewById(R.id.codeView);
+        departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
+    }
+
+    protected void setEventListeners() {
+        // set EventListener for confirm button
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+            // TODO: add asynctask for restarting activity
             public void onClick(View v) {
-                Intent intent = new Intent(DisbursementListDeptActivity.this, NavigationForClerk.class);
-                startActivity(intent);
-                Toast.makeText(DisbursementListDeptActivity.this, "Submit Successful!", Toast.LENGTH_SHORT).show();
-            }
+                new submitDisbursementList().execute();
+           }
         });
 
-//Start Async Task
-        new AsyncTask<Void, Void, HashMap<String, ArrayList<String>>>() {
+        // set EventListener for dropdown list
+        departmentDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            protected HashMap<String, ArrayList<String>> doInBackground(Void... params) {
-                HashMap<String, ArrayList<String>> deptMap = new HashMap<>();
-                deptMap = DisbursementListDeptModel.getDepartment();
-                return deptMap;
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedDept= adapterView.getItemAtPosition(i).toString();
+                selectedDeptId =deptIDList.get(deptNameList.indexOf(selectedDept));
+                new getCollectionPoint().execute(selectedDeptId);
+                new getDisbursementList().execute(selectedDeptId);
             }
+
             @Override
-            protected void onPostExecute(HashMap<String, ArrayList<String>> result) {
-                deptIDList = result.get("DepartmentID");
-                deptNameList = result.get("DepartmentName");
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getApplicationContext(),"You must select one department",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
-                departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
+    //Start Async Task to fill drop down menu
+    protected class fillDropDown extends AsyncTask<Void, Void, HashMap<String, ArrayList<String>>> {
+        @Override
+        protected HashMap<String, ArrayList<String>> doInBackground(Void... params) {
+            Log.i("Async", "fillDropDown fired");
+            HashMap<String, ArrayList<String>> deptMap = new HashMap<>();
+            deptMap = DisbursementListDeptModel.getDepartment();
+            return deptMap;
+        }
+        @Override
+        protected void onPostExecute(HashMap<String, ArrayList<String>> result) {
+            Log.i("Async", "fillDropDown received");
+            Log.i("Async", result.toString());
+            deptIDList = result.get("DepartmentID");
+            deptNameList = result.get("DepartmentName");
 
-                final ArrayAdapter<String> dropdownlistAdapter=new ArrayAdapter<String>(DisbursementListDeptActivity.this,android.R.layout.simple_spinner_item, deptNameList);
+            final ArrayAdapter<String> dropdownlistAdapter=new ArrayAdapter<String>(DisbursementListDeptActivity.this,android.R.layout.simple_spinner_item, deptNameList);
+            if (deptIDList.size() > 0) {
+             Log.i("Async", "fillDropDown not null");
                 dropdownlistAdapter.setDropDownViewResource(R.layout.spinner_item);
                 departmentDropdownlist.setAdapter(dropdownlistAdapter);
-
-                departmentDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        selectedDept= adapterView.getItemAtPosition(i).toString();
-
-                        String s =deptIDList.get( deptNameList.indexOf(selectedDept));
-                        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-
-//                        collectionView.setText(selectedDept);
-//
-//                        representativenameView.setText(selectedDept);
-
-//                      codeView.setText(selectedDept);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        Toast.makeText(getApplicationContext(),"You must select one department",Toast.LENGTH_LONG).show();
-                    }
-                });
+                departmentDropdownlist.setSelection(0);
             }
-        }.execute();
+            else
+                Toast.makeText(DisbursementListDeptActivity.this, "No disbursements available", Toast.LENGTH_SHORT).show();
+       }
+    }
 
+    protected class getCollectionPoint extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            return ChangeCollectionPointModel.getCollectionPointOfDept(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String collectionPoint) {
+            collectionView.setText(collectionPoint);
+        }
+    }
+
+    protected class getDepRep extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            return DeptRepModel.getDeptRepOfDept(strings[0]).getEmpName();
+        }
+
+        @Override
+        protected void onPostExecute(String empName){
+            representativenameView.setText(empName);
+        }
+    }
+
+    protected class getDisbursementList extends AsyncTask<String, Void, List<DisbursementDetailModel>> {
+        @Override
+        protected List<DisbursementDetailModel> doInBackground(String... strings) {
+            return DisbursementDetailModel.getDisbursementDetailsOfDepartment(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<DisbursementDetailModel> disDetails) {
+            adapter.setData(disDetails);
+            itemsListView.setAdapter(adapter);
+        }
+    }
+
+    protected class submitDisbursementList extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String passcode = codeView.getText().toString();
+            String empId = "E001"; // TODO: get from SharedPreferences
+            if (adapter.validateData()) {
+                DisbursementDetailModel.submitDisbursementDetails(adapter.getData(), selectedDeptId, empId, passcode);
+                Intent intent = new Intent(DisbursementListDeptActivity.this, NavigationForClerk.class);
+                startActivity(intent);
+            } else
+                Toast.makeText(DisbursementListDeptActivity.this, "There are incomplete fields. Please complete them before submission", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 }

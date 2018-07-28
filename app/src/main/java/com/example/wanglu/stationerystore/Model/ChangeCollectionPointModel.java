@@ -4,6 +4,7 @@ import android.util.Log;
 import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,16 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
         }
         return collectPnt;
     }
+
+    public static String getCollectionPointOfDept(String deptID){
+        JSONObject obj = JSONParser.getJSONFromUrl(Constant.BASE_URL + "api/deprep/collectionpoint/" + deptID);
+        try {
+            return obj.getString("CollectionPointDetails");
+        } catch (JSONException e) {
+            return "";
+        }
+    }
+
     public static String getPasscode(){
         JSONObject a= JSONParser.getJSONFromUrl(Constant.BASE_URL+"/deprep/passcode/"+deptID);
         String passcode=null;
@@ -45,7 +56,4 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
         }
         return passcode;
     }
-
-
-
 }
