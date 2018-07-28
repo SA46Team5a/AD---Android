@@ -38,10 +38,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 //Author:Wang Lu
 public class RetrievalFormAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private Boolean mCheckable = false;
 
     private static final String TAG = "ContentAdapter";
-    private List<String> mContentList;
     private StationeryRetrievalFormActivity activity;
     private HashMap<String,ArrayList<String>> retrieval;
     private List<Boolean> checkedItem;
@@ -75,10 +73,6 @@ public class RetrievalFormAdapter extends BaseAdapter {
         }
         return editTexts;
     }
-
-//    public int getTotalRetrievedOfPosition(int position) {
-//        return Integer.valueOf(editTexts.get(position).getText().toString());
-//    }
 
     public ArrayList<String> getAllTotalRetrieved() {
         ArrayList<String> ints = new ArrayList<>();
@@ -181,7 +175,6 @@ public class RetrievalFormAdapter extends BaseAdapter {
         holder.quantityNumber.setText((String) retrieval.get("QtyToRetrieve").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
         holder.actualstockNumber.setText((String) retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
         holder.retrievalNumber.setText( retrieval.get("QtyToRetrieve").get(position)) ;
-
         holder.retrivalCheckbox.setChecked(checkedItem.get(position));
         holder.submitadjustmentBtn.setTag(position);
 
@@ -193,14 +186,13 @@ public class RetrievalFormAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_retrieval_popupwindow, null);
 
-        private submitAdjustmentDialogBuilder(@NonNull final Context context, int position) {
+        private submitAdjustmentDialogBuilder(@NonNull final Context context, final int position) {
             super(context);
-
 
             TextView itemview = (TextView) v.findViewById(R.id.itemdespView);
             TextView balanceview = v.findViewById(R.id.stockrecordView);
-            EditText actualstockview = v.findViewById(R.id.actualstockLabel);
-            EditText reasonview = v.findViewById(R.id.reasonView);
+            final EditText actualstockview = v.findViewById(R.id.actualstockLabel);
+            final EditText reasonview = v.findViewById(R.id.reasonView);
 
             itemview.setText(retrieval.get("ItemName").get(position));
             balanceview.setText(retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
@@ -215,6 +207,20 @@ public class RetrievalFormAdapter extends BaseAdapter {
             setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            StationeryRetrievalFormModel.submitAdjustmentVoucher(
+                                    retrieval.get("ItemID").get(position),
+                                    actualstockview.getText().toString(),
+                                    StationeryRetrievalFormModel.clerkID,
+                                    reasonview.getText().toString());
+                           return null;
+                        }
+                        @Override
+                        protected void onPostExecute(Void result) {
+                        }
+                    }.execute();
                     Toast.makeText(context, "confirm is pressed", Toast.LENGTH_SHORT).show();
                 }
             });

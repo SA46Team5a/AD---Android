@@ -87,7 +87,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
             @Override
             protected Void doInBackground(Void... params) {
                 quantityList=adapter.getAllTotalRetrieved();
-               StationeryRetrievalFormModel.updateStationeryRetrievalform(retrievalMap.get("ItemID"),quantityList,retrievalMap.get("disDutyId"));
+               StationeryRetrievalFormModel.submitStationeryRetrievalform(retrievalMap.get("ItemID"),quantityList,retrievalMap.get("disDutyId"));
                return null;
             }
             @Override

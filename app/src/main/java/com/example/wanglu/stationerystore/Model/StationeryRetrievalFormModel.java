@@ -11,10 +11,10 @@ import java.util.HashMap;
 
 //Author: Luo Chao
 public class StationeryRetrievalFormModel extends HashMap<String, String> {
-    static String clerkID="E015";
+    public static String clerkID="E015";
 
     public static HashMap<String,ArrayList<String>> getStationeryRetrievalFormList(){
-        //List<StationeryRetrievalFormModel> stationeryRetrievalFormList = new ArrayList<StationeryRetrievalFormModel>();
+
         HashMap<String,ArrayList<String>> retrieval=new HashMap<>();
         ArrayList<String> ItemId=new ArrayList<>();
         ArrayList<String> ItemName=new ArrayList<>();
@@ -51,9 +51,8 @@ public class StationeryRetrievalFormModel extends HashMap<String, String> {
         }
         return retrieval;
     }
-    public static void updateStationeryRetrievalform(ArrayList<String> itemID,ArrayList<String> Quantity,ArrayList<String> disDutyId)
+    public static void submitStationeryRetrievalform(ArrayList<String> itemID, ArrayList<String> Quantity, ArrayList<String> disDutyId)
     {
-
         JSONArray jArr=new JSONArray();
         try {
             for (int i = 0; i < itemID.size(); i++) {
@@ -63,11 +62,27 @@ public class StationeryRetrievalFormModel extends HashMap<String, String> {
                 jArr.put(jObj);
                 Log.i("JSON obj", jArr.toString(4));
             }
-                Log.i("@@@@@@@@@@@@@@22", jArr.toString()+"  "+disDutyId.get(0));
+                Log.i("posTJSONArray", jArr.toString()+"  "+disDutyId.get(0));
                 String result =JSONParser.postStream(Constant.BASE_URL+"/store/retrieval/"+disDutyId.get(0),jArr.toString());
 
         }catch (Exception e){
             Log.e("updateStationeryRetrievalForm()", "JSONArray error");
+        }
+    }
+
+    public static void submitAdjustmentVoucher(String ItemID,String ActualCount,String EmployeeID,String Reason)
+    {
+        try {
+            JSONObject jObj = new JSONObject();
+            jObj.put("ItemID", ItemID);
+            jObj.put("ActualCount",Integer.valueOf(ActualCount));
+            jObj.put("EmployeeID", EmployeeID);
+            jObj.put("Reason", Reason);
+            Log.i("JSON obj", jObj.toString(4));
+            String result =JSONParser.postStream(Constant.BASE_URL+"/store/vouchers/add",jObj.toString());
+
+        }catch (Exception e){
+            Log.e("submitAdjustmentVoucher()", "JSONArray error");
         }
     }
 }
