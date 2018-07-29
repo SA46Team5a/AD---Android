@@ -17,9 +17,9 @@ import java.util.HashMap;
 //Author:Luo Chao
 public class ApproveRequestModel extends HashMap<String,String> {
 
-    static String deptID = "chem";
 
-    public static HashMap<String, ArrayList<String>> getApproveform() {
+
+    public static HashMap<String, ArrayList<String>> getApproveform(String deptID) {
 
         HashMap<String, ArrayList<String>> approve = new HashMap<>();
 
@@ -64,13 +64,12 @@ public class ApproveRequestModel extends HashMap<String,String> {
         return approve;
     }
 
-    public static void approveRequest(String empID, String orderSupplierDtailID, String qty) {
-
-
+    public static void approveRequest(String empId, String reqId) {
 
         InputStream is = null;
         try {
-            URL u = new URL(Constant.BASE_URL + "/orders/addstock/" + empID + "/" + orderSupplierDtailID + "/" + qty);
+            URL u = new URL(Constant.BASE_URL + "/requisition/approve/"+empId+"/"+reqId);
+            Log.i("@@@@@@@@@@@@@@@@@@@@@@@@approveStatus",u.toString());
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -83,11 +82,11 @@ public class ApproveRequestModel extends HashMap<String,String> {
 
     }
 
-    public static void rejectRequest(String empID, String orderSupplierDtailID, String qty) {
+    public static void rejectRequest(String empId, String reqId) {
 
         InputStream is = null;
         try {
-            URL u = new URL(Constant.BASE_URL + "/orders/addstock/" + empID + "/" + orderSupplierDtailID + "/" + qty);
+            URL u = new URL(Constant.BASE_URL + "/requisition/reject/"+empId+"/"+reqId);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -99,6 +98,8 @@ public class ApproveRequestModel extends HashMap<String,String> {
         }
 
     }
+
+
 }
 
 

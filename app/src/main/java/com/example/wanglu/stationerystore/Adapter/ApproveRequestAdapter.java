@@ -1,6 +1,7 @@
 package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +15,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.DepRequisition.ApproveRequisitionForm.ApproveRequestFormActivity;
+import com.example.wanglu.stationerystore.Model.ApproveRequestModel;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -53,7 +56,7 @@ public class ApproveRequestAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
 
         ApproveRequestFormActivity.ViewHolder holder;
 // initialize controls
@@ -71,6 +74,28 @@ public class ApproveRequestAdapter extends BaseAdapter {
         else {
             holder = (ApproveRequestFormActivity.ViewHolder) view.getTag();
         }
+
+        //ButtonClick event
+        holder.approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        //"put into below method when jack add empId for endpoint method" approve.get("empID").get(position)
+                        ApproveRequestModel.approveRequest("E026",approve.get("RequisitionID").get(position));
+                        return null;
+                    }
+                    @Override
+                    protected void onPostExecute(Void result) {
+
+                    }
+
+                }.execute();
+                //Toast.makeText(,"approved successfully",Toast.LENGTH_SHORT)
+            }
+        });
+
 // set texts
         holder.date.setText((String) approve.get("RequestDate").get(0));
         holder.empName.setText((String) approve.get("RequesterName").get(0));

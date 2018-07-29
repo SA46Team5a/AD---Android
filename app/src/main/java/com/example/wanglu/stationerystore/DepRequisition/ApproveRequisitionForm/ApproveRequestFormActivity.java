@@ -2,7 +2,9 @@ package com.example.wanglu.stationerystore.DepRequisition.ApproveRequisitionForm
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 
 //Author: Wang Lu
 public class ApproveRequestFormActivity extends AppCompatActivity {
-
+    SharedPreferences pref;
     ConstraintLayout approveform = null;
     public HashMap<String,ArrayList<String>> approvaMap =new HashMap<>();
 
@@ -32,6 +34,9 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_form);
+
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         Button homebtn = (Button) findViewById(R.id.homebtn);
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +49,8 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
-                HashMap<String,ArrayList<String>> approveMap= ApproveRequestModel.getApproveform();
+
+                HashMap<String,ArrayList<String>> approveMap= ApproveRequestModel.getApproveform(pref.getString("deptID","no name"));
                 return approveMap;
             }
             @Override
