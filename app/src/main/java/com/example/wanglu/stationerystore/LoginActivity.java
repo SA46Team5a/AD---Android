@@ -4,7 +4,9 @@ import android.content.Intent;
 
 import android.app.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,21 +62,27 @@ public class LoginActivity extends Activity  implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        String string;
-        string = username.getText().toString();
+        String userName;
+        userName = username.getText().toString();
+
         switch (v.getId()){
             case R.id.login :
-                if (string.equals("clerk")){
+                if (userName.equals("clerk")){
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E008");
+                    editor.putString("deptID","CHEM");
+                    editor.commit();
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForClerk.class);
                     startActivity(intent);
                 }
-                else if (string.equals("head")){
+                else if (userName.equals("head")){
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForHead.class);
                     startActivity(intent);
                 }
-                else if (string.equals("manager")){
+                else if (userName.equals("manager")){
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForManager.class);
                     startActivity(intent);

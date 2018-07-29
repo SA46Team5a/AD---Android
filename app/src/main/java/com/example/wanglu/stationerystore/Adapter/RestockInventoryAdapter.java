@@ -2,6 +2,10 @@ package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -14,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wanglu.stationerystore.Model.RestockInventoryModel;
+import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
 import com.example.wanglu.stationerystore.Orders.restockInventory.RestockInventoryActivity;
 import com.example.wanglu.stationerystore.R;
 
@@ -27,12 +33,9 @@ public class RestockInventoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private RestockInventoryActivity stockActivity;
     private HashMap<String,ArrayList<String>> restock;
+    SharedPreferences pref;
 
     ViewHolder holder;
-    //create data to list
-//    ArrayList<String> categoryList=new ArrayList<String>(){{add("Pen");add("Paper");add("Ruler");add("Tape");add("Ink");}};
-//    ArrayList<String> descriptionList=new ArrayList<String>(){{add("pen1");add("pen2");add("pen3");add("pen4");add("pen5");}};
-//    ArrayList<String> stockList=new ArrayList<String>(){{add("5");}{add("4");}{add("3");}{add("2");}{add("1");}};
 
     public static class ViewHolder{
         public TextView categoryLable;
@@ -49,6 +52,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
         this.mInflater = LayoutInflater.from(context);
         this.stockActivity=(RestockInventoryActivity) context;
         this.restock = stockActivity.ItemListMap;
+        this.pref=stockActivity.pref;
     }
 
     @Override
@@ -106,9 +110,11 @@ public class RestockInventoryAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) stockActivity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_restock_popupwindows, null);
 
-        private addStockQtyDialogBuilder (@NonNull final Context context, int position) {
+        private addStockQtyDialogBuilder (@NonNull final Context context, final int position) {
             super(context);
             final EditText quantityView = v.findViewById(R.id.quantityView);
+
+
             quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
@@ -134,6 +140,21 @@ public class RestockInventoryAdapter extends BaseAdapter {
                     }
                     else{
                         holder.AddBtn.setEnabled(true);
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                RestockInventoryModel.addStockQty(
+                                        pref.getString("empID","Empty"),
+                                        restock.get("OrderSupplierDetailId").get(position),
+                                        quantityView.getText().toString());
+                                return null;
+                            }
+                            @Override
+                            protected void onPostExecute(Void result) {
+
+                            }
+
+                        }.execute();
                         Toast.makeText(context, "Added successful!", Toast.LENGTH_SHORT).show();
                     }
 
