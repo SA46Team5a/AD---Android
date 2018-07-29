@@ -12,12 +12,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.AppointRepModel;
-import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
 
@@ -87,6 +85,21 @@ public class AppointRepActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"You must select one representative",Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+        }.execute();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                HashMap<String,ArrayList<String>> deprepIdMap = new HashMap<>();
+
+                //deprepIdMap= AppointRepModel.getDeprepID(departmentId);
+                return null;
+
+            }
+            @Override
+            protected void onPostExecute(Void result) {
+
             }
         }.execute();
 

@@ -6,6 +6,7 @@ import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -36,5 +37,25 @@ public class AppointRepModel extends HashMap<String,String> {
         }
         return empMap;
     }
+
+   // static  String deprepid = "chem";
+    public static HashMap<String, String> getDeprepID(String departmentId)  {
+        HashMap<String, String> deprepIdMap = new HashMap<>();
+        String DeptRepID;
+        String EmployeeName;
+        JSONObject A = JSONParser.getJSONFromUrl(Constant.BASE_URL+"/deprep/"+ departmentId );
+        try {
+            DeptRepID  =A.get("DeptRepID").toString();
+            EmployeeName =A.get("EmployeeName").toString();
+            deprepIdMap.put("DeptRepID",DeptRepID);
+            deprepIdMap.put("EmployeeName",EmployeeName);
+        }
+        catch (Exception e){
+            Log.e("getDeprepID()","JSONArray error");
+        }
+        return deprepIdMap;
+    }
+
+
 
 }
