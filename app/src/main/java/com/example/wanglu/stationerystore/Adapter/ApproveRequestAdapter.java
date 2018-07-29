@@ -28,39 +28,18 @@ import static java.security.AccessController.getContext;
 public class ApproveRequestAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-
-    private List<Map<String, Object>> data = getData();
-//  Read hashmap inside list
-    public List<Map<String, Object>> getData() {
-        List<Map<String, Object>> list = new ArrayList<>();
-        Map<String, Object> map;
-        for (int i = 0; i < 10; i++) {
-            map = new HashMap<>();
-            map.put("date", "20/07/2018");
-            map.put("empName", "JacWong");
-            List<Map<String, String>> innerList = new ArrayList<>();
-            Map<String, String> innerMap;
-            for (int j = 0; j < 5; j++) {
-                innerMap = new HashMap<>();
-
-                innerMap.put("itemDetail", "2B Pencil");
-                innerMap.put("quantity", "50 Dozen");
-                innerList.add(innerMap);
-            }
-            map.put("items", innerList);
-            list.add(map);
-        }
-
-        return list;
-    }
+    private ApproveRequestFormActivity activity;
+    private HashMap<String,ArrayList<String>> approve;
 
     public ApproveRequestAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
+        this.activity = (ApproveRequestFormActivity) context;
+        approve = activity.approvaMap;
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        return approve.get("RequisitionID").size();
     }
 
     @Override
@@ -83,11 +62,9 @@ public class ApproveRequestAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.content_approve_form, null);
             holder.date = (TextView) view.findViewById(R.id.dateLabel);
             holder.empName = (TextView) view.findViewById(R.id.employeenameLabel);
-            //holder.itemlistview = (ListView) view.findViewById(R.id.Listview);
             holder.approve = (Button) view.findViewById(R.id.approveButton);
             holder.reject = (Button) view.findViewById(R.id.rejectButton);
             holder.listitems = (LinearLayout) view.findViewById(R.id.LinearLayoutforlist);
-
             view.setTag(holder);
 
         }
@@ -95,19 +72,21 @@ public class ApproveRequestAdapter extends BaseAdapter {
             holder = (ApproveRequestFormActivity.ViewHolder) view.getTag();
         }
 // set texts
-        holder.date.setText((String) data.get(position).get("date"));
-        holder.empName.setText((String) data.get(position).get("empName"));
+        holder.date.setText((String) approve.get("RequestDate").get(0));
+        holder.empName.setText((String) approve.get("RequesterName").get(0));
 //set lists texts
-        List<Map<String, String>> itemList = (List) data.get(position).get("items");
         holder.listitems.removeAllViews();
-        for (Map<String, String> item : itemList) {
+        for(int i=0;i<approve.get("RequisitionDetailID").size();i++)
+        {
             View v = mInflater.inflate(R.layout.content_itemlist, null);
             TextView descriptionView = v.findViewById(R.id.descriptionView);
             TextView quantityView = v.findViewById(R.id.quantityView);
-            descriptionView.setText(item.get("itemDetail"));
-            quantityView.setText(item.get("quantity"));
+
+            descriptionView.setText((String) approve.get("ItemName").get(i));
+            quantityView.setText((String) approve.get("Quantity").get(i)+" "+ approve.get("UnitOfMeasure").get(i));
             holder.listitems.addView(v);
         }
+
         return view;
     }
 

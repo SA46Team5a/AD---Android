@@ -1,5 +1,6 @@
 package com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +45,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     CheckBox checkBox;
     public HashMap<String,ArrayList<String>> retrievalMap=new HashMap<>();
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

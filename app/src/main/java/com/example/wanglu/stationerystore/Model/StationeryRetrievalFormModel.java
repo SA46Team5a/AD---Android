@@ -12,14 +12,6 @@ import java.util.List;
 //Author: Luo Chao
 public class StationeryRetrievalFormModel extends HashMap<String, String> {
     static String clerkID="E001";
-//    public StationeryRetrievalFormModel(String ItemID, String ItemName,
-//                                        String , String stockBalance) {
-//        put("itemCode", itemCode);
-//        put("description", description);
-//        put("unitOfMeasure", unitOfMeasure);
-//        put("stockBalance", stockBalance);
-//
-//    }
 
     public static HashMap<String,ArrayList<String>> getStationeryRetrievalFormList(){
         //List<StationeryRetrievalFormModel> stationeryRetrievalFormList = new ArrayList<StationeryRetrievalFormModel>();

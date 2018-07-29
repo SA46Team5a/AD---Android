@@ -27,7 +27,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
     private RestockInventoryActivity stockActivity;
 
     ViewHolder holder;
-    //create data to list
+    //create data to approvaMap
     ArrayList<String> categoryList=new ArrayList<String>(){{add("Pen");add("Paper");add("Ruler");add("Tape");add("Ink");}};
     ArrayList<String> descriptionList=new ArrayList<String>(){{add("pen1");add("pen2");add("pen3");add("pen4");add("pen5");}};
     ArrayList<String> stockList=new ArrayList<String>(){{add("5");}{add("4");}{add("3");}{add("2");}{add("1");}};

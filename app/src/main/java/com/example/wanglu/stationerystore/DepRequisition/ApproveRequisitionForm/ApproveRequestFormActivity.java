@@ -1,9 +1,12 @@
 package com.example.wanglu.stationerystore.DepRequisition.ApproveRequisitionForm;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -11,28 +14,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.wanglu.stationerystore.Adapter.ApproveRequestAdapter;
-import com.example.wanglu.stationerystore.DepRequisition.AppointDeptRep.AppointRepActivity;
-import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
+import com.example.wanglu.stationerystore.Model.ApproveRequestModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
 
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 //Author: Wang Lu
 public class ApproveRequestFormActivity extends AppCompatActivity {
-    public static List<Map<String, Object>> data = null;
-    ConstraintLayout approveform = null;
-    ListView itemlistview;
 
+    ConstraintLayout approveform = null;
+    public HashMap<String,ArrayList<String>> approvaMap =new HashMap<>();
+
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_form);
-        //approveform = findViewById(R.id.requestItemInclude);
-        itemlistview = findViewById(R.id.Listview);
-        ApproveRequestAdapter adapter = new ApproveRequestAdapter(this);
-        itemlistview.setAdapter(adapter);
-
         Button homebtn = (Button) findViewById(R.id.homebtn);
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +40,23 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
+            @Override
+            protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+                HashMap<String,ArrayList<String>> approveMap= ApproveRequestModel.getApproveform();
+                return approveMap;
+            }
+            @Override
+            protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
+                approvaMap =result;
+                Log.i("Size", String.valueOf(result.size()));
+                ApproveRequestAdapter adapter = new ApproveRequestAdapter(ApproveRequestFormActivity.this);
+                ListView itemlistview = findViewById(R.id.Listview) ;
+                itemlistview.setAdapter(adapter);
+            }
+
+        }.execute();
     }
 // initialize ViewHolder for adapter.
     public static class ViewHolder{
@@ -48,10 +64,6 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
         public TextView empName;
         public Button approve;
         public Button reject;
-        public ListView itemlistview;
-        public TextView itemDetail;
         public LinearLayout listitems ;
-        public TextView descreption;
-        public TextView quantity;
     }
 }
