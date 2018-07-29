@@ -51,7 +51,7 @@ public class StationeryRetrievalFormModel extends HashMap<String, String> {
         }
         return retrieval;
     }
-    
+
     public static void submitStationeryRetrievalform(ArrayList<String> itemID, ArrayList<String> Quantity, ArrayList<String> disDutyId)
     {
         JSONArray jArr=new JSONArray();

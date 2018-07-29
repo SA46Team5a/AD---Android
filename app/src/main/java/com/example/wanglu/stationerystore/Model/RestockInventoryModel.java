@@ -9,6 +9,10 @@ import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -95,9 +99,22 @@ public class RestockInventoryModel extends HashMap<String,String> {
 
     public static void addStockQty(String empID, String orderSupplierDtailID, String qty) {
 
-        JSONObject a = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/orders/" + empID + "/" + orderSupplierDtailID + "/" + qty);
+       // JSONObject a = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/orders/addstock/" + empID + "/" + orderSupplierDtailID + "/" + qty);
 
-        Log.i("@@@@@@@@@@@@@@@@@@@JSONObject", a.toString());
+            InputStream is = null;
+            try {
+                URL u = new URL(Constant.BASE_URL + "/orders/addstock/" + empID + "/" + orderSupplierDtailID + "/" + qty);
+                HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+                is = conn.getInputStream();
+            } catch (UnsupportedEncodingException e) {
+                Log.e("getStream Exception",  e.toString());
+            } catch (Exception e) {
+                Log.e("getStream Exception",  e.toString());
+            }
+
+        //Log.i("@@@@@@@@@@@@@@@@@@@JSONObject", a.toString());
 
         }
 }

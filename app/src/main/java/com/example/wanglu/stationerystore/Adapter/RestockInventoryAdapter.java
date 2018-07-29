@@ -121,7 +121,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
                     quantityView.setHint("e.g. 5");
                 }
             });
-            final String s = quantityView.getText().toString();
+            //final String s = quantityView.getText().toString();
 
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -133,7 +133,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
             setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if (s.isEmpty())
+                    if (quantityView.getText().toString().isEmpty())
                     {
 
                         Toast.makeText(context, "You didn't add quantity.", Toast.LENGTH_SHORT).show();
