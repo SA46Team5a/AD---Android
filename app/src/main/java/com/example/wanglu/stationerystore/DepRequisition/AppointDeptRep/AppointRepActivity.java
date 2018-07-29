@@ -3,7 +3,9 @@ package com.example.wanglu.stationerystore.DepRequisition.AppointDeptRep;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,32 +28,32 @@ import java.util.HashMap;
 public class AppointRepActivity extends AppCompatActivity {
     ArrayList<String> empIDList=new ArrayList<>();
     ArrayList<String> empNameList=new ArrayList<>();
-
+    SharedPreferences pref;
     private ConstraintLayout employeedropdownlist = null;
     Spinner spinner;
     Button btn;
-    String selected;
+    String selectedRepName;
+    String deptRepID;
+    String currentRepName;
 
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delegate_form2);
+
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         employeedropdownlist = findViewById(R.id.employeeItems);
 
         btn = findViewById(R.id.confirmButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selected==null)
-                {
-                    Toast t = Toast.makeText(getApplicationContext(),"You need to select a representative",Toast.LENGTH_SHORT);
-                    t.show();
-                }
-                else {
-                    makeAlertDialog();
-                }
+//AsyncTask
+                makeAlertDialog();
             }
+
         });
 
 //Start AsyncTask
@@ -59,7 +61,7 @@ public class AppointRepActivity extends AppCompatActivity {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
                 HashMap<String,ArrayList<String>> empMap = new HashMap<>();
-                empMap= AppointRepModel.getEmloyee();
+                empMap= AppointRepModel.getEmloyee(pref.getString("deptID","no name"));
                 return empMap;
             }
             @Override
@@ -75,9 +77,9 @@ public class AppointRepActivity extends AppCompatActivity {
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        selected=adapterView.getItemAtPosition(i).toString();
+                        selectedRepName =adapterView.getItemAtPosition(i).toString();
 
-                        String  id = empIDList.get(empNameList.indexOf(selected));
+                        String  id = empIDList.get(empNameList.indexOf(selectedRepName));
                         Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
                     }
                     @Override
@@ -91,9 +93,11 @@ public class AppointRepActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                HashMap<String,ArrayList<String>> deprepIdMap = new HashMap<>();
+                HashMap<String,String> deprepIdMap = new HashMap<>();
 
-                //deprepIdMap= AppointRepModel.getDeprepID(departmentId);
+                deprepIdMap= AppointRepModel.getDeprepID(pref.getString("deptID","no name"));
+                deptRepID=  deprepIdMap.get("DeptRepID");
+                currentRepName=deprepIdMap.get("EmployeeName");
                 return null;
 
             }
@@ -102,6 +106,8 @@ public class AppointRepActivity extends AppCompatActivity {
 
             }
         }.execute();
+
+
 
     }
     void makeAlertDialog(){
@@ -112,6 +118,20 @@ public class AppointRepActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //do post?
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                AppointRepModel.submitAppointRep(deptRepID, selectedRepName);
+                                return null;
+                            }
+                            @Override
+                            protected void onPostExecute(Void result) {
+
+                            }
+
+                        }.execute();
+
+
                         startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
                     }
                 })
@@ -122,5 +142,7 @@ public class AppointRepActivity extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+
+
     }
 }
