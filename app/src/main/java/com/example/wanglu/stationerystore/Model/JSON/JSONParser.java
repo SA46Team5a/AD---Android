@@ -14,7 +14,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-//Author:Luo Chao
+
 public class JSONParser {
     static String readStream(InputStream is) {
         StringBuilder sb = new StringBuilder();

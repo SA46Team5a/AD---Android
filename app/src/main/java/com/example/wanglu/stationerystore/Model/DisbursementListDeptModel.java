@@ -19,6 +19,8 @@ public class DisbursementListDeptModel extends HashMap<String , String> {
         ArrayList<String> deptIDList = new ArrayList<>();
         ArrayList<String> deptNameList = new ArrayList<>();
         JSONArray a = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/store/disbursement/departments");
+        if (a == null)
+            return null;
         try {
             for (int i = 0; i < a.length(); i++) {
                 JSONObject b = a.getJSONObject(i);

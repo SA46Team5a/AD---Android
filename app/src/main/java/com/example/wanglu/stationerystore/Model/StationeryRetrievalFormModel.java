@@ -11,7 +11,9 @@ import java.util.HashMap;
 
 //Author: Luo Chao
 public class StationeryRetrievalFormModel extends HashMap<String, String> {
+
     public static String clerkID="E015";
+
 
     public static HashMap<String,ArrayList<String>> getStationeryRetrievalFormList(){
 

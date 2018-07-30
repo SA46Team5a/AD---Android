@@ -4,6 +4,7 @@ import android.util.Log;
 import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -42,6 +43,7 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
 
     public static String getCollectionPointOfDept(String deptID){
         JSONObject obj = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/deprep/collectionpoint/" + deptID);
+
         String collectionPointDetial=null;
         try {
             collectionPointDetial= obj.getString("CollectionPointDetails");
@@ -52,6 +54,7 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
     }
 
     public static String getPasscode(String deptID){
+
         JSONObject a= JSONParser.getJSONFromUrl(Constant.BASE_URL+"/deprep/passcode/"+deptID);
         String passcode=null;
         try {
@@ -62,6 +65,7 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
         }
         return passcode;
     }
+
 
     public static void updateCollectionPoint(String depId,String collectionPointId) {
         InputStream is = null;
@@ -78,7 +82,5 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
             Log.e("getStream Exception",  e.toString());
         }
     }
-
-
 
 }
