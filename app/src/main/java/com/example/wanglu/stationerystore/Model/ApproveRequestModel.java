@@ -8,21 +8,24 @@ import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 //Author:Luo Chao
 public class ApproveRequestModel extends HashMap<String,String> {
 
-    static String deptID = "chem";
 
-    public static HashMap<String, ArrayList<String>> getApproveform() {
+
+    public static HashMap<String, ArrayList<String>> getApproveform(String deptID) {
 
         HashMap<String, ArrayList<String>> approve = new HashMap<>();
-        //Integer disDutyId;
+
         ArrayList<String> RequisitionID = new ArrayList<>();
         ArrayList<String> RequesterName = new ArrayList<>();
         ArrayList<String> RequestDate = new ArrayList<>();
-        ArrayList<String> RequisitionDetails = new ArrayList<>();
 
         ArrayList<String> RequisitionDetailID = new ArrayList<>();
         ArrayList<String> ItemName = new ArrayList<>();
@@ -30,7 +33,7 @@ public class ApproveRequestModel extends HashMap<String,String> {
         ArrayList<String> Quantity = new ArrayList<>();
 
         JSONArray a = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/requisitions/pending/" +deptID);
-       // JSONArray b;
+
         try {
             for(int i=0;i<a.length();i++){
                 JSONObject obj=a.getJSONObject(i);
@@ -60,4 +63,43 @@ public class ApproveRequestModel extends HashMap<String,String> {
         }
         return approve;
     }
+
+    public static void approveRequest(String empId, String reqId) {
+
+        InputStream is = null;
+        try {
+            URL u = new URL(Constant.BASE_URL + "/requisition/approve/"+empId+"/"+reqId);
+            Log.i("@@@@@@@@@@@@@@@@@@@@@@@@approveStatus",u.toString());
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            is = conn.getInputStream();
+        } catch (UnsupportedEncodingException e) {
+            Log.e("getStream Exception",  e.toString());
+        } catch (Exception e) {
+            Log.e("getStream Exception",  e.toString());
+        }
+
+    }
+
+    public static void rejectRequest(String empId, String reqId) {
+
+        InputStream is = null;
+        try {
+            URL u = new URL(Constant.BASE_URL + "/requisition/reject/"+empId+"/"+reqId);
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            is = conn.getInputStream();
+        } catch (UnsupportedEncodingException e) {
+            Log.e("getStream Exception",  e.toString());
+        } catch (Exception e) {
+            Log.e("getStream Exception",  e.toString());
+        }
+
+    }
+
+
 }
+
+
