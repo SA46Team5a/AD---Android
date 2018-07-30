@@ -34,6 +34,7 @@ public class UpdateLocationActivity extends AppCompatActivity {
     //declare variables and buttons
     Button confirmButton;
     RadioGroup radioGroup;
+    String selectedLocationID;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -63,8 +64,8 @@ public class UpdateLocationActivity extends AppCompatActivity {
                     String text=collectionPntList.get("detail").get(i);
                     collectionDetailsList.add(text);
                     collectionPntIDList.add(collectionPntList.get("ID").get(i));
-                    RadioButton r=(RadioButton)findViewById(ids[i]);
-                    r.setText(text);
+                    RadioButton radioButton=(RadioButton)findViewById(ids[i]);
+                    radioButton.setText(text);
                 }
             }
         }.execute();
@@ -106,10 +107,7 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 RadioButton r=(RadioButton)findViewById(selectedID);
 
                 String selectedLocation=r.getText().toString();
-                String ID=collectionPntIDList.get(collectionDetailsList.indexOf(selectedLocation));
-
-                Toast.makeText(UpdateLocationActivity.this,ID,Toast.LENGTH_SHORT).show();
-
+                selectedLocationID=collectionPntIDList.get(collectionDetailsList.indexOf(selectedLocation));
                 makeAlertDialog();
 
             }
@@ -122,7 +120,18 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //do post?
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                ChangeCollectionPointModel.updateCollectionPoint(pref.getString("deptID","no name"),selectedLocationID);
+                                return null;
+
+                            }
+                            @Override
+                            protected void onPostExecute(Void result) {
+
+                            }
+                        }.execute();
                         startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
                     }
                 })
@@ -134,6 +143,8 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
+    //method used in this activity
     private int findCollectionPointRadiobuttonIDByName(String collectionPointName)
     {
         int buttonID=0;

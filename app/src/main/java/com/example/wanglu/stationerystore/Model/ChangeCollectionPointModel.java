@@ -5,6 +5,11 @@ import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 //author: Luo Chao
@@ -56,6 +61,22 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
             Log.e("getPasscode()","JSONArray error");
         }
         return passcode;
+    }
+
+    public static void updateCollectionPoint(String depId,String collectionPointId) {
+        InputStream is = null;
+        try {
+            URL u = new URL(Constant.BASE_URL + "/deprep/collectionpoint/"+depId+"/"+collectionPointId);
+            Log.i("@@@@@@@@@@@@@@@@URL:",u.toString());
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            is = conn.getInputStream();
+        } catch (UnsupportedEncodingException e) {
+            Log.e("getStream Exception",  e.toString());
+        } catch (Exception e) {
+            Log.e("getStream Exception",  e.toString());
+        }
     }
 
 
