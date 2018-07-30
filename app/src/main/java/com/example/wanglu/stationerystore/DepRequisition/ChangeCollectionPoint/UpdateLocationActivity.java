@@ -2,7 +2,9 @@
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 public class UpdateLocationActivity extends AppCompatActivity {
     ArrayList<String> collectionPntIDList=new ArrayList<>();
     ArrayList<String> collectionDetailsList=new ArrayList<>();
-
+    SharedPreferences pref;
     private ConstraintLayout collectionPoints=null;
 
     @SuppressLint("StaticFieldLeak")
@@ -35,6 +37,8 @@ public class UpdateLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_location);//set content view
+
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         collectionPoints =  findViewById(R.id.collectionPoints);//initiate include(include ID is collectionPoints)
 //        collectionPoints.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -68,28 +72,23 @@ public class UpdateLocationActivity extends AppCompatActivity {
             }
         }.execute();
         //asyncTask to load passcode
-//        new AsyncTask<Void, Void, String>() {
-//            @Override
-//            protected String doInBackground(Void... params) {
-//                String pass=ChangeCollectionPointModel.getPasscode();
-//                return pass;
-//            }
-//            @Override
-//            protected void onPostExecute(String result) {
-//                TextView t=findViewById(R.id.passcodeView);
-//                t.setText(result);
-//
-//
-//            }
-//        }.execute();
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String pass=ChangeCollectionPointModel.getPasscode(pref.getString("deptID","no name"));
+                return pass;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                TextView t=findViewById(R.id.passcodeView);
+                t.setText(result);
+
+
+            }
+        }.execute();
 
         //need default selection array
 
-        ArrayList<String> passcodeList=new ArrayList<String>(){{add("1234");}};
-
-        //load passcode
-        TextView pwdView=findViewById(R.id.passcodeView);
-        pwdView.setText(passcodeList.get(0));
 
         //confirm button click event
         confirmButton=findViewById(R.id.confirmButton);

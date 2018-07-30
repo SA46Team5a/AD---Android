@@ -34,11 +34,11 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
         }
         return collectPnt;
     }
-    public static String getPasscode(){
+    public static String getPasscode(String deptID){
         JSONObject a= JSONParser.getJSONFromUrl(Constant.BASE_URL+"/deprep/passcode/"+deptID);
         String passcode=null;
         try {
-            passcode=a.toString();
+            passcode=a.getString("passcode").toString();
         }
         catch (Exception e){
             Log.e("getPasscode()","JSONArray error");
