@@ -2,7 +2,9 @@
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,23 +29,23 @@ import java.util.HashMap;
 public class UpdateLocationActivity extends AppCompatActivity {
     ArrayList<String> collectionPntIDList=new ArrayList<>();
     ArrayList<String> collectionDetailsList=new ArrayList<>();
-
+    SharedPreferences pref;
     private ConstraintLayout collectionPoints=null;
+    //declare variables and buttons
+    Button confirmButton;
+    RadioGroup radioGroup;
+    String selectedLocationID;
 
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_location);//set content view
+
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         collectionPoints =  findViewById(R.id.collectionPoints);//initiate include(include ID is collectionPoints)
-//        collectionPoints.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-        //declare variables and buttons
-        Button confirmButton;
+
+        radioGroup=findViewById(R.id.radioGroupOfCollectionPoints);
         //start AsyncTask to load locationDetail and ID
 
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
@@ -62,34 +64,37 @@ public class UpdateLocationActivity extends AppCompatActivity {
                     String text=collectionPntList.get("detail").get(i);
                     collectionDetailsList.add(text);
                     collectionPntIDList.add(collectionPntList.get("ID").get(i));
-                    RadioButton r=(RadioButton)findViewById(ids[i]);
-                    r.setText(text);
+                    RadioButton radioButton=(RadioButton)findViewById(ids[i]);
+                    radioButton.setText(text);
                 }
             }
         }.execute();
         //asyncTask to load passcode
-//        new AsyncTask<Void, Void, String>() {
-//            @Override
-//            protected String doInBackground(Void... params) {
-//                String pass=ChangeCollectionPointModel.getPasscode();
-//                return pass;
-//            }
-//            @Override
-//            protected void onPostExecute(String result) {
-//                TextView t=findViewById(R.id.passcodeView);
-//                t.setText(result);
-//
-//
-//            }
-//        }.execute();
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String pass=ChangeCollectionPointModel.getPasscode(pref.getString("deptID","no name"));
+                return pass;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                TextView t=findViewById(R.id.passcodeView);
+                t.setText(result);
+            }
+        }.execute();
 
-        //need default selection array
-
-        ArrayList<String> passcodeList=new ArrayList<String>(){{add("1234");}};
-
-        //load passcode
-        TextView pwdView=findViewById(R.id.passcodeView);
-        pwdView.setText(passcodeList.get(0));
+        //load default collectionPoint to radioGroup
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String defaultLocation=ChangeCollectionPointModel.getCollectionPointOfDept(pref.getString("deptID","no name"));
+                return defaultLocation;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                radioGroup.check(findCollectionPointRadiobuttonIDByName(result));
+            }
+        }.execute();
 
         //confirm button click event
         confirmButton=findViewById(R.id.confirmButton);
@@ -102,10 +107,7 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 RadioButton r=(RadioButton)findViewById(selectedID);
 
                 String selectedLocation=r.getText().toString();
-                String ID=collectionPntIDList.get(collectionDetailsList.indexOf(selectedLocation));
-
-                Toast.makeText(UpdateLocationActivity.this,ID,Toast.LENGTH_SHORT).show();
-
+                selectedLocationID=collectionPntIDList.get(collectionDetailsList.indexOf(selectedLocation));
                 makeAlertDialog();
 
             }
@@ -118,7 +120,18 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //do post?
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                ChangeCollectionPointModel.updateCollectionPoint(pref.getString("deptID","no name"),selectedLocationID);
+                                return null;
+
+                            }
+                            @Override
+                            protected void onPostExecute(Void result) {
+
+                            }
+                        }.execute();
                         startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
                     }
                 })
@@ -129,6 +142,23 @@ public class UpdateLocationActivity extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    //method used in this activity
+    private int findCollectionPointRadiobuttonIDByName(String collectionPointName)
+    {
+        int buttonID=0;
+        int[] ids={R.id.collectPoint1RadioButton,R.id.collectPoint2RadioButton,R.id.collectPoint3RadioButton,R.id.collectPoint4RadioButton,R.id.collectPoint5RadioButton,R.id.collectPoint6RadioButton};
+        for(int i=0;i<ids.length;i++)
+        {
+
+            RadioButton r=(RadioButton)findViewById(ids[i]);
+            if(r.getText().toString().equals(collectionPointName))
+            {
+                buttonID=ids[i];
+            }
+        }
+        return buttonID;
     }
 
 }

@@ -73,6 +73,7 @@ public class AppointRepActivity extends AppCompatActivity {
                 final ArrayAdapter<String> adapter=new ArrayAdapter<String>(AppointRepActivity.this,android.R.layout.simple_spinner_item, empNameList);
                 adapter.setDropDownViewResource(R.layout.spinner_item);
                 spinner.setAdapter(adapter );
+                spinner.setSelection(empNameList.indexOf(currentRepName));
 
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override

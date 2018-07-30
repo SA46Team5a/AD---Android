@@ -98,9 +98,6 @@ public class RestockInventoryModel extends HashMap<String,String> {
     }
 
     public static void addStockQty(String empID, String orderSupplierDtailID, String qty) {
-
-       // JSONObject a = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/orders/addstock/" + empID + "/" + orderSupplierDtailID + "/" + qty);
-
             InputStream is = null;
             try {
                 URL u = new URL(Constant.BASE_URL + "/orders/addstock/" + empID + "/" + orderSupplierDtailID + "/" + qty);
@@ -113,8 +110,5 @@ public class RestockInventoryModel extends HashMap<String,String> {
             } catch (Exception e) {
                 Log.e("getStream Exception",  e.toString());
             }
-
-        //Log.i("@@@@@@@@@@@@@@@@@@@JSONObject", a.toString());
-
         }
 }
