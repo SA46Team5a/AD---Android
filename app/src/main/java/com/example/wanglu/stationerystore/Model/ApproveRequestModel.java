@@ -69,7 +69,7 @@ public class ApproveRequestModel extends HashMap<String,String> {
         InputStream is = null;
         try {
             URL u = new URL(Constant.BASE_URL + "/requisition/approve/"+empId+"/"+reqId);
-            Log.i("@@@@@@@@@@@@@@@@@@@@@@@@approveStatus",u.toString());
+            Log.i("@@@@@@@@@@@@@@@@@@@@@@@@approveRequest",u.toString());
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -87,6 +87,7 @@ public class ApproveRequestModel extends HashMap<String,String> {
         InputStream is = null;
         try {
             URL u = new URL(Constant.BASE_URL + "/requisition/reject/"+empId+"/"+reqId);
+            Log.i("@@@@@@@@@@@@@@@@@@@@@@@@rejectRequest",u.toString());
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();

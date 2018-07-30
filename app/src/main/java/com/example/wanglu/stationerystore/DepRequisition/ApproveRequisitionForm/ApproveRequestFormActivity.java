@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 //Author: Wang Lu
 public class ApproveRequestFormActivity extends AppCompatActivity {
-    SharedPreferences pref;
+    public SharedPreferences pref;
     ConstraintLayout approveform = null;
     public HashMap<String,ArrayList<String>> approvaMap =new HashMap<>();
 

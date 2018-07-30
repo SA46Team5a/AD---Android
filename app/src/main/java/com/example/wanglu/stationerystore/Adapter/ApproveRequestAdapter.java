@@ -1,21 +1,15 @@
 package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.DepRequisition.ApproveRequisitionForm.ApproveRequestFormActivity;
 import com.example.wanglu.stationerystore.Model.ApproveRequestModel;
@@ -23,26 +17,26 @@ import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import static java.security.AccessController.getContext;
 //Author: Wang Lu
 public class ApproveRequestAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private ApproveRequestFormActivity activity;
-    private HashMap<String,ArrayList<String>> approve;
+    private HashMap<String,ArrayList<String>> approveMap;
+    SharedPreferences pref;
 
     public ApproveRequestAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.activity = (ApproveRequestFormActivity) context;
-        approve = activity.approvaMap;
+        approveMap = activity.approvaMap;
+        pref=activity.pref;
+
     }
 
     @Override
     public int getCount() {
-        return approve.get("RequisitionID").size();
+        return approveMap.get("RequisitionID").size();
     }
 
     @Override
@@ -82,8 +76,8 @@ public class ApproveRequestAdapter extends BaseAdapter {
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... params) {
-                        //"put into below method when jack add empId for endpoint method" approve.get("empID").get(position)
-                        ApproveRequestModel.approveRequest("E026",approve.get("RequisitionID").get(position));
+
+                        ApproveRequestModel.approveRequest(pref.getString("empID","no name"), approveMap.get("RequisitionID").get(position));
                         return null;
                     }
                     @Override
@@ -96,19 +90,39 @@ public class ApproveRequestAdapter extends BaseAdapter {
             }
         });
 
+        holder.reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+
+                        ApproveRequestModel.rejectRequest(pref.getString("empID","no name"), approveMap.get("RequisitionID").get(position));
+                        return null;
+                    }
+                    @Override
+                    protected void onPostExecute(Void result) {
+
+                    }
+
+                }.execute();
+                //Toast.makeText(,"rejected successfully",Toast.LENGTH_SHORT)
+            }
+        });
+
 // set texts
-        holder.date.setText((String) approve.get("RequestDate").get(0));
-        holder.empName.setText((String) approve.get("RequesterName").get(0));
+        holder.date.setText((String) approveMap.get("RequestDate").get(0));
+        holder.empName.setText((String) approveMap.get("RequesterName").get(0));
 //set lists texts
         holder.listitems.removeAllViews();
-        for(int i=0;i<approve.get("RequisitionDetailID").size();i++)
+        for(int i = 0; i< approveMap.get("RequisitionDetailID").size(); i++)
         {
             View v = mInflater.inflate(R.layout.content_itemlist, null);
             TextView descriptionView = v.findViewById(R.id.descriptionView);
             TextView quantityView = v.findViewById(R.id.quantityView);
 
-            descriptionView.setText((String) approve.get("ItemName").get(i));
-            quantityView.setText((String) approve.get("Quantity").get(i)+" "+ approve.get("UnitOfMeasure").get(i));
+            descriptionView.setText((String) approveMap.get("ItemName").get(i));
+            quantityView.setText((String) approveMap.get("Quantity").get(i)+" "+ approveMap.get("UnitOfMeasure").get(i));
             holder.listitems.addView(v);
         }
 
