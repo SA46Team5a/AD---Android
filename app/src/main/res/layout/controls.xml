@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/itemnameLabel" />
 
     <TextView
-        android:id="@+id/actualstockLabel"
+        android:id="@+id/actualstockEditText"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -94,7 +94,7 @@
         app:layout_constraintEnd_toStartOf="@+id/totalretrivedView"
         app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actualstockLabel"
+        app:layout_constraintTop_toBottomOf="@+id/actualstockEditText"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
