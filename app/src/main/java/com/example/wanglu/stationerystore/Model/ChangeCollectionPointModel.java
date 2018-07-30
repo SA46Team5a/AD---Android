@@ -34,6 +34,18 @@ public class ChangeCollectionPointModel extends HashMap<String, String> {
         }
         return collectPnt;
     }
+
+    public static String getCollectionPointOfDept(String deptID){
+        JSONObject obj = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/deprep/collectionpoint/" + deptID);
+        String collectionPointDetial=null;
+        try {
+            collectionPointDetial= obj.getString("CollectionPointDetails");
+        } catch (Exception e){
+            Log.e("getCollectionPointOfDept()","JSONArray error");
+        }
+        return collectionPointDetial;
+    }
+
     public static String getPasscode(String deptID){
         JSONObject a= JSONParser.getJSONFromUrl(Constant.BASE_URL+"/deprep/passcode/"+deptID);
         String passcode=null;
