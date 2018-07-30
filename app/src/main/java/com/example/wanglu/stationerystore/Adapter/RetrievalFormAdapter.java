@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority.DelegateAuthorityActivity;
 import com.example.wanglu.stationerystore.Model.DelegateAuthorityModel;
 import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
+import com.example.wanglu.stationerystore.Model.Validation;
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
@@ -44,6 +46,8 @@ public class RetrievalFormAdapter extends BaseAdapter {
     private HashMap<String,ArrayList<String>> retrieval;
     private List<Boolean> checkedItem;
     private ArrayList<EditText> editTexts;
+
+
 
     public RetrievalFormAdapter(Context context, HashMap<String,ArrayList<String>> data) {
         this.mInflater = LayoutInflater.from(context);
@@ -144,6 +148,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
             holder.stockLabel = view.findViewById(R.id.actualstockLabel);
             holder.totalRetrived = view.findViewById(R.id.totalLabel);
             holder.retrievalNumber = view.findViewById(R.id.totalretrivedView);
+
             holder.submitadjustmentBtn = view.findViewById(R.id.submitadjustmentButton);
             holder.retrivalCheckbox=view.findViewById(R.id.retrivalformCheckbox);
 
@@ -173,10 +178,16 @@ public class RetrievalFormAdapter extends BaseAdapter {
         }
         holder.itemName.setText((String) retrieval.get("ItemName").get(position));
         holder.quantityNumber.setText((String) retrieval.get("QtyToRetrieve").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
+        holder.retrievalNumber.setText( retrieval.get("QtyToRetrieve").get(position));
+
+        holder.retrievalNumber.setFilters(new InputFilter[]{Validation.getLimitFilter(Integer.valueOf(retrieval.get("QtyToRetrieve").get(position)))});
         holder.actualstockNumber.setText((String) retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
-        holder.retrievalNumber.setText( retrieval.get("QtyToRetrieve").get(position)) ;
+
+
         holder.retrivalCheckbox.setChecked(checkedItem.get(position));
         holder.submitadjustmentBtn.setTag(position);
+
+
 
         return view;
     }

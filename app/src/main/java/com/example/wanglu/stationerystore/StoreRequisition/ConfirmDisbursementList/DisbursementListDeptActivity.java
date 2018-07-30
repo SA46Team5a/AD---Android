@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.wanglu.stationerystore.Adapter.DisbursementListDeptAdapter;
 import com.example.wanglu.stationerystore.Model.AppointRepModel;
 import com.example.wanglu.stationerystore.Model.DisbursementListDeptModel;
+import com.example.wanglu.stationerystore.Model.Validation;
 import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
@@ -55,6 +57,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         collectionView = findViewById(R.id.collectionView);
         representativenameView = findViewById(R.id.representativenameView);
         codeView = findViewById(R.id.codeView);
+
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

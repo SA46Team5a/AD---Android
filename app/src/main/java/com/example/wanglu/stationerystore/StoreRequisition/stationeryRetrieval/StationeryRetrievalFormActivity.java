@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority.Deleg
 import com.example.wanglu.stationerystore.MainActivity;
 import com.example.wanglu.stationerystore.Model.DelegateAuthorityModel;
 import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
+import com.example.wanglu.stationerystore.Model.Validation;
 import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
@@ -56,6 +58,9 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         submitbutton = findViewById(R.id.submitButton);
         submitbutton.setOnClickListener((View.OnClickListener) this);
         submitbutton.setEnabled(false);
+
+//        RetrievalFormAdapter.ViewHolder holder;
+//        holder.retrievalNumber.setFilters(new InputFilter[]{Validation.getLimitFilter()});
 
 
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
