@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Author:Luo Chao
@@ -21,19 +20,9 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
     private List<EditText> quantitiesCollected;
     private List<EditText> reasons;
 
-    public class ViewHolder{
-        public TextView titleLabel;
-        public TextView quantityLabel;
-        public TextView quantityView;
-        public TextView quantitycollectedLabel;
-        public TextView reasonLabel;
-        public EditText quantitycollectedView;
-        public EditText reasonView;
-    }
-
     public void setData(List<DisbursementDetailModel> data){
         this.data = data;
-        fillEditTextLists();
+        fillLists();
     }
 
     public List<DisbursementDetailModel> getData() {
@@ -61,7 +50,10 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
         return true;
     }
 
-    private void fillEditTextLists() {
+    private void fillLists() {
+        quantitiesCollected.clear();
+        reasons.clear();
+
         for (DisbursementDetailModel datum : data) {
             quantitiesCollected.add(null);
             reasons.add(null);
@@ -87,42 +79,53 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
         return i;
     }
 
+    public class ViewHolder {
+        public TextView titleLabel;
+        public TextView quantityLabel;
+        public TextView quantityView;
+        public TextView quantitycollectedLabel;
+        public TextView reasonLabel;
+        public EditText quantitycollectedView;
+        public EditText reasonView;
+
+        public ViewHolder(View view, int position) {
+            initializeViews(view);
+        }
+
+        private void initializeViews(View view) {
+            titleLabel = (TextView) view.findViewById(R.id.titleLabel);
+            quantityLabel =view.findViewById(R.id.quantityLabel);
+            quantityView=view.findViewById(R.id.quantityView);
+            quantitycollectedLabel=view.findViewById(R.id.quantitycollectedLabel);
+            reasonLabel=view.findViewById(R.id.reasonLabel);
+            quantitycollectedView=view.findViewById(R.id.quantitycollectedView);
+            reasonView=view.findViewById(R.id.reasonView);
+        }
+
+        private void setValues(int position)     {
+            DisbursementDetailModel detail = data.get(position);
+            titleLabel.setText(detail.getItemName());
+            quantityLabel.setText("Quantity:");
+            quantityView.setText(detail.getQtyAndUom());
+            quantitycollectedLabel.setText("Quantity Collected:");
+            quantitiesCollected.set(position, quantitycollectedView);
+            reasons.set(position, reasonView);
+        }
+    }
+
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         ViewHolder holder;
 
         if (view == null) {
-            holder = new ViewHolder();
-            initializeViews(holder, view);
+            view = mInflater.inflate(R.layout.content_disbursement_list, null);
+            holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
         else {
             holder = (ViewHolder) view.getTag();
         }
-        setValues(holder, position);
+        holder.setValues(position);
         return view;
     }
-
-    protected void initializeViews(ViewHolder holder, View view) {
-        view = mInflater.inflate(R.layout.content_disbursement_list, null);
-        holder.titleLabel = (TextView) view.findViewById(R.id.titleLabel);
-        holder.quantityLabel =view.findViewById(R.id.quantityLabel);
-        holder.quantityView=view.findViewById(R.id.quantityView);
-        holder.quantitycollectedLabel=view.findViewById(R.id.quantitycollectedLabel);
-        holder.reasonLabel=view.findViewById(R.id.reasonLabel);
-        holder.quantitycollectedView=view.findViewById(R.id.quantitycollectedView);
-        holder.reasonView=view.findViewById(R.id.reasonView);
-    }
-
-    protected void setValues(ViewHolder holder, int position)     {
-        DisbursementDetailModel detail = data.get(position);
-        holder.titleLabel.setText(detail.getItemName());
-        holder.quantityLabel.setText("Quantity:");
-        holder.quantityView.setText(detail.getQtyAndUom());
-        holder.quantitycollectedLabel.setText("Quantity Collected:");
-        quantitiesCollected.set(position, holder.quantitycollectedView);
-        reasons.set(position, holder.reasonView);
-    }
-
-
 }

@@ -12,31 +12,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import android.widget.PopupWindow;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wanglu.stationerystore.DepRequisition.DelegateAuthority.DelegateAuthorityActivity;
-import com.example.wanglu.stationerystore.Model.DelegateAuthorityModel;
 import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
 import com.example.wanglu.stationerystore.Model.Validation;
+
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 //Author:Wang Lu
@@ -150,7 +143,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
             holder.quantityRequired = (TextView) view.findViewById(R.id.quantityLabel);
             holder.actualstockNumber = view.findViewById(R.id.actualstockView);
             holder.quantityNumber = view.findViewById(R.id.quantitynumbervView);
-            holder.stockLabel = view.findViewById(R.id.actualstockLabel);
+            holder.stockLabel = view.findViewById(R.id.actualstockEditText);
             holder.totalRetrived = view.findViewById(R.id.totalLabel);
             holder.retrievalNumber = view.findViewById(R.id.totalretrivedView);
 
@@ -207,8 +200,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
 
             TextView itemview = (TextView) v.findViewById(R.id.itemdespView);
             TextView balanceview = v.findViewById(R.id.stockrecordView);
-            final EditText actualstockview = v.findViewById(R.id.actualstockLabel);
+            final EditText actualstockview = v.findViewById(R.id.actualstockEditText);
             final EditText reasonview = v.findViewById(R.id.reasonView);
+
 
             itemview.setText(retrieval.get("ItemName").get(position));
             balanceview.setText(retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
