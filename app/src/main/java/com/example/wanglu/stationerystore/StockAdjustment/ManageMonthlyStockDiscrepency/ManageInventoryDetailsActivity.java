@@ -3,10 +3,9 @@ package com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDis
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,67 +13,69 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.ManageInventoryDetailsAdapter;
+import com.example.wanglu.stationerystore.Model.DiscrepancyItemsModel;
 import com.example.wanglu.stationerystore.Model.ManageInventoryDetailsModel;
 import com.example.wanglu.stationerystore.R;
-import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-//Author: Benedict
+//Author: Benedict, Jack
 public class ManageInventoryDetailsActivity extends AppCompatActivity {
 
     ArrayList<ManageInventoryDetailsModel> inventoryItemList;
-    private void getData(){
-        inventoryItemList = new ArrayList<ManageInventoryDetailsModel>();
-        inventoryItemList.add(new ManageInventoryDetailsModel("P010", "Pen Ballpoint Black", "Dozen",
-                "500", "500", "none"));
-        inventoryItemList.add(new ManageInventoryDetailsModel("P011", "Ring file", "Dozen",
-                "200", "200", "none"));
+    ListView listView;
+    TextView categoryView;
+    Button submitBtn;
+    ManageInventoryDetailsAdapter adapter;
 
-
-    }
+    String categoryId, categoryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_inventory_detail);
+        getValuesFromIntent();
+        initializeViews();
+        setEventHandlers();
 
-        TextView categoryView = findViewById(R.id.categoryView);
-        categoryView.setText(getIntent().getStringExtra("categoryItem"));
-        //TextView dateView = findViewById(R.id.dateView);
-        //dateView.setText(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-
-        getData();
-        ManageInventoryDetailsAdapter adapter = new ManageInventoryDetailsAdapter
-                (this, R.layout.content_inventory_detail, inventoryItemList);
-        ListView listView = findViewById(R.id.manageInventoryListView);
-        listView.setAdapter(adapter);
-        Button submitbtn = (Button) findViewById(R.id.submitButton);
-        submitbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeAlertDialog();
-            }
-        });
-
+        new getStockItemsOfCategory().execute();
     }
 
-//    protected void onClickSubmit(View v){
-//
-//    }
+    private void getValuesFromIntent() {
+        Intent intent = getIntent();
+        categoryId = intent.getStringExtra("categoryId");
+        categoryName = intent.getStringExtra("categoryName");
+    }
 
-    void makeAlertDialog(){
+    private void initializeViews() {
+        categoryView = (TextView) findViewById(R.id.categoryView);
+        categoryView.setText(categoryId);
+        listView = (ListView) findViewById(R.id.manageInventoryListView);
+        submitBtn = (Button) findViewById(R.id.submitButton);
+    }
+
+    private void setEventHandlers() {
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapter.validateData()){
+                    makeAlertDialog();
+                } else {
+                    Toast.makeText(ManageInventoryDetailsActivity.this, "Reasons must be provided if there are discrepancies.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void makeAlertDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Inventory submission")
                 .setMessage("Updated stock number will be submitted. Would you like to continue?")
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //do post?
-                        startActivity(new Intent(getApplicationContext(), ManageInventoryActivity.class));
+                        new submitStockItems().execute();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -84,5 +85,34 @@ public class ManageInventoryDetailsActivity extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    private class getStockItemsOfCategory extends AsyncTask<Void, Void, List<DiscrepancyItemsModel>> {
+        @Override
+        protected List<DiscrepancyItemsModel> doInBackground(Void... voids) {
+            return DiscrepancyItemsModel.getStockCountsOfCategory(categoryId);
+        }
+
+        @Override
+        protected void onPostExecute(List<DiscrepancyItemsModel> data) {
+            adapter = new ManageInventoryDetailsAdapter(ManageInventoryDetailsActivity.this);
+            adapter.setData(data);
+            listView.setAdapter(adapter);
+        }
+    }
+
+    private class submitStockItems extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return DiscrepancyItemsModel.submitStockCountResults(adapter.getData());
+        }
+
+        @Override
+        protected void onPostExecute(Boolean submitted){
+            if (submitted)
+                finishActivity(-1);
+            else
+                Toast.makeText(ManageInventoryDetailsActivity.this, "An error has occured and submission has failed. Please try again", Toast.LENGTH_SHORT).show();
+        }
     }
 }

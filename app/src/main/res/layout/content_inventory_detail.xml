@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemnamelabel"
+        android:id="@+id/itemcodeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -40,15 +40,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="Item Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemnamelabel" />
+        app:layout_constraintTop_toBottomOf="@+id/itemcodeView" />
 
     <TextView
-        android:id="@+id/itemdespview"
+        android:id="@+id/itemdescriptionView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -62,21 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/itemdesplabel" />
 
     <TextView
-        android:id="@+id/unitsview"
-        android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Dozen"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/unitlabel" />
-
-    <TextView
-        android:id="@+id/stockrecordview"
+        android:id="@+id/stockrecordView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -98,22 +84,9 @@
         android:layout_marginTop="12dp"
         android:text="Balance in stock record"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/unitsview" />
-
-    <TextView
-        android:id="@+id/unitlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Units of measure"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemdespview" />
+        app:layout_constraintTop_toBottomOf="@+id/itemdescriptionView" />
 
     <TextView
         android:id="@+id/actuallabel"
@@ -126,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stockrecordview" />
+        app:layout_constraintTop_toBottomOf="@+id/stockrecordView" />
 
     <TextView
         android:id="@+id/reasonLabel"
@@ -135,7 +108,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:text="Reaon"
+        android:text="Reason"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.151"
@@ -143,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/actuallabel" />
 
     <EditText
-        android:id="@+id/actualstockLabel"
+        android:id="@+id/actualstockEditText"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -169,5 +142,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.803"
         app:layout_constraintStart_toEndOf="@+id/reasonLabel"
-        app:layout_constraintTop_toBottomOf="@+id/actualstockLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/actualstockEditText" />
 </android.support.constraint.ConstraintLayout>

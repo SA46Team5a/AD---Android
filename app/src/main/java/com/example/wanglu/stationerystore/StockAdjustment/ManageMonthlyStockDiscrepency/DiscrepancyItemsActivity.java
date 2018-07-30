@@ -3,8 +3,9 @@ package com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDis
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,53 +16,36 @@ import com.example.wanglu.stationerystore.Model.DiscrepancyItemsModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForManager;
 import com.example.wanglu.stationerystore.R;
 
-import java.util.ArrayList;
-//Author: Benedict
+import java.util.List;
+
+//Author: Benedict, Jack
 public class DiscrepancyItemsActivity extends AppCompatActivity {
-    Button submitbtn;
-
-    ArrayList<DiscrepancyItemsModel> discrepancyItemList;
-    private void getData(){
-        discrepancyItemList = new ArrayList<DiscrepancyItemsModel>();
-        discrepancyItemList.add(new DiscrepancyItemsModel("C100", "Pen 2B with eraser", "50",
-                "Dozen", "280", "Damaged"));
-        discrepancyItemList.add(new DiscrepancyItemsModel("C101", "Ring file", "-20",
-                "Dozen", "120", "Missing"));
-
-
-    }
+    Button submitBtn;
+    ListView listView;
+    DiscrepancyItemsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_discrepency);
+        initializeViews();
+        setEventHandlers();
 
-        getData();
-        DiscrepancyItemsAdapter adapter = new DiscrepancyItemsAdapter
-                (this, R.layout.content_discrepency_detail, discrepancyItemList);
-        ListView listView = findViewById(R.id.discrepencyItemListView);
-        listView.setAdapter(adapter);
+        new getStockVouchers().execute(true); // TODO: get role from SharedPreferences. true if is Store Manager
+   }
 
-        submitbtn = (Button) findViewById(R.id.submitButton);
-        submitbtn.setEnabled(false);
+    private void initializeViews() {
+        listView = findViewById(R.id.discrepencyItemListView);
+        submitBtn = (Button) findViewById(R.id.submitButton);
+    }
 
-        submitbtn.setOnClickListener(new View.OnClickListener() {
+    private void setEventHandlers() {
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DiscrepancyItemsActivity.this,"Submit Successful!",Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(DiscrepancyItemsActivity.this, NavigationForManager.class);
-                startActivity(intent);
+                new submitStockVouchers().execute();
             }
         });
-
-    }
-//    public void setSubmitButtonState(boolean bool) {
-//
-//        submitbtn.setEnabled(bool);
-//    }
-
-    protected void onClickSubmit(View v){
-        makeAlertDialog();
     }
 
     void makeAlertDialog(){
@@ -82,5 +66,41 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    private class getStockVouchers extends AsyncTask<Boolean, Void, List<DiscrepancyItemsModel>> {
+        @Override
+        protected List<DiscrepancyItemsModel> doInBackground(Boolean... booleans) {
+            return DiscrepancyItemsModel.getStockVouchers();
+        }
+
+        @Override
+        protected void onPostExecute(List<DiscrepancyItemsModel> data) {
+            adapter = new DiscrepancyItemsAdapter(DiscrepancyItemsActivity.this);
+            adapter.setData(data);
+            listView.setAdapter(adapter);
+        }
+    }
+
+    private class submitStockVouchers extends AsyncTask<Void, Void, Boolean>{
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            if (adapter.validateData()) {
+                return DiscrepancyItemsModel.submitStockVouchers(adapter.getData());
+            }
+            else
+                return false;
+        }
+
+        protected void onPostExecute(Boolean submitted) {
+            if (submitted) {
+                 makeAlertDialog();
+                 Intent intent= new Intent(DiscrepancyItemsActivity.this, NavigationForManager.class);
+                 startActivity(intent);
+
+            } else {
+                 Toast.makeText(DiscrepancyItemsActivity.this, "Submission failed", Toast.LENGTH_SHORT).show();
+            }
+       }
     }
 }
