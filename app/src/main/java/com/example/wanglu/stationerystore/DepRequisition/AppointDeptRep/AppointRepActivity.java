@@ -50,7 +50,7 @@ public class AppointRepActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//AsyncTask
+
                 makeAlertDialog();
             }
 
