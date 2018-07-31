@@ -46,7 +46,6 @@ public class RestockInventoryAdapter extends BaseAdapter {
         public TextView stockView;
         public Button AddBtn;
 
-
     }
     public RestockInventoryAdapter  (Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -114,7 +113,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
             super(context);
             final EditText quantityView = v.findViewById(R.id.quantityView);
             quantityView.setHint("e.g. 5");
-            
+
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
