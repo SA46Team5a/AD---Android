@@ -64,6 +64,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         collectionView = findViewById(R.id.collectionView);
         representativenameView = findViewById(R.id.representativenameView);
         codeView = findViewById(R.id.codeView);
+        codeView.setHint("Enter Code");
 
         departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
     }

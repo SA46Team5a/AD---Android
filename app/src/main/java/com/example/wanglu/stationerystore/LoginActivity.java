@@ -38,26 +38,12 @@ public class LoginActivity extends Activity  implements OnClickListener{
         password = (EditText) findViewById(R.id.password);
         bt_pwd_eye = (Button) findViewById(R.id.bt_pwd_eye);
         login = (Button) findViewById(R.id.login);
+        username.setHint("User Name");
+        password.setHint("Password");
 
         bt_pwd_eye.setOnClickListener((OnClickListener) this);
         login.setOnClickListener((OnClickListener) this);
-
-        //initWatcher();
-        //username.addTextChangedListener(username_watch);
-        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                username.setHint("User Name");
-            }
-
-        });
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                password.setHint("Password");
-            }
-        });
-
+        
     }
 
     @Override

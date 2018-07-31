@@ -74,6 +74,7 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
             qtyInStock = view.findViewById(R.id.stockrecordView);
             actualCount = view.findViewById(R.id.actualstockEditText);
             reason = view.findViewById(R.id.reasonEditText);
+            reason.setHint("Enter Reason");
         }
 
         private void setValues(int position) {

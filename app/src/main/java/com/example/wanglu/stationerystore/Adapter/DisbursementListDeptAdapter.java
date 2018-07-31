@@ -94,8 +94,8 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantitycollectedLabel=view.findViewById(R.id.quantitycollectedLabel);
             reasonLabel=view.findViewById(R.id.reasonLabel);
             quantitycollectedView=view.findViewById(R.id.quantitycollectedView);
-
             reasonView=view.findViewById(R.id.reasonView);
+            reasonView.setHint("Enter Reason");
         }
 
         private void setValues(int position)     {
