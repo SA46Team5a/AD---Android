@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Author:Luo Chao
@@ -77,6 +79,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
         public ViewHolder(View view, int position) {
             initializeViews(view);
+            setValues(position);
             setEventHandlers(position);
         }
 
@@ -131,10 +134,6 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
-        else {
-            holder = (ViewHolder) view.getTag();
-        }
-        holder.setValues(position);
         return view;
     }
 }
