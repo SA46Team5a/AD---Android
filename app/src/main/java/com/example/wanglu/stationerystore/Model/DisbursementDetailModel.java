@@ -16,32 +16,33 @@ import java.util.List;
 public class DisbursementDetailModel extends HashMap<String, Object> {
 
     private static String itemId = "ItemId";
+    private static String itemName = "ItemName";
+    private static String unitOfMeasure= "UnitOfMeasure";
+    private static String reason = "Reason";
+    private static String disDutyId = "DisbursementDutyIds";
+    private static String disbursedQty = "DisbursedQuantity";
+    private static String collectedQty = "CollectedQuantity";
+
     public String getItemId() { return (String) get(itemId); }
     private void setItemId(String id) { put(itemId, id); }
 
-    private static String itemName = "ItemName";
     public String getItemName() { return (String) get(itemName); }
     private void setItemName(String name) { put(itemName, name); }
 
-    private static String unitOfMeasure= "UnitOfMeasure";
     public String getUnitOfMeasure() { return (String) get(unitOfMeasure); }
     private void setUnitOfMeasure(String uom) { put(unitOfMeasure, uom); }
 
     public String getQtyAndUom() { return getDisbursedQuantity() + " " + getUnitOfMeasure(); }
 
-    private static String reason = "Reason";
     public String getReason() { return (String) get(reason); }
     public void setReason(String reason) { put(this.reason, reason); }
 
-    private static String disDutyId = "DisbursementDutyIds";
     public List<Integer> getDisbursementDutyId() { return (List<Integer>) get(disDutyId); }
     private void setDisbursementDutyId(List<Integer> ids) { put(disDutyId, ids); }
 
-    private static String disbursedQty = "DisbursedQuantity";
     public int getDisbursedQuantity() { return (int) get(disbursedQty); }
     private void setDisbursedQuantity(int qty) { put(disbursedQty, qty); }
 
-    private static String collectedQty = "CollectedQuantity";
     public int getCollectedQuantity() { return (int) get(collectedQty); }
     public void setCollectedQuantity(int qty) { put(collectedQty, qty); }
 
@@ -66,7 +67,9 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
 
     public static List<DisbursementDetailModel> getDisbursementDetailsOfDepartment(String depId) {
         List<DisbursementDetailModel> details = new ArrayList<DisbursementDetailModel>();
+        Log.i("getDisbursementDetailsOfDepartment", "request sent");
         JSONArray array = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/store/disbursement/" + depId);
+        Log.i("getDisbursementDetailsOfDepartment", "response received");
         DisbursementDetailModel detail;
         try {
             for (int i = 0; i < array.length(); i++) {
