@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,7 +41,7 @@ import com.example.wanglu.stationerystore.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-//Wang Lu
+//Wang Lu and Luo Chao
 public class StationeryRetrievalFormActivity extends AppCompatActivity implements AdapterView.OnClickListener {
 
     Button submitbutton;
@@ -48,12 +50,16 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     public HashMap<String,ArrayList<String>> retrievalMap=new HashMap<>();
     public ArrayList<String> quantityList=new ArrayList<>();
     RetrievalFormAdapter adapter;
+    public SharedPreferences pref;
 
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieval_form);
+
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         ListView listView = findViewById(R.id.listview);
         submitbutton = findViewById(R.id.submitButton);
         submitbutton.setOnClickListener((View.OnClickListener) this);
@@ -66,7 +72,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
-                HashMap<String,ArrayList<String>> retrievalMap= StationeryRetrievalFormModel.getStationeryRetrievalFormList();
+                HashMap<String,ArrayList<String>> retrievalMap= StationeryRetrievalFormModel.getStationeryRetrievalFormList(pref.getString("empID","no name"));
                 return retrievalMap;
             }
             @Override
@@ -77,8 +83,6 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
                 adapter= new RetrievalFormAdapter(StationeryRetrievalFormActivity.this, result);
                 listView.setAdapter(adapter);
                // quantityList=adapter.getAllTotalRetrieved();
-
-
             }
 
         }.execute();

@@ -2,7 +2,9 @@ package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
@@ -39,6 +41,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
     private HashMap<String,ArrayList<String>> retrieval;
     private List<Boolean> checkedItem;
     private ArrayList<EditText> editTexts;
+    SharedPreferences pref;
 
 
 
@@ -48,6 +51,8 @@ public class RetrievalFormAdapter extends BaseAdapter {
         retrieval = data;
         checkedItem=fillupCheckedItem();
         editTexts = fillupEditTextList();
+        pref=activity.pref;
+
     }
 
     public static class ViewHolder{
@@ -217,8 +222,8 @@ public class RetrievalFormAdapter extends BaseAdapter {
                         protected Void doInBackground(Void... params) {
                             StationeryRetrievalFormModel.submitAdjustmentVoucher(
                                     retrieval.get("ItemID").get(position),
-                                    actualstockview.getText().toString(),
-                                    StationeryRetrievalFormModel.clerkID,
+                                    actualstockview.getText().toString(),pref.getString("empID","no name")
+                                    ,
                                     reasonview.getText().toString());
                            return null;
                         }
