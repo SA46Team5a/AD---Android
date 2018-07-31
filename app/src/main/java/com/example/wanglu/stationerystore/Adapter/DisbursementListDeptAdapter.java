@@ -57,8 +57,8 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public DisbursementDetailModel getItem(int i) {
+        return data.get(i);
     }
 
     @Override
