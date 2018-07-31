@@ -65,6 +65,8 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         return String.format("$%.2f", getAdjustment() * getUnitCost());
     }
 
+    public DiscrepancyItemsModel() {}
+
     public DiscrepancyItemsModel(JSONObject o) throws JSONException{
         setItemId(o.getString(itemId));
         setItemName(o.getString(itemName));
@@ -75,6 +77,15 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         setDiscrepancyId(o.getInt(discrepancyId));
         setVoucherRaiserId(o.getString(voucherRaiserId));
         setReason(o.getString(reason));
+    }
+
+    public static DiscrepancyItemsModel fromItemPayload(JSONObject o) throws JSONException {
+        DiscrepancyItemsModel d = new DiscrepancyItemsModel();
+        d.setItemId(o.getString(itemId));
+        d.setItemName(o.getString(itemName));
+        d.setUnitOfMeasure(o.getString(unitOfMeasure));
+        d.setOriginalQty(o.getInt(originalQty));
+        return d;
     }
 
     public JSONObject toJSONObject() throws JSONException{
@@ -93,13 +104,14 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
     }
 
     public static List<DiscrepancyItemsModel> getStockCountsOfCategory(String catId) {
-       List<DiscrepancyItemsModel> details = new ArrayList<DiscrepancyItemsModel>();
-       try {
-            JSONArray array = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/store/stockcount/" + catId);
-            DiscrepancyItemsModel detail;
+        List<DiscrepancyItemsModel> details = new ArrayList<DiscrepancyItemsModel>();
+
+        JSONArray array = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/store/stockcount/" + catId);
+        DiscrepancyItemsModel detail;
+        try {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
-                detail = new DiscrepancyItemsModel(jsonObject);
+                detail = fromItemPayload(jsonObject);
                 details.add(detail);
             }
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package com.example.wanglu.stationerystore.Navigation;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,16 +14,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.wanglu.stationerystore.LoginActivity;
 import com.example.wanglu.stationerystore.Orders.restockInventory.RestockInventoryActivity;
 import com.example.wanglu.stationerystore.R;
-import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity;
 import com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList.DisbursementListDeptActivity;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
-import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
+import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryActivity;
 // Wang Lu
 public class NavigationForClerk extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    NavigationForClerk activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +112,8 @@ public class NavigationForClerk extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+          makeAlertDialog();
             return true;
         }
 
@@ -137,5 +143,26 @@ public class NavigationForClerk extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    void makeAlertDialog(){
+        new AlertDialog.Builder(NavigationForClerk.this)
+                .setTitle("Log out")
+                .setMessage("Confirm to log out?")
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Intent i = new Intent(NavigationForClerk.this, LoginActivity.class);
+                        startActivity(i);
+                        activity.finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(NavigationForClerk.this, getString(android.R.string.no), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
-import com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory.ManageInventoryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

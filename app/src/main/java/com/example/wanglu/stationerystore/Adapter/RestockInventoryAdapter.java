@@ -113,16 +113,8 @@ public class RestockInventoryAdapter extends BaseAdapter {
         private addStockQtyDialogBuilder (@NonNull final Context context, final int position) {
             super(context);
             final EditText quantityView = v.findViewById(R.id.quantityView);
-
-
-            quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    quantityView.setHint("e.g. 5");
-                }
-            });
-            //final String s = quantityView.getText().toString();
-
+            quantityView.setHint("e.g. 5");
+            
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override

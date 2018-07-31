@@ -1,4 +1,4 @@
-package com.example.wanglu.stationerystore.StockAdjustment.MonthlyInventory;
+package com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.example.wanglu.stationerystore.Model.ManagerInventoryModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
-import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,28 +1,40 @@
 package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
+import com.example.wanglu.stationerystore.Model.Validation;
 import com.example.wanglu.stationerystore.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Author:Luo Chao
 public class DisbursementListDeptAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private List<DisbursementDetailModel> data;
-    private List<EditText> quantitiesCollected;
-    private List<EditText> reasons;
+    private Context context;
+
+
+    public DisbursementListDeptAdapter  (Context context) {
+        this.context = context;
+        this.mInflater = LayoutInflater.from(context);
+    }
 
     public void setData(List<DisbursementDetailModel> data){
         this.data = data;
-        fillLists();
     }
 
     public List<DisbursementDetailModel> getData() {
@@ -32,46 +44,27 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
     public void updateData() {
         DisbursementDetailModel datum;
-        for (int i = 0; i < data.size(); i++) {
-            datum = data.get(i);
-            datum.setCollectedQuantity(Integer.valueOf(quantitiesCollected.get(i).getText().toString()));
-            datum.setReason(reasons.get(i).getText().toString());
-        }
     }
 
     public boolean validateData() {
         for (int i = 0; i < data.size(); i++) {
-            if (quantitiesCollected.get(i).getText().toString().matches(""))
+            if (data.get(i).getCollectedQuantity() == 0)
                 return false;
-            else if (Integer.valueOf(quantitiesCollected.get(i).getText().toString()) != data.get(i).getDisbursedQuantity()
-                    && reasons.get(i).getText().toString().matches(""))
+            else if (data.get(i).getCollectedQuantity() != data.get(i).getDisbursedQuantity()
+                    && data.get(i).equals(""))
                 return false;
         }
         return true;
     }
 
-    private void fillLists() {
-        quantitiesCollected.clear();
-        reasons.clear();
-
-        for (DisbursementDetailModel datum : data) {
-            quantitiesCollected.add(null);
-            reasons.add(null);
-        }
-    }
-
-    public DisbursementListDeptAdapter  (Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
-    @Override
+   @Override
     public int getCount() {
         return data.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public DisbursementDetailModel getItem(int i) {
+        return data.get(i);
     }
 
     @Override
@@ -90,6 +83,8 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
         public ViewHolder(View view, int position) {
             initializeViews(view);
+            setValues(position);
+            setEventHandlers(position);
         }
 
         private void initializeViews(View view) {
@@ -100,16 +95,40 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             reasonLabel=view.findViewById(R.id.reasonLabel);
             quantitycollectedView=view.findViewById(R.id.quantitycollectedView);
             reasonView=view.findViewById(R.id.reasonView);
+            reasonView.setHint("Enter Reason");
         }
 
         private void setValues(int position)     {
             DisbursementDetailModel detail = data.get(position);
             titleLabel.setText(detail.getItemName());
+            Log.i("@@@@@@@@@@@@@@@@@",titleLabel.getText().toString());
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom());
             quantitycollectedLabel.setText("Quantity Collected:");
-            quantitiesCollected.set(position, quantitycollectedView);
-            reasons.set(position, reasonView);
+            quantitycollectedView.setFilters(new InputFilter[]{Validation.getLimitFilter(detail.getDisbursedQuantity())});
+        }
+
+        private void setEventHandlers(final int position) {
+            quantitycollectedView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    int qty;
+                    if (!quantitycollectedView.getText().toString().equals("")) {
+                        qty = Integer.valueOf(quantitycollectedView.getText().toString());
+                        data.get(position).setCollectedQuantity(qty);
+                    } else {
+                        Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
@@ -122,10 +141,6 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
-        else {
-            holder = (ViewHolder) view.getTag();
-        }
-        holder.setValues(position);
         return view;
     }
 }

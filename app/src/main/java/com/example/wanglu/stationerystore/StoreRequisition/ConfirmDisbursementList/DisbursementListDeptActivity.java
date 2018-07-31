@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +21,6 @@ import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
 import com.example.wanglu.stationerystore.Model.DeptRepModel;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.Model.DisbursementListDeptModel;
-import com.example.wanglu.stationerystore.Model.Validation;
 import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
@@ -66,6 +64,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         collectionView = findViewById(R.id.collectionView);
         representativenameView = findViewById(R.id.representativenameView);
         codeView = findViewById(R.id.codeView);
+        codeView.setHint("Enter Code");
 
         departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
     }
@@ -89,7 +88,6 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
                 selectedDeptId =deptIDList.get(deptNameList.indexOf(selectedDept));
                 new getCollectionPoint().execute(selectedDeptId);
                 new getDepRep().execute(selectedDeptId);
-                new getDisbursementList().execute(selectedDeptId);
             }
 
             @Override
@@ -117,10 +115,11 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
 
             final ArrayAdapter<String> dropdownlistAdapter=new ArrayAdapter<String>(DisbursementListDeptActivity.this,android.R.layout.simple_spinner_item, deptNameList);
             if (deptIDList.size() > 0) {
-             Log.i("Async", "fillDropDown not null");
+                Log.i("Async", "fillDropDown not null");
                 dropdownlistAdapter.setDropDownViewResource(R.layout.spinner_item);
                 departmentDropdownlist.setAdapter(dropdownlistAdapter);
                 departmentDropdownlist.setSelection(0);
+                new getDisbursementList().execute(deptIDList.get(0));
             }
             else
                 Toast.makeText(DisbursementListDeptActivity.this, "No disbursements available", Toast.LENGTH_SHORT).show();
@@ -154,6 +153,8 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     protected class getDisbursementList extends AsyncTask<String, Void, List<DisbursementDetailModel>> {
         @Override
         protected List<DisbursementDetailModel> doInBackground(String... strings) {
+            List<DisbursementDetailModel> l = DisbursementDetailModel.getDisbursementDetailsOfDepartment(strings[0]);
+            Log.i("getDisbursementList", l.toString());
             return DisbursementDetailModel.getDisbursementDetailsOfDepartment(strings[0]);
         }
 

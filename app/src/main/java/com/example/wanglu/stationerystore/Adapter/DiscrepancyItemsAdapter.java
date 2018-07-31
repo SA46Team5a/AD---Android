@@ -1,11 +1,14 @@
 package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,8 +22,7 @@ import java.util.List;
 public class DiscrepancyItemsAdapter extends BaseAdapter{
     private List<DiscrepancyItemsModel> data;
     private LayoutInflater inflater ;
-    private List<EditText> reasons = new ArrayList<EditText>();
-    private List<CheckBox> checkBoxes = new ArrayList<CheckBox>();
+    private List<Boolean> checkBoxes = new ArrayList<>();
 
     public DiscrepancyItemsAdapter(Context context){
         inflater = LayoutInflater.from(context);
@@ -32,38 +34,28 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
     }
 
     public List<DiscrepancyItemsModel> getData() {
-        updateData();
         List<DiscrepancyItemsModel> returnedData = new ArrayList<>();
         for (int i = 0; i < getCount(); i++) {
-            if (checkBoxes.get(i).isChecked()) {
+            if (checkBoxes.get(i)) {
                 returnedData.add(data.get(i));
             }
         }
         return returnedData;
     }
 
-    public void updateData() {
-        for (int i = 0; i < getCount(); i++) {
-            DiscrepancyItemsModel d = getItem(i);
-            d.setReason(reasons.get(i).getText().toString());
-        }
-    }
-
     public boolean validateData() {
         for (int i = 0; i < getCount(); i++) {
-            if (reasons.get(i).getText().toString().trim().equals(""))
+            if (checkBoxes.get(i) && data.get(i).getReason().equals(""))
                 return false;
         }
         return true;
     }
 
     public void fillLists() {
-        reasons.clear();
         checkBoxes.clear();
 
         for (DiscrepancyItemsModel item : data) {
-            reasons.add(null);
-            checkBoxes.add(null);
+            checkBoxes.add(false);
         }
     }
 
@@ -87,8 +79,10 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
         EditText reasonEditText;
         CheckBox checkBox;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, int position) {
             initializeView(view);
+            setEventHandlers(position);
+            setValues(position);
         }
         private void initializeView(View view) {
             reasonEditText = (EditText) view.findViewById(R.id.reasonEditText);
@@ -105,6 +99,30 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
             quantityView.setText(String.valueOf(datum.getAdjustment()) + " " + datum.getUnitOfMeasure());
             amountView.setText(String.valueOf(datum.getAdjustment()) + " " + datum.getUnitOfMeasure());
         }
+
+        private void setEventHandlers(final int position) {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    checkBoxes.set(position, b);
+                }
+            });
+
+            reasonEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    data.get(position).setReason(reasonEditText.getText().toString());
+                }
+            });
+        }
     }
 
     @Override
@@ -113,13 +131,10 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
 
         if (view == null) {
             view = inflater.inflate(R.layout.content_discrepency_detail, null);
-            holder = new ViewHolder(view);
+            holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
-        else
-            holder = (ViewHolder) view.getTag();
 
-        holder.setValues(position);
         return view;
     }
 }

@@ -1,65 +1,46 @@
 package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.DiscrepancyItemsModel;
 import com.example.wanglu.stationerystore.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Author: Benedict, Jack
 public class ManageInventoryDetailsAdapter extends BaseAdapter {
     private List<DiscrepancyItemsModel> data;
-    private List<EditText> actualCounts = new ArrayList<EditText>();
-    private List<EditText> reasons = new ArrayList<EditText>();
     private LayoutInflater inflater;
+    private Context context;
 
     public ManageInventoryDetailsAdapter(Context context) {
         inflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     public void setData(List<DiscrepancyItemsModel> data) {
         this.data = data;
-        fillLists();
     }
 
     public List<DiscrepancyItemsModel> getData() {
-        updateData();
         return data;
     }
 
-    private void updateData() {
-        DiscrepancyItemsModel datum;
-        for (int i = 0; i < getCount(); i++) {
-            datum = data.get(i);
-            datum.setActualQty(Integer.valueOf(actualCounts.get(i).getText().toString()));
-            datum.setReason(reasons.get(i).getText().toString());
-        }
-    }
-
     public boolean validateData() {
-        updateData();
         for (DiscrepancyItemsModel datum : data) {
             if (datum.getActualQty() != datum.getOriginalQty() && datum.getReason().trim().equals(""))
                 return false;
         }
         return true;
-    }
-
-    public void fillLists() {
-        actualCounts.clear();
-        reasons.clear();
-        for (DiscrepancyItemsModel datum : data) {
-            actualCounts.add(null);
-            reasons.add(null);
-        }
     }
 
     @Override
@@ -83,26 +64,48 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
 
         public ViewHolder(View view, int position) {
             initializeViews(view);
+            setEventHandlers(position);
             setValues(position);
         }
 
-        public void initializeViews(View view) {
+        private void initializeViews(View view) {
             itemCode = view.findViewById(R.id.itemcodeView);
             itemDescription = view.findViewById(R.id.itemdescriptionView);
             qtyInStock = view.findViewById(R.id.stockrecordView);
             actualCount = view.findViewById(R.id.actualstockEditText);
             reason = view.findViewById(R.id.reasonEditText);
+            reason.setHint("Enter Reason");
         }
 
-        public void setValues(int position) {
+        private void setValues(int position) {
             DiscrepancyItemsModel d = data.get(position);
             itemCode.setText(d.getItemId());
             itemDescription.setText(d.getItemName());
             qtyInStock.setText(d.getQtyAndUom());
             actualCount.setText(d.getActualQty());
+        }
 
-            actualCounts.set(position, actualCount);
-            reasons.set(position, reason);
+        private void setEventHandlers(final int position) {
+            actualCount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String text = actualCount.getText().toString().trim();
+                    if (text.equals("")) {
+                        int qty = Integer.valueOf(text);
+                        data.get(position).setActualQty(qty);
+                    } else {
+                        Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
@@ -114,10 +117,6 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
             holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
-        else {
-            holder = (ViewHolder) view.getTag();
-        }
-        holder.setValues(position);
         return view;
     }
 }
