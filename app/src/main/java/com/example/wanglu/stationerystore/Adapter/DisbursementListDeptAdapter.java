@@ -1,12 +1,15 @@
 package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.R;
@@ -17,12 +20,15 @@ import java.util.List;
 public class DisbursementListDeptAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private List<DisbursementDetailModel> data;
-    private List<EditText> quantitiesCollected;
-    private List<EditText> reasons;
+    private Context context;
+
+    public DisbursementListDeptAdapter  (Context context) {
+        this.context = context;
+        this.mInflater = LayoutInflater.from(context);
+    }
 
     public void setData(List<DisbursementDetailModel> data){
         this.data = data;
-        fillLists();
     }
 
     public List<DisbursementDetailModel> getData() {
@@ -32,39 +38,20 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
     public void updateData() {
         DisbursementDetailModel datum;
-        for (int i = 0; i < data.size(); i++) {
-            datum = data.get(i);
-            datum.setCollectedQuantity(Integer.valueOf(quantitiesCollected.get(i).getText().toString()));
-            datum.setReason(reasons.get(i).getText().toString());
-        }
     }
 
     public boolean validateData() {
         for (int i = 0; i < data.size(); i++) {
-            if (quantitiesCollected.get(i).getText().toString().matches(""))
+            if (data.get(i).getCollectedQuantity() == 0)
                 return false;
-            else if (Integer.valueOf(quantitiesCollected.get(i).getText().toString()) != data.get(i).getDisbursedQuantity()
-                    && reasons.get(i).getText().toString().matches(""))
+            else if (data.get(i).getCollectedQuantity() != data.get(i).getDisbursedQuantity()
+                    && data.get(i).equals(""))
                 return false;
         }
         return true;
     }
 
-    private void fillLists() {
-        quantitiesCollected.clear();
-        reasons.clear();
-
-        for (DisbursementDetailModel datum : data) {
-            quantitiesCollected.add(null);
-            reasons.add(null);
-        }
-    }
-
-    public DisbursementListDeptAdapter  (Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
-    @Override
+   @Override
     public int getCount() {
         return data.size();
     }
@@ -90,6 +77,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
         public ViewHolder(View view, int position) {
             initializeViews(view);
+            setEventHandlers(position);
         }
 
         private void initializeViews(View view) {
@@ -108,8 +96,29 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom());
             quantitycollectedLabel.setText("Quantity Collected:");
-            quantitiesCollected.set(position, quantitycollectedView);
-            reasons.set(position, reasonView);
+        }
+
+        private void setEventHandlers(final int position) {
+            quantitycollectedView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    int qty;
+                    if (!quantitycollectedView.getText().toString().equals("")) {
+                        qty = Integer.valueOf(quantitycollectedView.getText().toString());
+                        data.get(position).setCollectedQuantity(qty);
+                    } else {
+                        Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
