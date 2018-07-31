@@ -99,7 +99,6 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
             itemCode.setText(d.getItemId());
             itemDescription.setText(d.getItemName());
             qtyInStock.setText(d.getQtyAndUom());
-            actualCount.setText(d.getActualQty());
 
             actualCounts.set(position, actualCount);
             reasons.set(position, reason);

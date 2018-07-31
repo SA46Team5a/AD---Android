@@ -50,7 +50,7 @@ public class ManageInventoryDetailsActivity extends AppCompatActivity {
 
     private void initializeViews() {
         categoryView = (TextView) findViewById(R.id.categoryView);
-        categoryView.setText(categoryId);
+        categoryView.setText(categoryName);
         listView = (ListView) findViewById(R.id.manageInventoryListView);
         submitBtn = (Button) findViewById(R.id.submitButton);
     }

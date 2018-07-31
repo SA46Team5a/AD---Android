@@ -3,6 +3,7 @@ package com.example.wanglu.stationerystore.Adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -11,14 +12,15 @@ import android.widget.TextView;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Author:Luo Chao
 public class DisbursementListDeptAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private List<DisbursementDetailModel> data;
-    private List<EditText> quantitiesCollected;
-    private List<EditText> reasons;
+    private List<EditText> quantitiesCollected = new ArrayList<>();
+    private List<EditText> reasons = new ArrayList<>();
 
     public void setData(List<DisbursementDetailModel> data){
         this.data = data;
@@ -41,10 +43,10 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
     public boolean validateData() {
         for (int i = 0; i < data.size(); i++) {
-            if (quantitiesCollected.get(i).getText().toString().matches(""))
+            if (quantitiesCollected.get(i).getText().toString().equals(""))
                 return false;
             else if (Integer.valueOf(quantitiesCollected.get(i).getText().toString()) != data.get(i).getDisbursedQuantity()
-                    && reasons.get(i).getText().toString().matches(""))
+                    && reasons.get(i).getText().toString().equals(""))
                 return false;
         }
         return true;
@@ -90,6 +92,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
         public ViewHolder(View view, int position) {
             initializeViews(view);
+            setValues(position);
         }
 
         private void initializeViews(View view) {
@@ -108,6 +111,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom());
             quantitycollectedLabel.setText("Quantity Collected:");
+            quantitycollectedView.setText(String.valueOf(detail.getDisbursedQuantity()));
             quantitiesCollected.set(position, quantitycollectedView);
             reasons.set(position, reasonView);
         }
@@ -122,10 +126,6 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
-        else {
-            holder = (ViewHolder) view.getTag();
-        }
-        holder.setValues(position);
         return view;
     }
 }

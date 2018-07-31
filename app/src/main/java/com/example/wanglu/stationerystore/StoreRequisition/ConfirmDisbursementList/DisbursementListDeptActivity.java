@@ -89,7 +89,6 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
                 selectedDeptId =deptIDList.get(deptNameList.indexOf(selectedDept));
                 new getCollectionPoint().execute(selectedDeptId);
                 new getDepRep().execute(selectedDeptId);
-                new getDisbursementList().execute(selectedDeptId);
             }
 
             @Override
@@ -117,10 +116,11 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
 
             final ArrayAdapter<String> dropdownlistAdapter=new ArrayAdapter<String>(DisbursementListDeptActivity.this,android.R.layout.simple_spinner_item, deptNameList);
             if (deptIDList.size() > 0) {
-             Log.i("Async", "fillDropDown not null");
+                Log.i("Async", "fillDropDown not null");
                 dropdownlistAdapter.setDropDownViewResource(R.layout.spinner_item);
                 departmentDropdownlist.setAdapter(dropdownlistAdapter);
                 departmentDropdownlist.setSelection(0);
+                new getDisbursementList().execute(deptIDList.get(0));
             }
             else
                 Toast.makeText(DisbursementListDeptActivity.this, "No disbursements available", Toast.LENGTH_SHORT).show();

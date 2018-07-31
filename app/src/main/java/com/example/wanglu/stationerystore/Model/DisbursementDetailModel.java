@@ -68,8 +68,6 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
         List<DisbursementDetailModel> details = new ArrayList<DisbursementDetailModel>();
         JSONArray array = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/store/disbursement/" + depId);
         DisbursementDetailModel detail;
-        if (array == null)
-            return null;
         try {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
@@ -81,11 +79,12 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
                     disDutyIds.add(jsonDutyIds.getInt(j));
                 }
                 detail.setDisbursementDutyId(disDutyIds);
+                details.add(detail);
             }
         } catch (Exception e) {
             Log.e("getDisbursementDetailsOfDepartment()", "JSONArray error");
         }
-        return null;
+        return details;
     }
 
     public static boolean submitDisbursementDetails(List<DisbursementDetailModel> data, String depId, String empId, String passcode) {
