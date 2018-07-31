@@ -12,10 +12,10 @@ import java.util.HashMap;
 //Author: Luo Chao
 public class StationeryRetrievalFormModel extends HashMap<String, String> {
 
-    public static String clerkID="E015";
+    //public static String clerkID="E015";
 
 
-    public static HashMap<String,ArrayList<String>> getStationeryRetrievalFormList(){
+    public static HashMap<String,ArrayList<String>> getStationeryRetrievalFormList(String clerkID){
 
         HashMap<String,ArrayList<String>> retrieval=new HashMap<>();
         ArrayList<String> ItemId=new ArrayList<>();

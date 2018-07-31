@@ -70,8 +70,8 @@ public class LoginActivity extends Activity  implements OnClickListener{
                 if (userName.equals("clerk")){
                     SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor=pref.edit();
-                    editor.putString("empID","E008");
-                    editor.putString("deptID","CHEM");
+                    editor.putString("empID","E001");
+                    editor.putString("deptID","STOR");
                     editor.commit();
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForClerk.class);
