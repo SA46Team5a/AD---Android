@@ -2,7 +2,9 @@ package com.example.wanglu.stationerystore.Adapter;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
+import com.example.wanglu.stationerystore.Model.Validation;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private List<DisbursementDetailModel> data;
     private Context context;
+
 
     public DisbursementListDeptAdapter  (Context context) {
         this.context = context;
@@ -90,15 +94,18 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantitycollectedLabel=view.findViewById(R.id.quantitycollectedLabel);
             reasonLabel=view.findViewById(R.id.reasonLabel);
             quantitycollectedView=view.findViewById(R.id.quantitycollectedView);
+
             reasonView=view.findViewById(R.id.reasonView);
         }
 
         private void setValues(int position)     {
             DisbursementDetailModel detail = data.get(position);
             titleLabel.setText(detail.getItemName());
+            Log.i("@@@@@@@@@@@@@@@@@",titleLabel.getText().toString());
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom());
             quantitycollectedLabel.setText("Quantity Collected:");
+            quantitycollectedView.setFilters(new InputFilter[]{Validation.getLimitFilter(detail.getDisbursedQuantity())});
         }
 
         private void setEventHandlers(final int position) {

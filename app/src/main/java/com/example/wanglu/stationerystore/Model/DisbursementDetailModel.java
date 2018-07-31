@@ -59,6 +59,7 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
     }
 
     private DisbursementDetailModel(JSONObject jsonObject) throws JSONException{
+        setItemName(jsonObject.getString(itemName));
         setItemId(jsonObject.getString(itemId));
         setUnitOfMeasure(jsonObject.getString(unitOfMeasure));
         setDisbursedQuantity(jsonObject.getInt(disbursedQty));

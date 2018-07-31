@@ -37,7 +37,7 @@
         <activity android:name=".StoreRequisition.ViewEmpDisbursement.DisbursementListEmpActivity" />
         <activity android:name=".Orders.restockInventory.RestockInventoryActivity" />
         <activity android:name=".Orders.restockInventory.AddStockQuantityActivity" />
-        <activity android:name=".StockAdjustment.MonthlyInventory.ManageInventoryActivity" />
+        <activity android:name=".StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryActivity" />
         <activity android:name=".StockAdjustment.ManageMonthlyStockDiscrepency.ManageInventoryDetailsActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".StockAdjustment.ManageMonthlyStockDiscrepency.DiscrepancyItemsActivity" />
