@@ -18,11 +18,11 @@ public class AppointRepModel extends HashMap<String,String> {
         put ("employeeId", empId);
         put("employeeName",empName);
     }
-    public static HashMap<String,ArrayList<String>> getEmloyee(String deptID) {
+    public static HashMap<String,ArrayList<String>> getEmployee(String deptID) {
         HashMap<String,ArrayList<String>> empMap = new HashMap<>();
         ArrayList<String> empIDList=new ArrayList<>();
         ArrayList<String> empNameList=new ArrayList<>();
-        JSONArray a= JSONParser.getJSONArrayFromUrl(Constant.BASE_URL+"/department/employees/"+deptID);
+        JSONArray a= JSONParser.getJSONArrayFromUrl(Constant.BASE_URL+"/deprep/employees/"+deptID);
         try {
             for(int i=0;i<a.length();i++){
                 JSONObject b=a.getJSONObject(i);
@@ -62,10 +62,10 @@ public class AppointRepModel extends HashMap<String,String> {
                 JSONObject jObj = new JSONObject();
                 jObj.put("DepRepID", Integer.valueOf(deprepID));
                 jObj.put("EmployeeID",empID);
-                Log.i("JSON obj", jObj.toString(4));
+                Log.i("Send JSON obj", jObj.toString(4));
 
             String result =JSONParser.postStream(Constant.BASE_URL+"/deprep/new",jObj.toString());
-
+            Log.i("response", result);
         }catch (Exception e){
             Log.e("submitAppointRep()", "JSONArray error");
         }

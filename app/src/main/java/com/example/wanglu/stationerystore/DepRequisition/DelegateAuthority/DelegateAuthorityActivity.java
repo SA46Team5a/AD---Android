@@ -58,8 +58,8 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
     String currentAuthorityID;
 
     DateTimeFormatter dateFormatter;
-    LocalDate pickerStartDate;
-    LocalDate pickerEndDate;
+    LocalDate pickerStartDate=null;
+    LocalDate pickerEndDate=null;
     LocalDate startDate;
     LocalDate endDate;
     //Date todayDate;
@@ -105,21 +105,20 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
             //long start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
            // long end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
-            if (view.getId() == R.id.startButton)
+            if (view.getId() == R.id.startButton) {
+                datePicker.setMinDate(today);
+                if (pickerEndDate!=null){
+                    end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                    datePicker.setMaxDate(end);
+                }
+            }
+            else if (view.getId() == R.id.endButton) {
+
                 if (pickerStartDate == null)
                     datePicker.setMinDate(today);
                 else {
                     start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
                     datePicker.setMaxDate(start);
-                }
-            else if (view.getId() == R.id.endButton) {
-                if (pickerEndDate == null)
-                    datePicker.setMinDate(today);
-                else {
-                    //start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                    end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                   // datePicker.setMinDate(start);
-                    datePicker.setMaxDate(end);
                 }
             }
 

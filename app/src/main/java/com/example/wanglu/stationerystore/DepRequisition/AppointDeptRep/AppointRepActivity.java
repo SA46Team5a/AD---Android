@@ -33,6 +33,7 @@ public class AppointRepActivity extends AppCompatActivity {
     Spinner spinner;
     Button btn;
     String selectedRepName;
+    String selectedIDFromSpinner;
     String deptRepID;
     String currentRepName;
 
@@ -61,7 +62,7 @@ public class AppointRepActivity extends AppCompatActivity {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
                 HashMap<String,ArrayList<String>> empMap = new HashMap<>();
-                empMap= AppointRepModel.getEmloyee(pref.getString("deptID","no name"));
+                empMap= AppointRepModel.getEmployee(pref.getString("deptID","no name"));
                 return empMap;
             }
             @Override
@@ -80,8 +81,8 @@ public class AppointRepActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         selectedRepName =adapterView.getItemAtPosition(i).toString();
 
-                        String  id = empIDList.get(empNameList.indexOf(selectedRepName));
-                        Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                        selectedIDFromSpinner = empIDList.get(empNameList.indexOf(selectedRepName));
+                        Toast.makeText(getApplicationContext(),selectedIDFromSpinner,Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
@@ -122,7 +123,7 @@ public class AppointRepActivity extends AppCompatActivity {
                         new AsyncTask<Void, Void, Void>() {
                             @Override
                             protected Void doInBackground(Void... params) {
-                                AppointRepModel.submitAppointRep(deptRepID, selectedRepName);
+                                AppointRepModel.submitAppointRep(deptRepID, selectedIDFromSpinner);
                                 return null;
                             }
                             @Override
