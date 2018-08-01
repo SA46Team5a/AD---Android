@@ -97,7 +97,7 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
             reasonEditText.setText(datum.getReason());
             itemDescriptionView.setText(datum.getItemName());
             quantityView.setText(String.valueOf(datum.getAdjustment()) + " " + datum.getUnitOfMeasure());
-            amountView.setText(String.valueOf(datum.getAdjustment()) + " " + datum.getUnitOfMeasure());
+            amountView.setText(datum.getTotalAmount());
         }
 
         private void setEventHandlers(final int position) {

@@ -177,7 +177,6 @@ public class RetrievalFormAdapter extends BaseAdapter {
         holder.itemName.setText((String) retrieval.get("ItemName").get(position));
         holder.quantityNumber.setText((String) retrieval.get("QtyToRetrieve").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
         holder.retrievalNumber.setText( retrieval.get("QtyToRetrieve").get(position));
-
         holder.retrievalNumber.setFilters(new InputFilter[]{Validation.getLimitFilter(Integer.valueOf(retrieval.get("QtyToRetrieve").get(position)))});
         holder.actualstockNumber.setText((String) retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
 
