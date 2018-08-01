@@ -115,7 +115,12 @@ public class ApproveRequestAdapter extends BaseAdapter {
         holder.empName.setText((String) approveMap.get("RequesterName").get(0));
 //set lists texts
         holder.listitems.removeAllViews();
-        for(int i = 0; i< approveMap.get("RequisitionDetailID").size(); i++)
+        int startPos = 0;
+        for (int i = 0; i < position; i++) {
+            startPos += Integer.valueOf(approveMap.get("RequisitionDetailCount").get(position));
+        }
+
+        for(int i = startPos; i< Integer.valueOf(approveMap.get("RequisitionDetailCount").get(position)); i++)
         {
             View v = mInflater.inflate(R.layout.content_itemlist, null);
             TextView descriptionView = v.findViewById(R.id.descriptionView);

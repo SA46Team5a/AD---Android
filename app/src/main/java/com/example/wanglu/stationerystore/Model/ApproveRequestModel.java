@@ -24,6 +24,7 @@ public class ApproveRequestModel extends HashMap<String,String> {
         HashMap<String, ArrayList<String>> approve = new HashMap<>();
 
         ArrayList<String> RequisitionID = new ArrayList<>();
+        ArrayList<String> RequisitionDetailCount = new ArrayList<>();
         ArrayList<String> RequesterName = new ArrayList<>();
         ArrayList<String> RequestDate = new ArrayList<>();
 
@@ -42,6 +43,8 @@ public class ApproveRequestModel extends HashMap<String,String> {
                 RequestDate.add(obj.get("RequestDate").toString().split("T")[0]);
 
                 JSONArray detail =new JSONArray(obj.getString("RequisitionDetails"));
+                RequisitionDetailCount.add(String.valueOf(detail.length()));
+
                 for (int j = 0; j <detail.length();j++){
                     JSONObject object = detail.getJSONObject(j);
                     RequisitionDetailID.add(object.get("RequisitionDetailID").toString());
@@ -54,6 +57,7 @@ public class ApproveRequestModel extends HashMap<String,String> {
             approve.put("RequesterName", RequesterName);
             approve.put("RequestDate", RequestDate);
             approve.put("RequisitionDetailID", RequisitionDetailID);
+            approve.put("RequisitionDetailCount", RequisitionDetailCount);
             approve.put("ItemName", ItemName);
             approve.put("UnitOfMeasure",UnitOfMeasure);
             approve.put("Quantity",Quantity);
