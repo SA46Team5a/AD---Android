@@ -12,9 +12,13 @@ import java.util.Calendar;
 //Author: Luo Chao and Jack
 public class DatePickerFragment extends DialogFragment {
     private long minDate;
+    private long maxDate;
 
     public void setMinDate(long minDate) {
         this.minDate = minDate;
+    }
+    public void setMaxDate(long maxDate) {
+        this.maxDate = maxDate;
     }
 
     @NonNull

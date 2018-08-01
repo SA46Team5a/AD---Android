@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Date;
@@ -37,7 +39,7 @@ public class DelegateAuthorityModel extends HashMap<String,String> {
             empMap.put("ID",IDList);
         }
         catch (Exception e){
-            Log.e("CollectionPointDetails()","JSONArray error");
+            Log.e("getEmps()","JSONArray error");
         }
         return empMap;
     }
@@ -45,28 +47,30 @@ public class DelegateAuthorityModel extends HashMap<String,String> {
     public static HashMap<String,String> getCurrentAuthority(String deptID) {
 
         HashMap<String,String> authorityMap=new HashMap<>();
+        JSONObject a;
 
-        JSONObject a= JSONParser.getJSONFromUrl(Constant.BASE_URL+"/authority/"+deptID);
-        if(a==null)
-        {
-            return null;
-        }
-        else {
+        a = JSONParser.getJSONFromUrl(Constant.BASE_URL + "/authority/" + deptID);
 
+        if (a != null) {
             try {
+                Log.i("Current Authority", a.getString("EmployeeName"));
+
+                authorityMap.put("EmployeeID",a.getString("EmployeeID"));
                 authorityMap.put("EmployeeName", a.getString("EmployeeName"));
-                authorityMap.put("StartDate", a.getString("StartDate"));
-                authorityMap.put("EndDate", a.getString("EndDate"));
+                authorityMap.put("StartDate", a.getString("StartDate").split("T")[0]);
+                authorityMap.put("EndDate", a.getString("EndDate").split("T")[0]);
             } catch (Exception e) {
                 Log.e("getCurrentAuthority()", "JSONArray error");
             }
-            return authorityMap;
         }
+
+        return authorityMap;
+
     }
     //unfinished method
-    public static void submitNewAuthority(String empID,Date startDate,Date endDate)
+    public static void submitNewAuthority(String empID,LocalDate startDate,LocalDate endDate)
     {
-        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        DateTimeFormatter df= DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
             JSONObject jObj = new JSONObject();
@@ -83,10 +87,10 @@ public class DelegateAuthorityModel extends HashMap<String,String> {
     }
 
     //unfinished method
-    public static void updateAuthority(String empID,Date startDate,Date endDate)
+    public static void updateAuthority(String empID, LocalDate startDate, LocalDate endDate)
     {
-        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-
+        DateTimeFormatter df= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Log.i("$$$$$$$$$$$$$$$$$$$$$$$$updatingstartDate", startDate.toString());
         try {
             JSONObject jObj = new JSONObject();
             jObj.put("EmployeeID", empID);

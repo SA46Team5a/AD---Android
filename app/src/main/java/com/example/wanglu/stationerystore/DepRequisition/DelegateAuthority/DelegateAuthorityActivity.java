@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import android.view.View;
@@ -27,11 +28,17 @@ import com.example.wanglu.stationerystore.Model.DelegateAuthorityModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForHead;
 import com.example.wanglu.stationerystore.R;
 
+import java.lang.reflect.GenericArrayType;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 //Author: Luo Chao
 public class DelegateAuthorityActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -48,13 +55,18 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
     Button rescindBtn;
     Spinner empDropdownlist;
     String selectedEmpName;
+    String currentAuthorityID;
 
-    SimpleDateFormat dateFormatter;
-    Date startDate;
-    Date endDate;
-    Date todayDate;
+    DateTimeFormatter dateFormatter;
+    LocalDate pickerStartDate;
+    LocalDate pickerEndDate;
+    LocalDate startDate;
+    LocalDate endDate;
+    //Date todayDate;
+    LocalDate todayDate;
     String currentAuthorityName;
     SharedPreferences pref;
+
 
 
     @Override
@@ -64,16 +76,21 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
 
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 
-        String currentDateString= dateFormatter.format(c.getTime());
+        String currentDateString= df.format(c.getTime());
 
         if(targetBtn.getId()==R.id.startButton)
         {
             startText.setText(currentDateString);
+            // set startDate localdate
+            pickerStartDate=convertStringToDate(currentDateString);
         }
         if(targetBtn.getId()==R.id.endButton)
         {
             endText.setText(currentDateString);
+            // set endDate localdate
+            pickerEndDate=convertStringToDate(currentDateString);
         }
 
     }
@@ -81,8 +98,32 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
     class ClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            android.support.v4.app.DialogFragment datePicker=new DatePickerFragment();
-             targetBtn= (Button) view;
+            DatePickerFragment datePicker=new DatePickerFragment();
+            long today = todayDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            long start;
+            long end;
+            //long start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+           // long end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+            if (view.getId() == R.id.startButton)
+                if (pickerStartDate == null)
+                    datePicker.setMinDate(today);
+                else {
+                    start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                    datePicker.setMaxDate(start);
+                }
+            else if (view.getId() == R.id.endButton) {
+                if (pickerEndDate == null)
+                    datePicker.setMinDate(today);
+                else {
+                    //start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                    end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                   // datePicker.setMinDate(start);
+                    datePicker.setMaxDate(end);
+                }
+            }
+
+            targetBtn = (Button) view;
             datePicker.show(getSupportFragmentManager(),"date picker");
         }
     }
@@ -92,11 +133,12 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delegate_form);
 
-        dateFormatter=new SimpleDateFormat("yyyy-MM-dd");
-        todayDate=new Date();
-        todayDate.setDate(21);
-        todayDate.setMonth(3);
-        todayDate.setYear(2018);
+        dateFormatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        todayDate=LocalDate.now();
+
+
+        Log.i("######################showValueOftodayDate",dateFormatter.format(todayDate));
 
 
         pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -131,72 +173,41 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                 HashMap<String,String> currentAuthorityMap=new HashMap<String,String>();
 
                 currentAuthorityMap=DelegateAuthorityModel.getCurrentAuthority(pref.getString("deptID","no name"));
-                if(currentAuthorityMap==null) {
-                    return null;
-                }
-                else {
-                    return currentAuthorityMap;
-                }
+                return currentAuthorityMap;
             }
             @Override
             protected void onPostExecute(HashMap<String,String> result) {
-                if(result==null){
-                    currentAuthorityName=null;
-
+                if(result.size() == 0){
+                    //load  Dept namelist to dropdownlist
+                    toggleStartConfirmBtnSpinnerState(true);
+                    new getEligibleEmployees().execute();
                 }
                 else {
                     currentAuthorityName = result.get("EmployeeName").toString();
+                    currentAuthorityID=result.get("EmployeeID").toString();
                     startDate=convertStringToDate(result.get("StartDate"));
                     endDate=convertStringToDate(result.get("EndDate"));
-                    //disable controls if current date is within the authority duration
-                    //if(startDate.after(todayDate)){
+                    //disable controls if today's date is within the authority duration
+
+                    Log.i("@@@@@@@@@@@@@@@@@@ISstartDateBefTodayDate&&ValueOftodayDate",String.valueOf(startDate.isBefore(todayDate))+"&&"+todayDate.toString());
+                    if(!todayDate.isAfter(startDate)){
                         toggleStartConfirmBtnSpinnerState(true);
-                    //}
-                    Log.i("@@@@@@@@@@@@@@@$$$$$$$$$$$",String.valueOf(startDate.after(todayDate))+"||"+startDate.toString()+todayDate.toString());
+                    }
 
                     startText.setText(dateFormatter.format(startDate));
                     endText.setText(dateFormatter.format(endDate));
-                }
 
 
-            }
-        }.execute();
-
-        //load  Dept namelist to dropdownlist
-        new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
-            @Override
-            protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
-                HashMap<String,ArrayList<String>> empMap=new HashMap<String,ArrayList<String>>();
-                empMap=DelegateAuthorityModel.getEmps(pref.getString("deptID","no name"));
-                return empMap;
-            }
-            @Override
-            protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
-                nameList= result.get("name");
-                idlist=result.get("ID");
-
-
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DelegateAuthorityActivity.this,android.R.layout.simple_spinner_item, nameList);
-                adapter.setDropDownViewResource(R.layout.spinner_item);
-                empDropdownlist.setAdapter(adapter );
-                if(currentAuthorityName!=null) {
-                    //set current authorityName to dropdownList
+                    nameList.add(currentAuthorityName);
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DelegateAuthorityActivity.this,android.R.layout.simple_spinner_item, nameList);
+                    adapter.setDropDownViewResource(R.layout.spinner_item);
+                    empDropdownlist.setAdapter(adapter );
                     empDropdownlist.setSelection(nameList.indexOf(currentAuthorityName));
                 }
-                empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        selectedEmpName = adapterView.getItemAtPosition(i).toString();
-                        selectedEmpID=idlist.get(nameList.indexOf(selectedEmpName));
-                        Toast.makeText(DelegateAuthorityActivity.this,selectedEmpID,Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        Toast.makeText(getApplicationContext(), "You must select one employee", Toast.LENGTH_LONG).show();
-                    }
-                });
             }
         }.execute();
+
+
         //two button click event
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +240,7 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                             @Override
                             protected Void doInBackground(Void... params) {
                                 if(title.equals("Delegate Authority")) {
-                                    if(currentAuthorityName.equals(empDropdownlist.getSelectedItem())) {
+                                    if(currentAuthorityName != null) {
                                         DelegateAuthorityModel.updateAuthority(selectedEmpID,
                                                 convertStringToDate(startText.getText().toString()),
                                                 convertStringToDate(endText.getText().toString()));
@@ -245,16 +256,11 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                                 }
                                 else if(title.equals("Rescind Authority"))
                                 {
-                                    DelegateAuthorityModel.rescind(selectedEmpID);
+                                    DelegateAuthorityModel.rescind(currentAuthorityID);
+                                    toggleStartConfirmBtnSpinnerState(true);
                                 }
                                 return null;
                             }
-
-                            @Override
-                            protected void onPostExecute(Void result) {
-
-                            }
-
                         }.execute();
                         startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
                     }
@@ -268,11 +274,12 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                 .show();
     }
 //method used in this activity
-    private Date convertStringToDate(String sourceString)
+    private LocalDate convertStringToDate(String sourceString)
     {
-        Date d=new Date();
+        LocalDate d=null;
         try {
-            d= dateFormatter.parse(sourceString);
+            d= LocalDate.parse(sourceString,dateFormatter);
+
         }catch (Exception e)
         {
             Log.e("convertStringToDate()", "parser error");
@@ -287,6 +294,42 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         startBtn.setEnabled(b);
 
 
+    }
+
+     private class getEligibleEmployees extends AsyncTask<Void, Void, HashMap<String,ArrayList<String>>> {
+        @Override
+        protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+            HashMap<String,ArrayList<String>> empMap=new HashMap<String,ArrayList<String>>();
+            empMap=DelegateAuthorityModel.getEmps(pref.getString("deptID","no name"));
+            return empMap;
+        }
+        @Override
+        protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
+            nameList= result.get("name");
+            idlist=result.get("ID");
+
+
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DelegateAuthorityActivity.this,android.R.layout.simple_spinner_item, nameList);
+            adapter.setDropDownViewResource(R.layout.spinner_item);
+            empDropdownlist.setAdapter(adapter );
+//            if(currentAuthorityName != null) {
+//                //set current authorityName to dropdownList
+//                nameList.add(currentAuthorityName);
+//                empDropdownlist.setSelection(nameList.indexOf(currentAuthorityName));
+//            }
+            empDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    selectedEmpName = adapterView.getItemAtPosition(i).toString();
+                    selectedEmpID=idlist.get(nameList.indexOf(selectedEmpName));
+                    Toast.makeText(DelegateAuthorityActivity.this,selectedEmpID,Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    Toast.makeText(getApplicationContext(), "You must select one employee", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }
 
