@@ -60,7 +60,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     editor.putString("deptID","STOR");
                     editor.commit();
                     Intent intent = new Intent();
-                    intent.setClass(this,NavigationForClerk.class);
+                    intent.setClass(this, NavigationForClerk.class);
                     startActivity(intent);
                 }
                 else if (userName.equals("clerk2")){
@@ -71,7 +71,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     editor.putString("deptID","STOR");
                     editor.commit();
                     Intent intent = new Intent();
-                    intent.setClass(this,NavigationForHead.class);
+                    intent.setClass(this, NavigationForClerk.class);
                     startActivity(intent);
                 }
                 else if (userName.equals("clerk3")){
@@ -82,7 +82,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     editor.putString("deptID","STOR");
                     editor.commit();
                     Intent intent = new Intent();
-                    intent.setClass(this,NavigationForHead.class);
+                    intent.setClass(this, NavigationForClerk.class);
                     startActivity(intent);
                 }
 
