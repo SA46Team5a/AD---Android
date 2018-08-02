@@ -80,9 +80,13 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
             protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
                 retrievalMap=result;
                 Log.i("Size", String.valueOf(result.size()));
-                ListView listView = findViewById(R.id.listview);
-                adapter= new RetrievalFormAdapter(StationeryRetrievalFormActivity.this, result);
-                listView.setAdapter(adapter);
+                if (result.get("ItemID").size() > 0) {
+                    ListView listView = findViewById(R.id.listview);
+                    adapter = new RetrievalFormAdapter(StationeryRetrievalFormActivity.this, result);
+                    listView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(StationeryRetrievalFormActivity.this,"No items need to be retrieved", Toast.LENGTH_SHORT).show();
+                }
                // quantityList=adapter.getAllTotalRetrieved();
             }
 
