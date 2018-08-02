@@ -103,7 +103,9 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
             url.append(depId + "/");
             url.append(empId + "/");
             url.append(passcode);
+            Log.i("@@@@@@@@@@@@@@submitDisbursementDetails",array.toString()+"!!!URL:"+url);
             return JSONParser.postStream(url.toString(), array.toString()).equals("true");
+
         } catch (JSONException e) {
             return false;
         }

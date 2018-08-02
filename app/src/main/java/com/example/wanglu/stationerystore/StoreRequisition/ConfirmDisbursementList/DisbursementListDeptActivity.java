@@ -1,8 +1,10 @@
 package com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -44,6 +46,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     ArrayList<String > deptIDList = new ArrayList<>();
     ArrayList<String> deptNameList = new ArrayList<>();
     DisbursementListDeptAdapter adapter;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         representativenameView = findViewById(R.id.representativenameView);
         codeView = findViewById(R.id.codeView);
         codeView.setHint("Enter Code");
+
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         departmentDropdownlist=findViewById(R.id.departmentDropdownlist);
     }
@@ -173,7 +178,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             String passcode = codeView.getText().toString();
-            String empId = "E001"; // TODO: get from SharedPreferences
+            String empId = pref.getString("empID","no name");
             if (adapter.validateData()) {
                 DisbursementDetailModel.submitDisbursementDetails(adapter.getData(), selectedDeptId, empId, passcode);
                 Intent intent = new Intent(DisbursementListDeptActivity.this, NavigationForClerk.class);
