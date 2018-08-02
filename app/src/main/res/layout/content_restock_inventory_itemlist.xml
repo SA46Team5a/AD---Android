@@ -93,6 +93,8 @@
         android:layout_marginStart="8dp"
         android:paddingBottom="10dp"
         android:text="Add"
+        android:textColor="#ffffff"
+        android:background="#536dfe"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"

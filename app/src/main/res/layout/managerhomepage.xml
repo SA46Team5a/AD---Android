@@ -57,7 +57,7 @@
             android:background="@drawable/btn_style"
             android:drawableLeft="@drawable/ic_modify"
             android:paddingLeft="20dip"
-            android:text="Manager inventory"
+            android:text="Manage Inventory"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
 

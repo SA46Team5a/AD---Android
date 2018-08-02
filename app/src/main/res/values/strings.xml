@@ -7,7 +7,7 @@
     <string name="nav_head_email">Department.head@logicuniversity.com</string>
     <string name="nav_clerk">Store Clerk</string>
     <string name="nav_clerk_email">Store.clerk@logicuniversity.com</string>
-    <string name="nav_manager">Store manager</string>
+    <string name="nav_manager">Store Manager</string>
     <string name="nav_manager_email">Store.manager@logicuniversity.com</string>
 
     <string name="action_logout">Logout</string>

@@ -7,7 +7,7 @@
         <item
             android:id="@+id/approvalform"
             android:icon="@drawable/ic_action_name"
-            android:title="Approval request form" />
+            android:title="Approval Request Form" />
         <item
             android:id="@+id/delegateauthority"
             android:icon="@drawable/ic_delegate"
@@ -15,11 +15,11 @@
         <item
             android:id="@+id/appointrep"
             android:icon="@drawable/ic_delegate"
-            android:title="Appoint department repersentative" />
+            android:title="Appoint Department Representative" />
         <item
             android:id="@+id/changepoint"
             android:icon="@drawable/ic_modify"
-            android:title="Change collection point" />
+            android:title="Change Collection Point" />
     </group>
 
 </menu>

@@ -72,6 +72,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+                Log.i("@@@@@@@@@@@@@@@@@@@AsyncTaskbeforeGetRetrievalForm","@@@@@@@@@@@@");
                 HashMap<String,ArrayList<String>> retrievalMap= StationeryRetrievalFormModel.getStationeryRetrievalFormList(pref.getString("empID","no name"));
                 return retrievalMap;
             }

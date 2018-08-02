@@ -90,8 +90,19 @@ public class LoginActivity extends Activity  implements OnClickListener{
 
                     SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor=pref.edit();
-                    editor.putString("empID","E008");
-                    editor.putString("deptID","CHEM");
+                    editor.putString("empID","E003");
+                    editor.putString("deptID","CPSC");
+                    editor.commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForHead.class);
+                    startActivity(intent);
+                }
+                else if (userName.equals("arch")){
+
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E010");
+                    editor.putString("deptID","ARCH");
                     editor.commit();
                     Intent intent = new Intent();
                     intent.setClass(this,NavigationForHead.class);

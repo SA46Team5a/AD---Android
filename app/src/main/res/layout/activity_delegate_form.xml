@@ -26,9 +26,9 @@
 
     <include
         android:id="@+id/delegateInclude"
-        layout="@layout/content_delegate_approval" />
-
-
+        layout="@layout/content_delegate_approval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </android.support.design.widget.CoordinatorLayout>

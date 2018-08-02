@@ -48,6 +48,7 @@ public class StationeryRetrievalFormModel extends HashMap<String, String> {
             retrieval.put("QtyInStock",QtyInStock);
             retrieval.put("QtyToRetrieve",QtyToRetrieve);
             retrieval.put("disDutyId",disDutyId);
+            Log.i("@@@@@@@@@@@@@getStationeryRetrievalFormList",retrieval.toString());
       }catch(Exception e){
             Log.e("getStationeryRetrievalFormList()", "JSONArray error");
         }

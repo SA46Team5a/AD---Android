@@ -128,6 +128,8 @@
         android:layout_marginTop="8dp"
         android:contentDescription="Department"
         android:text="Confirm"
+        android:textColor="#ffffff"
+        android:background="#536dfe"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
