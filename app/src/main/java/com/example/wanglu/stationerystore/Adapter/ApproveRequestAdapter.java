@@ -119,7 +119,7 @@ public class ApproveRequestAdapter extends BaseAdapter {
             startPos += Integer.valueOf(approveMap.get("RequisitionDetailCount").get(i));
         }
 
-        for(int i = startPos; i< Integer.valueOf(approveMap.get("RequisitionDetailCount").get(position)); i++)
+        for(int i = startPos; i< startPos + Integer.valueOf(approveMap.get("RequisitionDetailCount").get(position)); i++)
         {
             View v = mInflater.inflate(R.layout.content_itemlist, null);
             TextView descriptionView = v.findViewById(R.id.descriptionView);
