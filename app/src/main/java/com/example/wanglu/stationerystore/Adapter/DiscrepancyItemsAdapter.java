@@ -134,7 +134,10 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
             holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
-
+        else {
+            holder = (ViewHolder) view.getTag();
+        }
+        holder.setValues(position);
         return view;
     }
 }

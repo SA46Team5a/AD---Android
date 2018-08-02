@@ -82,7 +82,11 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
             itemCode.setText(d.getItemId());
             itemDescription.setText(d.getItemName());
             qtyInStock.setText(d.getQtyAndUom());
-            actualCount.setText(d.getActualQty());
+            try {
+                actualCount.setText(d.getActualQty());
+            } catch (Exception e) {
+                actualCount.setText(d.getOriginalQty());
+            }
         }
 
         private void setEventHandlers(final int position) {
@@ -117,6 +121,12 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
             holder = new ViewHolder(view, position);
             view.setTag(holder);
         }
+        else {
+            holder = (ViewHolder) view.getTag();
+        }
+
+        holder.setValues(position);
+
         return view;
     }
 }
