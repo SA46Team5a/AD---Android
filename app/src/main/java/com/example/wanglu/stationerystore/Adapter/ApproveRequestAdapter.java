@@ -110,14 +110,15 @@ public class ApproveRequestAdapter extends BaseAdapter {
             }
         });
 
-// set texts
+        // set texts
         holder.date.setText((String) approveMap.get("RequestDate").get(0));
         holder.empName.setText((String) approveMap.get("RequesterName").get(0));
-//set lists texts
+
+        //set lists texts
         holder.listitems.removeAllViews();
         int startPos = 0;
         for (int i = 0; i < position; i++) {
-            startPos += Integer.valueOf(approveMap.get("RequisitionDetailCount").get(position));
+            startPos += Integer.valueOf(approveMap.get("RequisitionDetailCount").get(i));
         }
 
         for(int i = startPos; i< Integer.valueOf(approveMap.get("RequisitionDetailCount").get(position)); i++)
