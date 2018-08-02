@@ -58,11 +58,8 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
     String currentAuthorityID;
 
     DateTimeFormatter dateFormatter;
-    LocalDate pickerStartDate=null;
-    LocalDate pickerEndDate=null;
     LocalDate startDate;
     LocalDate endDate;
-    //Date todayDate;
     LocalDate todayDate;
     String currentAuthorityName;
     SharedPreferences pref;
@@ -80,17 +77,17 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
 
         String currentDateString= df.format(c.getTime());
 
+        // update the start date based on selection in date picker
         if(targetBtn.getId()==R.id.startButton)
         {
             startText.setText(currentDateString);
-            // set startDate localdate
-            pickerStartDate=convertStringToDate(currentDateString);
+            startDate=convertStringToDate(currentDateString);
         }
-        if(targetBtn.getId()==R.id.endButton)
+        // update the end date based on selection in date picker
+        else if(targetBtn.getId()==R.id.endButton)
         {
             endText.setText(currentDateString);
-            // set endDate localdate
-            pickerEndDate=convertStringToDate(currentDateString);
+            endDate=convertStringToDate(currentDateString);
         }
 
     }
@@ -98,32 +95,31 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
     class ClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            DatePickerFragment datePicker=new DatePickerFragment();
+            DatePickerFragment datePickerDialog = new DatePickerFragment();
             long today = todayDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-            long start;
-            long end;
-            //long start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-           // long end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            long start, end;
 
+
+            // configure datepicker for start date button
             if (view.getId() == R.id.startButton) {
-                datePicker.setMinDate(today);
-                if (pickerEndDate!=null){
-                    end = pickerEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                    datePicker.setMaxDate(end);
+                datePickerDialog.setMinDate(today);
+                if (endDate!=null){
+                    end = endDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                    datePickerDialog.setMaxDate(end);
                 }
             }
+            // configure datepicker for end date button
             else if (view.getId() == R.id.endButton) {
-
-                if (pickerStartDate == null)
-                    datePicker.setMinDate(today);
+                if (startDate == null)
+                    datePickerDialog.setMinDate(today);
                 else {
-                    start = pickerStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                    datePicker.setMaxDate(start);
+                    start = startDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                    datePickerDialog.setMinDate(start);
                 }
             }
 
             targetBtn = (Button) view;
-            datePicker.show(getSupportFragmentManager(),"date picker");
+            datePickerDialog .show(getSupportFragmentManager(),"date picker");
         }
     }
 

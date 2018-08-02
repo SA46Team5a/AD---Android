@@ -12,7 +12,7 @@ import java.util.Calendar;
 //Author: Luo Chao and Jack
 public class DatePickerFragment extends DialogFragment {
     private long minDate;
-    private long maxDate;
+    private long maxDate = Long.MAX_VALUE;
 
     public void setMinDate(long minDate) {
         this.minDate = minDate;
@@ -33,6 +33,7 @@ public class DatePickerFragment extends DialogFragment {
 
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setMinDate(minDate);
+        datePicker.setMaxDate(maxDate);
         return dialog;
     }
 }
