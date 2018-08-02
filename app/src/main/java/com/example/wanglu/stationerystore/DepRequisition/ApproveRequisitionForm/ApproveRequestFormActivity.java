@@ -64,7 +64,8 @@ public class ApproveRequestFormActivity extends AppCompatActivity {
 
         }.execute();
     }
-// initialize ViewHolder for adapter.
+
+    // initialize ViewHolder for adapter.
     public static class ViewHolder{
         public TextView date;
         public TextView empName;

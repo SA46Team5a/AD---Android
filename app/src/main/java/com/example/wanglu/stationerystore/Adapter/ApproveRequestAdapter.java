@@ -1,6 +1,5 @@
 package com.example.wanglu.stationerystore.Adapter;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -24,14 +23,13 @@ public class ApproveRequestAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ApproveRequestFormActivity activity;
     private HashMap<String,ArrayList<String>> approveMap;
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
-    public ApproveRequestAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-        this.activity = (ApproveRequestFormActivity) context;
+    public ApproveRequestAdapter(ApproveRequestFormActivity activity) {
+        this.mInflater = LayoutInflater.from(activity);
+        this.activity = activity;
         approveMap = activity.approvaMap;
         pref=activity.pref;
-
     }
 
     @Override
@@ -82,7 +80,7 @@ public class ApproveRequestAdapter extends BaseAdapter {
                     }
                     @Override
                     protected void onPostExecute(Void result) {
-
+                        activity.recreate();
                     }
 
                 }.execute();
@@ -102,7 +100,7 @@ public class ApproveRequestAdapter extends BaseAdapter {
                     }
                     @Override
                     protected void onPostExecute(Void result) {
-
+                        activity.recreate();
                     }
 
                 }.execute();
