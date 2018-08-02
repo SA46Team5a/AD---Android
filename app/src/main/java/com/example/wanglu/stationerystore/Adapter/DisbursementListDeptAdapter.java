@@ -36,12 +36,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
     }
 
     public List<DisbursementDetailModel> getData() {
-        updateData();
         return data;
-    }
-
-    public void updateData() {
-        DisbursementDetailModel datum;
     }
 
     public boolean validateData() {
@@ -76,7 +71,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 0;
     }
 
     public class ViewHolder {
@@ -89,12 +84,13 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
         public EditText reasonView;
 
         public ViewHolder(View view, int position) {
-            initializeViews(view);
+            initializeViews(view, position);
+            setEventHandlers(position);
             setValues(position);
-//            setEventHandlers(position);
         }
 
-        private void initializeViews(View view) {
+        private void initializeViews(View view, int position) {
+
             titleLabel = (TextView) view.findViewById(R.id.titleLabel);
             quantityLabel =view.findViewById(R.id.quantityLabel);
             quantityView=view.findViewById(R.id.quantityView);
@@ -103,6 +99,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantitycollectedView=view.findViewById(R.id.quantitycollectedView);
             reasonView=view.findViewById(R.id.reasonView);
             reasonView.setHint("Enter Reason");
+            quantitycollectedView.setFilters(new InputFilter[]{Validation.getLimitFilter(data.get(position).getDisbursedQuantity())});
         }
 
         private void setValues(int position)     {
@@ -110,9 +107,9 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             titleLabel.setText(detail.getItemName());
             Log.i("@@@@@@@@@@@@@@@@@",titleLabel.getText().toString());
             quantityLabel.setText("Quantity:");
-            quantityView.setText(detail.getQtyAndUom());
+            quantityView.setText(detail.getQtyAndUom().toString());
             quantitycollectedLabel.setText("Quantity Collected:");
-            quantitycollectedView.setFilters(new InputFilter[]{Validation.getLimitFilter(detail.getDisbursedQuantity())});
+            quantitycollectedView.setText(String.valueOf(detail.getDisbursedQuantity()));
         }
 
         private void setEventHandlers(final int position) {

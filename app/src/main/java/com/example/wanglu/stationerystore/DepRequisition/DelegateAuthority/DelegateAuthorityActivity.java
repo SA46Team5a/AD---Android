@@ -236,7 +236,7 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                             protected Void doInBackground(Void... params) {
                                 if(title.equals("Delegate Authority")) {
                                     if(currentAuthorityName != null) {
-                                        DelegateAuthorityModel.updateAuthority(selectedEmpID,
+                                        DelegateAuthorityModel.updateAuthority(currentAuthorityID,
                                                 convertStringToDate(startText.getText().toString()),
                                                 convertStringToDate(endText.getText().toString()));
                                     }

@@ -57,7 +57,7 @@
             android:background="@drawable/btn_style"
             android:drawableLeft="@drawable/ic_add"
             android:paddingLeft="20dip"
-            android:text="Create retrieval form"
+            android:text="Create Retrieval Form"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
         <Button
@@ -68,7 +68,7 @@
             android:background="@drawable/btn_style"
             android:drawableLeft="@drawable/ic_confirm"
             android:paddingLeft="20dip"
-            android:text="Confrim disbursement"
+            android:text="Confrim Disbursement"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
         <Button
@@ -79,7 +79,7 @@
             android:background="@drawable/btn_style"
             android:drawableLeft="@drawable/ic_update"
             android:paddingLeft="20dip"
-            android:text="Restock inventory"
+            android:text="Restock Inventory"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
         <Button
@@ -90,7 +90,7 @@
             android:background="@drawable/btn_style"
             android:drawableLeft="@drawable/ic_modify"
             android:paddingLeft="20dip"
-            android:text="Manager inventory"
+            android:text="Manage Inventory"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -8,19 +8,19 @@
         <item
             android:id="@+id/createform"
             android:icon="@drawable/ic_add"
-            android:title="Create retrieval form" />
+            android:title="Create Retrieval Form" />
         <item
             android:id="@+id/confirmdisbursement"
             android:icon="@drawable/ic_confirm"
-            android:title="Confirm disbursement" />
+            android:title="Confirm Disbursement" />
         <item
             android:id="@+id/restorckinventory"
             android:icon="@drawable/ic_update"
-            android:title="Restock inventory" />
+            android:title="Restock Inventory" />
         <item
             android:id="@+id/manageinventory"
             android:icon="@drawable/ic_modify"
-            android:title="Manager inventory" />
+            android:title="Manage Inventory" />
     </group>
 
 </menu>

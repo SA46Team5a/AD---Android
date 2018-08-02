@@ -72,6 +72,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
+                Log.i("@@@@@@@@@@@@@@@@@@@AsyncTaskbeforeGetRetrievalForm","@@@@@@@@@@@@");
                 HashMap<String,ArrayList<String>> retrievalMap= StationeryRetrievalFormModel.getStationeryRetrievalFormList(pref.getString("empID","no name"));
                 return retrievalMap;
             }
@@ -79,9 +80,13 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
             protected void onPostExecute(HashMap<String,ArrayList<String>> result) {
                 retrievalMap=result;
                 Log.i("Size", String.valueOf(result.size()));
-                ListView listView = findViewById(R.id.listview);
-                adapter= new RetrievalFormAdapter(StationeryRetrievalFormActivity.this, result);
-                listView.setAdapter(adapter);
+                if (result.get("ItemID").size() > 0) {
+                    ListView listView = findViewById(R.id.listview);
+                    adapter = new RetrievalFormAdapter(StationeryRetrievalFormActivity.this, result);
+                    listView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(StationeryRetrievalFormActivity.this,"No items need to be retrieved", Toast.LENGTH_SHORT).show();
+                }
                // quantityList=adapter.getAllTotalRetrieved();
             }
 
