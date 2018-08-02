@@ -58,6 +58,15 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
         return 0;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+    @Override
+    public int getViewTypeCount() {
+        return data.size();
+    }
+
     private class ViewHolder {
         TextView itemCode, itemDescription, qtyInStock;
         EditText actualCount, reason;
