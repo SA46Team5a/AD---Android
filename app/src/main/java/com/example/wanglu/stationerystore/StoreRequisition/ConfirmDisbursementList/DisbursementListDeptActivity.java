@@ -1,6 +1,5 @@
 package com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
 import com.example.wanglu.stationerystore.Model.DeptRepModel;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.Model.DisbursementListDeptModel;
-import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -91,6 +89,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedDept= adapterView.getItemAtPosition(i).toString();
                 selectedDeptId =deptIDList.get(deptNameList.indexOf(selectedDept));
+                new getDisbursementList().execute(deptIDList.get(0));
                 new getCollectionPoint().execute(selectedDeptId);
                 new getDepRep().execute(selectedDeptId);
             }
@@ -174,18 +173,30 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         }
     }
 
-    protected class submitDisbursementList extends AsyncTask<Void, Void, Void> {
+    protected class submitDisbursementList extends AsyncTask<Void, Void, Boolean> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Boolean doInBackground(Void... voids) {
             String passcode = codeView.getText().toString();
             String empId = pref.getString("empID","no name");
             if (adapter.validateData()) {
-                DisbursementDetailModel.submitDisbursementDetails(adapter.getData(), selectedDeptId, empId, passcode);
-                Intent intent = new Intent(DisbursementListDeptActivity.this, NavigationForClerk.class);
-                startActivity(intent);
+                try {
+                    DisbursementDetailModel.submitDisbursementDetails(adapter.getData(), selectedDeptId, empId, passcode);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
             } else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                recreate();
+            }
+            else {
                 Toast.makeText(DisbursementListDeptActivity.this, "There are incomplete fields. Please complete them before submission", Toast.LENGTH_SHORT).show();
-            return null;
+            }
         }
     }
 }
