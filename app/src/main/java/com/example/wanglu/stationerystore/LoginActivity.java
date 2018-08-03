@@ -136,7 +136,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     startActivity(intent);
                 }
                 else  {
-                    Toast.makeText(this, "Please use correct username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please use correct user name and password", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent();
 //                    intent.setClass(this,MainActivity.class);
 //                    startActivity(intent);
