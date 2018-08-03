@@ -48,7 +48,7 @@
         android:layout_marginStart="8dp"
         android:text="Home"
         android:textColor="#ffffff"
-        android:background="#009688"
+        android:background="@drawable/home_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

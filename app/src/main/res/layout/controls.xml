@@ -114,14 +114,14 @@
 
     <Button
         android:id="@+id/submitadjustmentButton"
-        android:layout_width="wrap_content"
+        android:layout_width="138dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:background="@drawable/confirm_button"
         android:focusable="false"
         android:text="Submit Adjustment"
-        android:textColor="#ffffff"
-        android:background="#536dfe"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"

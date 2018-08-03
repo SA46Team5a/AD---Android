@@ -68,7 +68,7 @@
             android:background="@drawable/btn_style"
             android:drawableLeft="@drawable/ic_confirm"
             android:paddingLeft="20dip"
-            android:text="Confrim Disbursement"
+            android:text="Confirm Disbursement"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
         <Button

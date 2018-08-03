@@ -45,7 +45,7 @@
         android:layout_marginStart="8dp"
         android:text="Approve"
         android:textColor="#ffffff"
-        android:background="#536dfe"
+        android:background="@drawable/confirm_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,7 @@
         android:layout_marginEnd="44dp"
         android:text="Reject"
         android:textColor="#ffffff"
-        android:background="#F44336"
+        android:background="@drawable/reject_button"
 
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:visibility="visible"

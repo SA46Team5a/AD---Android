@@ -96,7 +96,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
         private void setValues(int position)     {
             DisbursementDetailModel detail = data.get(position);
             titleLabel.setText(detail.getItemName());
-            Log.i("@@@@@@@@@@@@@@@@@",titleLabel.getText().toString());
+            
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom().toString());
             quantitycollectedLabel.setText("Quantity Collected:");

@@ -152,12 +152,13 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         //disable two control by default
         toggleStartConfirmBtnSpinnerState(false);
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(DelegateAuthorityActivity.this, selectedEmpID, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        confirmBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Toast.makeText(DelegateAuthorityActivity.this, selectedEmpID, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
@@ -207,10 +208,15 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String title="Delegate Authority";
-                String msg="Delegated authority will be submitted. Would you like to continue?";
-                makeAlertDialog(title,msg);
+                if(startText.getText().toString().isEmpty()||endText.getText().toString().isEmpty())
+                {
+                    Toast.makeText(DelegateAuthorityActivity.this, "Please choose start and end date for delegation duration!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String title = "Delegate Authority";
+                    String msg = "Delegated authority will be submitted. Would you like to continue?";
+                    makeAlertDialog(title, msg);
+                }
             }
         });
         rescindBtn.setOnClickListener(new View.OnClickListener() {

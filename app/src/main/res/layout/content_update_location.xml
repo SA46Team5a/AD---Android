@@ -19,7 +19,7 @@
         android:layout_marginStart="8dp"
         android:text="Confirm"
         android:textColor="#ffffff"
-        android:background="#536dfe"
+        android:background="@drawable/confirm_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

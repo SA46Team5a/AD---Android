@@ -94,7 +94,7 @@
         android:paddingBottom="10dp"
         android:text="Add"
         android:textColor="#ffffff"
-        android:background="#536dfe"
+        android:background="@drawable/confirm_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
