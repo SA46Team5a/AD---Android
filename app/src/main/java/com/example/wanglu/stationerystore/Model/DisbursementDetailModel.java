@@ -52,7 +52,11 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
         jsonObject.put(itemName, getItemName());
         jsonObject.put(unitOfMeasure, getUnitOfMeasure());
         jsonObject.put(reason, getReason());
-        jsonObject.put(disDutyId, getDisbursementDutyId());
+        JSONArray disDutyIds = new JSONArray();
+        for (int id : getDisbursementDutyId()) {
+            disDutyIds.put(id);
+        }
+        jsonObject.put(disDutyId, disDutyIds);
         jsonObject.put(collectedQty, getCollectedQuantity());
         jsonObject.put(disbursedQty, getDisbursedQuantity());
         return jsonObject;
@@ -86,14 +90,15 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
                 details.add(detail);
             }
         } catch (Exception e) {
-            Log.e("getDisbursementDetailsOfDepartment()", "JSONArray error");
+            Log.e("getDisDetailsOfDep()", "JSONArray error");
         }
         return details;
     }
 
     public static boolean submitDisbursementDetails(List<DisbursementDetailModel> data, String depId, String empId, String passcode) {
+        JSONArray array = new JSONArray();
+
         try {
-            JSONArray array = new JSONArray();
             for (DisbursementDetailModel datum : data){
                 array.put(datum.toJSONObject());
             }
@@ -104,8 +109,8 @@ public class DisbursementDetailModel extends HashMap<String, Object> {
             url.append(empId + "/");
             url.append(passcode);
             Log.i("@@@@@@@@@@@@@@submitDisbursementDetails",array.toString()+"!!!URL:"+url);
-            return JSONParser.postStream(url.toString(), array.toString()).equals("true");
-
+            String result = JSONParser.postStream(url.toString(), array.toString());
+            return  result.equals("true\n");
         } catch (JSONException e) {
             return false;
         }
