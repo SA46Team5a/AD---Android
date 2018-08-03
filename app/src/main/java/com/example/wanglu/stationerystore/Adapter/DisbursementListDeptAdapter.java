@@ -56,6 +56,15 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+    @Override
+    public int getViewTypeCount() {
+        return data.size();
+    }
+
+    @Override
     public DisbursementDetailModel getItem(int i) {
         return data.get(i);
     }
