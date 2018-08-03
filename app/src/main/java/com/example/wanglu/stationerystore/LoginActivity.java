@@ -48,12 +48,15 @@ public class LoginActivity extends Activity  implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        String userName;
+        String userName,passWord;
         userName = username.getText().toString();
+        passWord=password.getText().toString();
+
 
         switch (v.getId()){
             case R.id.login :
-                if (userName.equals("clerk")){
+                if (userName.equals("MeiTing")&&passWord.equals("Meiting"))//clerk login
+                {
                     SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor=pref.edit();
                     editor.putString("empID","E012");
@@ -63,11 +66,12 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     intent.setClass(this, NavigationForClerk.class);
                     startActivity(intent);
                 }
-                else if (userName.equals("clerk2")){
+                else if (userName.equals("Anthony")&&passWord.equals("Anthony@2"))//clerk login
+                {
 
                     SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor=pref.edit();
-                    editor.putString("empID","E013");
+                    editor.putString("empID","E014");
                     editor.putString("deptID","STOR");
                     editor.commit();
                     Intent intent = new Intent();
@@ -97,7 +101,20 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     intent.setClass(this,NavigationForHead.class);
                     startActivity(intent);
                 }
-                else if (userName.equals("arch")){
+                else if (userName.equals("David")&&passWord.equals("DavidLogic@1"))//chemistry head
+                {
+
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E008");
+                    editor.putString("deptID","CHEM");
+                    editor.commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForHead.class);
+                    startActivity(intent);
+                }
+                else if (userName.equals("Esther")&&passWord.equals("Esther@21"))//Architecture head
+                {
 
                     SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor=pref.edit();

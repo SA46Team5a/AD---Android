@@ -16,10 +16,7 @@
             android:id="@+id/appointrep"
             android:icon="@drawable/ic_delegate"
             android:title="Appoint Department Representative" />
-        <item
-            android:id="@+id/changepoint"
-            android:icon="@drawable/ic_modify"
-            android:title="Change Collection Point" />
+
     </group>
 
 </menu>

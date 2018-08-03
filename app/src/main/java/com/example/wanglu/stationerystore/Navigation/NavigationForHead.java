@@ -53,13 +53,12 @@ public class NavigationForHead extends AppCompatActivity
         delegatebtn.setTag(2);
         Button appointbtn = (Button) findViewById(R.id.appointdept_btn);
         appointbtn.setTag(3);
-        Button changebtn = (Button) findViewById(R.id.changepoint_btn);
-        changebtn.setTag(4);
+
 
         approvalbtn.setOnClickListener(clickListener);
         delegatebtn.setOnClickListener(clickListener);
         appointbtn.setOnClickListener(clickListener);
-        changebtn.setOnClickListener(clickListener);
+
     }
 
     @Override
@@ -136,9 +135,6 @@ public class NavigationForHead extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.appointrep) {
             Intent intent= new Intent(this, AppointRepActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.changepoint) {
-            Intent intent= new Intent(this, UpdateLocationActivity.class);
             startActivity(intent);
         }
 

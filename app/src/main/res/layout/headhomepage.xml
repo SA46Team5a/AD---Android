@@ -82,15 +82,5 @@
             android:text="Appoint Department Representative"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
-        <Button
-            android:id="@+id/changepoint_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/btn_style"
-            android:drawableLeft="@drawable/ic_modify"
-            android:paddingLeft="20dip"
-            android:text="Change Collection Point"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
