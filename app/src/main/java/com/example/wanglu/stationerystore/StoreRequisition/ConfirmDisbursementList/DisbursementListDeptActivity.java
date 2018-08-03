@@ -179,12 +179,8 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
             String passcode = codeView.getText().toString();
             String empId = pref.getString("empID","no name");
             if (adapter.validateData()) {
-                try {
-                    DisbursementDetailModel.submitDisbursementDetails(adapter.getData(), selectedDeptId, empId, passcode);
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
+                boolean result = DisbursementDetailModel.submitDisbursementDetails(adapter.getData(), selectedDeptId, empId, passcode);
+                return result;
             } else
                 return false;
         }
