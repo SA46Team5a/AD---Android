@@ -245,12 +245,14 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                                         DelegateAuthorityModel.updateAuthority(currentAuthorityID,
                                                 convertStringToDate(startText.getText().toString()),
                                                 convertStringToDate(endText.getText().toString()));
+                                       // Toast.makeText(getApplicationContext(),"Delegation period was updated",Toast.LENGTH_SHORT).show();
                                     }
                                     else
                                     {
                                         DelegateAuthorityModel.submitNewAuthority(selectedEmpID,
                                                 convertStringToDate(startText.getText().toString()),
                                                 convertStringToDate(endText.getText().toString()));
+                                       // Toast.makeText(getApplicationContext(),"Authority was granted",Toast.LENGTH_SHORT).show();
                                     }
 
 
@@ -323,7 +325,7 @@ public class DelegateAuthorityActivity extends AppCompatActivity implements Date
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     selectedEmpName = adapterView.getItemAtPosition(i).toString();
                     selectedEmpID=idlist.get(nameList.indexOf(selectedEmpName));
-                    Toast.makeText(DelegateAuthorityActivity.this,selectedEmpID,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(DelegateAuthorityActivity.this,selectedEmpID,Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {

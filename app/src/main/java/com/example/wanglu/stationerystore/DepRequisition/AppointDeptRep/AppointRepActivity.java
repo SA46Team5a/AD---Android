@@ -82,7 +82,7 @@ public class AppointRepActivity extends AppCompatActivity {
                         selectedRepName =adapterView.getItemAtPosition(i).toString();
 
                         selectedIDFromSpinner = empIDList.get(empNameList.indexOf(selectedRepName));
-                        Toast.makeText(getApplicationContext(),selectedIDFromSpinner,Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(),selectedIDFromSpinner,Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
@@ -133,7 +133,7 @@ public class AppointRepActivity extends AppCompatActivity {
 
                         }.execute();
 
-
+                        Toast.makeText(getApplicationContext(),"Representative was appointed",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), NavigationForHead.class));
                     }
                 })
