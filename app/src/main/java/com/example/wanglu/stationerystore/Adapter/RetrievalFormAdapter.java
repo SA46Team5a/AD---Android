@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
@@ -18,13 +17,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
 import com.example.wanglu.stationerystore.Model.Validation;
-
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
@@ -190,8 +187,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
         return view;
     }
 
-       private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
-
+    private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_retrieval_popupwindow, null);
 
@@ -204,7 +200,6 @@ public class RetrievalFormAdapter extends BaseAdapter {
             final EditText reasonview = v.findViewById(R.id.reasonView);
             actualstockview.setHint("Enter a Number");
             reasonview.setHint("Enter Reason");
-
 
 
             itemview.setText(retrieval.get("ItemName").get(position));
@@ -221,6 +216,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
+
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... params) {
@@ -236,13 +232,11 @@ public class RetrievalFormAdapter extends BaseAdapter {
                         }
                     }.execute();
                     Toast.makeText(context, "Adjustment Voucher has submitted", Toast.LENGTH_SHORT).show();
+
                 }
             });
             setView(v);
         }
     }
-
-
-
 }
 

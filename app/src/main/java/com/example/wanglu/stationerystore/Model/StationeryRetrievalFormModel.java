@@ -80,7 +80,7 @@ public class StationeryRetrievalFormModel extends HashMap<String, String> {
             JSONObject jObj = new JSONObject();
             jObj.put("ItemID", ItemID);
             jObj.put("ActualCount",Integer.valueOf(ActualCount));
-            jObj.put("EmployeeID", EmployeeID);
+            jObj.put("VoucherRaiserID", EmployeeID);
             jObj.put("Reason", Reason);
             Log.i("JSON obj", jObj.toString(4));
             String result =JSONParser.postStream(Constant.BASE_URL+"/store/vouchers/add",jObj.toString());
