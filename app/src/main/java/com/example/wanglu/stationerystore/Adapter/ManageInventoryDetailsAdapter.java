@@ -112,8 +112,12 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
                 public void afterTextChanged(Editable editable) {
                     String text = actualCount.getText().toString().trim();
                     if (!text.equals("")) {
-                        int qty = Integer.valueOf(text);
-                        data.get(position).setActualQty(qty);
+                        try {
+                            int qty = Integer.valueOf(text);
+                            data.get(position).setActualQty(qty);
+                        } catch (Exception e) {
+
+                        }
                     } else {
                         Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
                     }

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,12 +112,13 @@ public class RestockInventoryAdapter extends BaseAdapter {
             final EditText quantityView = v.findViewById(R.id.quantityView);
             quantityView.setText(restock.get("OrderedQty").get(position));
             quantityView.setHint("e.g. 5");
+            quantityView.setFilters(new InputFilter[]{ new InputFilterMinMax("0", restock.get("OrderedQty").get(position))});
 
             setCancelable(true);
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(context, "cancel is pressed", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context, "cancel is pr", Toast.LENGTH_SHORT).show();
                 }
             });
             setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -151,6 +154,35 @@ public class RestockInventoryAdapter extends BaseAdapter {
                 }
             });
             setView(v);
+        }
+    }
+
+    public class InputFilterMinMax implements InputFilter {
+
+        private int min, max;
+
+        public InputFilterMinMax(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+
+        public InputFilterMinMax(String min, String max) {
+            this.min = Integer.parseInt(min);
+            this.max = Integer.parseInt(max);
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            try {
+                int input = Integer.parseInt(dest.toString() + source.toString());
+                if (isInRange(min, max, input))
+                    return null;
+            } catch (NumberFormatException nfe) { }
+            return "";
+        }
+
+        private boolean isInRange(int a, int b, int c) {
+            return b > a ? c >= a && c <= b : c >= b && c <= a;
         }
     }
 }

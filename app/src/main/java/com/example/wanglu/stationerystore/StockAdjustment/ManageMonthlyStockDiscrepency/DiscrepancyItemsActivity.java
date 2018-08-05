@@ -111,7 +111,7 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
 
         protected void onPostExecute(Boolean submitted) {
             if (!submitted) {
-                 Toast.makeText(DiscrepancyItemsActivity.this, "Submission failed", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(DiscrepancyItemsActivity.this, "Please key in a reason for the discrepancy", Toast.LENGTH_SHORT).show();
             } else {
                 recreate();
             }
