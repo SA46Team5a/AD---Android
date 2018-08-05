@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -201,6 +202,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
             TextView balanceview = v.findViewById(R.id.stockrecordView);
             final EditText actualstockview = v.findViewById(R.id.actualstockEditText);
             final EditText reasonview = v.findViewById(R.id.reasonView);
+            actualstockview.setHint("Enter a Number");
+            reasonview.setHint("Enter Reason");
+
 
 
             itemview.setText(retrieval.get("ItemName").get(position));
@@ -210,7 +214,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(context, "cancel is pressed", Toast.LENGTH_SHORT).show();
+
                 }
             });
             setPositiveButton("Submit", new DialogInterface.OnClickListener() {
@@ -231,11 +235,14 @@ public class RetrievalFormAdapter extends BaseAdapter {
                         protected void onPostExecute(Void result) {
                         }
                     }.execute();
-                    Toast.makeText(context, "confirm is pressed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Adjustment Voucher has submitted", Toast.LENGTH_SHORT).show();
                 }
             });
             setView(v);
         }
     }
+
+
+
 }
 
