@@ -130,7 +130,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
                         Toast.makeText(context, "You didn't add quantity.", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        holder.AddBtn.setEnabled(true);
+                        //holder.AddBtn.setEnabled(true);
                         new AsyncTask<Void, Void, Void>() {
                             @Override
                             protected Void doInBackground(Void... params) {
@@ -142,11 +142,13 @@ public class RestockInventoryAdapter extends BaseAdapter {
                             }
                             @Override
                             protected void onPostExecute(Void result) {
-
                             }
 
                         }.execute();
+
                         Toast.makeText(context, "Added successful!", Toast.LENGTH_SHORT).show();
+                        holder.AddBtn.setEnabled(false);
+                        holder.AddBtn.setBackgroundResource(R.drawable.disable_button);
                     }
 
                 }

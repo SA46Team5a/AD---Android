@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,8 +19,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.RestockInventoryAdapter;
-import com.example.wanglu.stationerystore.DepRequisition.AppointDeptRep.AppointRepActivity;
-import com.example.wanglu.stationerystore.Model.AppointRepModel;
 import com.example.wanglu.stationerystore.Model.RestockInventoryModel;
 import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
@@ -37,7 +34,8 @@ public class RestockInventoryActivity extends AppCompatActivity {
     ArrayList<String> supplierIDList=new ArrayList<>();
     ArrayList<String> supplierNameList = new ArrayList<>();
     String selectedOrderId;
-    String SelectedSupplierId;
+    String SelectedSupplier;
+    String supplierID;
     public HashMap<String,ArrayList<String>> ItemListMap=new HashMap<>();
     public SharedPreferences pref;
 
@@ -107,8 +105,8 @@ public class RestockInventoryActivity extends AppCompatActivity {
                 supplierDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        SelectedSupplierId= parent.getItemAtPosition(position).toString();
-                        String  supplier = supplierIDList.get(supplierNameList.indexOf(SelectedSupplierId));
+                        SelectedSupplier = parent.getItemAtPosition(position).toString();
+                         supplierID = supplierIDList.get(supplierNameList.indexOf(SelectedSupplier));
                         }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -126,8 +124,8 @@ public class RestockInventoryActivity extends AppCompatActivity {
                     protected HashMap<String, ArrayList<String>> doInBackground(Void... params) {
                         HashMap<String, ArrayList<String>> ItemListMap = new HashMap<>();
 
-                     //ItemListMap = RestockInventoryModel.getInventoryDetail(selectedOrderId,SelectedSupplierId);
-                       ItemListMap = RestockInventoryModel.getInventoryDetail("117","ALPA");// Hardcoded value will replace this with above one after real data comming
+                     ItemListMap = RestockInventoryModel.getInventoryDetail(selectedOrderId, supplierID);
+
                         return ItemListMap;
                     }
 
@@ -136,8 +134,13 @@ public class RestockInventoryActivity extends AppCompatActivity {
                         ItemListMap = result;
                         Log.i("Size", String.valueOf(result.size()));
                         ListView inventoryItemList=findViewById(R.id.inventoryItemList);
-                        RestockInventoryAdapter inventoryAdapter=new RestockInventoryAdapter(RestockInventoryActivity.this);
-                        inventoryItemList.setAdapter(inventoryAdapter);
+                        if (result.get("ItemID").size()==0){
+                            Toast.makeText(getApplicationContext(),"No search results.",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            RestockInventoryAdapter inventoryAdapter = new RestockInventoryAdapter(RestockInventoryActivity.this);
+                            inventoryItemList.setAdapter(inventoryAdapter);
+                        }
                     }
                 }.execute();
             }

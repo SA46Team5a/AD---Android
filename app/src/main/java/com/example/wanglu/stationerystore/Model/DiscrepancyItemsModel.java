@@ -42,8 +42,8 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
     public int getOriginalQty() { return (int) get(originalQty);}
     private void setOriginalQty(int qty) { put(originalQty, qty);}
 
-    public int getActualQty() { return (int) get(actualQty);}
-    public void setActualQty(int qty) { put(actualQty, qty);}
+    public int getActualQty() { return (int) get(originalQty);}
+    public void setActualQty(int qty) { put(originalQty, qty);}
 
     public int getDiscrepancyId() { return (int) get(discrepancyId);}
     private void setDiscrepancyId(int id) { put(discrepancyId, id);}
@@ -131,7 +131,7 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
             String url = Constant.BASE_URL + "/store/stockcount/submit/" + empId;
             return JSONParser.postStream(url, array.toString()).equals("true");
         } catch (JSONException e) {
-            Log.e("submitStockCountResults()", "JSONArray error");
+            Log.e("submitCountResults()", "JSONArray error");
             return false;
         }
     }

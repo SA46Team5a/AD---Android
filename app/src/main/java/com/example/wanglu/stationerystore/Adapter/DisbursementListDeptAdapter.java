@@ -112,7 +112,8 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantitycollectedView.setText(String.valueOf(detail.getDisbursedQuantity()));
         }
 
-        private void setEventHandlers(final int position) {
+        private void setEventHandlers( int position) {
+             final int p= position;
             quantitycollectedView.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -127,7 +128,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
                     int qty;
                     if (!quantitycollectedView.getText().toString().equals("")) {
                         qty = Integer.valueOf(quantitycollectedView.getText().toString());
-                        data.get(position).setCollectedQuantity(qty);
+                        data.get(p).setCollectedQuantity(qty);
                     } else {
                         Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
                     }
