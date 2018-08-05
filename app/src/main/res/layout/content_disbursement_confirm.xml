@@ -126,16 +126,37 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/confirm_button"
         android:contentDescription="Department"
         android:text="Confirm"
-        android:textColor="#ffffff"
-        android:background="@drawable/confirm_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeView" />
+        app:layout_constraintTop_toBottomOf="@+id/codeView"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <Button
+        android:id="@+id/genPasscodeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/confirm_button"
+        android:contentDescription="Department"
+        android:text="Generate Passcode"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeView"
+        app:layout_constraintVertical_bias="0.333" />
 
     <ListView
         android:id="@+id/itemsListView"
