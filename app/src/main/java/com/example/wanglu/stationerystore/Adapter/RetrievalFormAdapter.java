@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
@@ -17,13 +16,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
 import com.example.wanglu.stationerystore.Model.Validation;
-
 import com.example.wanglu.stationerystore.R;
 import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.StationeryRetrievalFormActivity;
 
@@ -189,8 +186,7 @@ public class RetrievalFormAdapter extends BaseAdapter {
         return view;
     }
 
-       private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
-
+    private class submitAdjustmentDialogBuilder extends AlertDialog.Builder {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_retrieval_popupwindow, null);
 
@@ -201,7 +197,6 @@ public class RetrievalFormAdapter extends BaseAdapter {
             TextView balanceview = v.findViewById(R.id.stockrecordView);
             final EditText actualstockview = v.findViewById(R.id.actualstockEditText);
             final EditText reasonview = v.findViewById(R.id.reasonView);
-
 
             itemview.setText(retrieval.get("ItemName").get(position));
             balanceview.setText(retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
@@ -216,22 +211,21 @@ public class RetrievalFormAdapter extends BaseAdapter {
             setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
-                    new AsyncTask<Void, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Void... params) {
-                            StationeryRetrievalFormModel.submitAdjustmentVoucher(
-                                    retrieval.get("ItemID").get(position),
-                                    actualstockview.getText().toString(),pref.getString("empID","no name")
-                                    ,
-                                    reasonview.getText().toString());
-                           return null;
-                        }
-                        @Override
-                        protected void onPostExecute(Void result) {
-                        }
-                    }.execute();
-                    Toast.makeText(context, "confirm is pressed", Toast.LENGTH_SHORT).show();
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        StationeryRetrievalFormModel.submitAdjustmentVoucher(
+                                retrieval.get("ItemID").get(position),
+                                actualstockview.getText().toString(),pref.getString("empID","no name")
+                                ,
+                                reasonview.getText().toString());
+                       return null;
+                    }
+                    @Override
+                    protected void onPostExecute(Void result) {
+                    }
+                }.execute();
+                Toast.makeText(context, "confirm is pressed", Toast.LENGTH_SHORT).show();
                 }
             });
             setView(v);
