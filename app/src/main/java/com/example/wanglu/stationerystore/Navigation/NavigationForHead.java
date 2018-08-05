@@ -29,7 +29,7 @@ import com.example.wanglu.stationerystore.StoreRequisition.stationeryRetrieval.S
 //Wang Lu
 public class NavigationForHead extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    NavigationForHead activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +153,7 @@ public class NavigationForHead extends AppCompatActivity
 
                         Intent i = new Intent(NavigationForHead.this, LoginActivity.class);
                         startActivity(i);
-                        activity.finish();
+                        finish();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

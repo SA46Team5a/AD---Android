@@ -23,6 +23,8 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
     Button submitBtn;
     ListView listView;
     DiscrepancyItemsAdapter adapter;
+    public SharedPreferences pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +33,20 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
         initializeViews();
         setEventHandlers();
 
-        new getStockVouchers().execute(true); // TODO: get role from SharedPreferences. true if is Store Manager
+        new getStockVouchers().execute();
    }
 
     private void initializeViews() {
         listView = findViewById(R.id.discrepencyItemListView);
         submitBtn = (Button) findViewById(R.id.submitButton);
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     private void setEventHandlers() {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (adapter.getCount() > 0)
+                if (adapter.getData().size() > 0)
                     makeAlertDialog();
                 else
                     Toast.makeText(DiscrepancyItemsActivity.this, "No vouchers to submit", Toast.LENGTH_SHORT).show();
@@ -71,10 +74,16 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
             .show();
     }
 
-    private class getStockVouchers extends AsyncTask<Boolean, Void, List<DiscrepancyItemsModel>> {
+    private class getStockVouchers extends AsyncTask<Void, Void, List<DiscrepancyItemsModel>> {
         @Override
-        protected List<DiscrepancyItemsModel> doInBackground(Boolean... booleans) {
-            return DiscrepancyItemsModel.getStockVouchers();
+        protected List<DiscrepancyItemsModel> doInBackground(Void... voids) {
+            boolean isManager;
+            if(pref.getString("empID","no name").equals("E011"))
+                isManager=true;
+            else
+                isManager=false;
+
+            return DiscrepancyItemsModel.getStockVouchers(isManager);
         }
 
         @Override
