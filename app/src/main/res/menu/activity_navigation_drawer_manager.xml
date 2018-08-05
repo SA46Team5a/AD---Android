@@ -7,7 +7,7 @@
         <item
             android:id="@+id/manageinventory"
             android:icon="@drawable/ic_modify"
-            android:title="Manage Inventory" />
+            android:title="Manage Discrepancy" />
     </group>
 
 </menu>

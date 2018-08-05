@@ -26,7 +26,7 @@ import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDisc
 public class NavigationForClerk extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    NavigationForClerk activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +154,7 @@ public class NavigationForClerk extends AppCompatActivity
 
                         Intent i = new Intent(NavigationForClerk.this, LoginActivity.class);
                         startActivity(i);
-                        activity.finish();
+                        finish();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
