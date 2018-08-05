@@ -1,5 +1,6 @@
 package com.example.wanglu.stationerystore.StoreRequisition.ConfirmDisbursementList;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
 import com.example.wanglu.stationerystore.Model.DeptRepModel;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.Model.DisbursementListDeptModel;
+import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -80,6 +82,8 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
             // TODO: add asynctask for restarting activity
             public void onClick(View v) {
                 new submitDisbursementList().execute();
+
+
            }
         });
 

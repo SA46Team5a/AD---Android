@@ -31,7 +31,7 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
         initializeViews();
         setEventHandlers();
 
-        new getStockVouchers().execute(true); // TODO: get role from SharedPreferences. true if is Store Manager
+        new getStockVouchers().execute();
    }
 
     private void initializeViews() {
@@ -68,9 +68,9 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
                 .show();
     }
 
-    private class getStockVouchers extends AsyncTask<Boolean, Void, List<DiscrepancyItemsModel>> {
+    private class getStockVouchers extends AsyncTask<Void, Void, List<DiscrepancyItemsModel>> {
         @Override
-        protected List<DiscrepancyItemsModel> doInBackground(Boolean... booleans) {
+        protected List<DiscrepancyItemsModel> doInBackground(Void... voids) {
             return DiscrepancyItemsModel.getStockVouchers();
         }
 
