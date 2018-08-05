@@ -54,7 +54,7 @@ public class RestockInventoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//Start AsyncTask
+        //Start AsyncTask
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
@@ -105,13 +105,10 @@ public class RestockInventoryActivity extends AppCompatActivity {
                 supplierDropdownlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
                         SelectedSupplier = parent.getItemAtPosition(position).toString();
                         supplierID = supplierIDList.get(supplierNameList.indexOf(SelectedSupplier));
+                    }
 
-
-                        }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
@@ -127,9 +124,7 @@ public class RestockInventoryActivity extends AppCompatActivity {
                     @Override
                     protected HashMap<String, ArrayList<String>> doInBackground(Void... params) {
                         HashMap<String, ArrayList<String>> ItemListMap = new HashMap<>();
-
-                     ItemListMap = RestockInventoryModel.getInventoryDetail(selectedOrderId, supplierID);
-
+                        ItemListMap = RestockInventoryModel.getInventoryDetail(selectedOrderId, supplierID);
                         return ItemListMap;
                     }
 
@@ -139,12 +134,11 @@ public class RestockInventoryActivity extends AppCompatActivity {
                         Log.i("Size", String.valueOf(result.size()));
                         ListView inventoryItemList=findViewById(R.id.inventoryItemList);
                         if (result.get("ItemID").size()==0){
+
                             Toast.makeText(getApplicationContext(),"No search results.", Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            RestockInventoryAdapter inventoryAdapter = new RestockInventoryAdapter(RestockInventoryActivity.this);
-                            inventoryItemList.setAdapter(inventoryAdapter);
-                        }
+                        RestockInventoryAdapter inventoryAdapter = new RestockInventoryAdapter(RestockInventoryActivity.this);
+                        inventoryItemList.setAdapter(inventoryAdapter);
                     }
                 }.execute();
             }
