@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -197,6 +198,9 @@ public class RetrievalFormAdapter extends BaseAdapter {
             TextView balanceview = v.findViewById(R.id.stockrecordView);
             final EditText actualstockview = v.findViewById(R.id.actualstockEditText);
             final EditText reasonview = v.findViewById(R.id.reasonView);
+            actualstockview.setHint("Enter a Number");
+            reasonview.setHint("Enter Reason");
+
 
             itemview.setText(retrieval.get("ItemName").get(position));
             balanceview.setText(retrieval.get("QtyInStock").get(position)+" "+retrieval.get("UnitOfMeasure").get(position));
@@ -205,27 +209,30 @@ public class RetrievalFormAdapter extends BaseAdapter {
             setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(context, "cancel is pressed", Toast.LENGTH_SHORT).show();
+
                 }
             });
             setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... params) {
-                        StationeryRetrievalFormModel.submitAdjustmentVoucher(
-                                retrieval.get("ItemID").get(position),
-                                actualstockview.getText().toString(),pref.getString("empID","no name")
-                                ,
-                                reasonview.getText().toString());
-                       return null;
-                    }
-                    @Override
-                    protected void onPostExecute(Void result) {
-                    }
-                }.execute();
-                Toast.makeText(context, "confirm is pressed", Toast.LENGTH_SHORT).show();
+
+
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            StationeryRetrievalFormModel.submitAdjustmentVoucher(
+                                    retrieval.get("ItemID").get(position),
+                                    actualstockview.getText().toString(),pref.getString("empID","no name")
+                                    ,
+                                    reasonview.getText().toString());
+                           return null;
+                        }
+                        @Override
+                        protected void onPostExecute(Void result) {
+                        }
+                    }.execute();
+                    Toast.makeText(context, "Adjustment Voucher has submitted", Toast.LENGTH_SHORT).show();
+
                 }
             });
             setView(v);

@@ -63,6 +63,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         ListView listView = findViewById(R.id.listview);
         submitbutton = findViewById(R.id.submitButton);
         submitbutton.setOnClickListener((View.OnClickListener) this);
+        submitbutton.setBackgroundResource(R.drawable.disable_button);
         submitbutton.setEnabled(false);
 
 //        RetrievalFormAdapter.ViewHolder holder;
@@ -72,7 +73,7 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
         new AsyncTask<Void, Void, HashMap<String,ArrayList<String>>>() {
             @Override
             protected HashMap<String,ArrayList<String>> doInBackground(Void... params) {
-                Log.i("@@@@@@@@@@@@@@@@@@@AsyncTaskbeforeGetRetrievalForm","@@@@@@@@@@@@");
+                //Log.i("AsyncTaskbeforeGetRetrievalForm","@@@@@@@@@@@@");
                 HashMap<String,ArrayList<String>> retrievalMap= StationeryRetrievalFormModel.getStationeryRetrievalFormList(pref.getString("empID","no name"));
                 return retrievalMap;
             }
@@ -95,7 +96,16 @@ public class StationeryRetrievalFormActivity extends AppCompatActivity implement
     }
     public void setSubmitButtonState(boolean bool)
     {
-        submitbutton.setEnabled(bool);
+        if(bool)
+        {
+            submitbutton.setBackgroundResource(R.drawable.confirm_button);
+            submitbutton.setEnabled(bool);
+        }
+        else
+        {
+            submitbutton.setBackgroundResource(R.drawable.disable_button);
+            submitbutton.setEnabled(bool);
+        }
     }
     @Override
     public void onClick(View v) {
