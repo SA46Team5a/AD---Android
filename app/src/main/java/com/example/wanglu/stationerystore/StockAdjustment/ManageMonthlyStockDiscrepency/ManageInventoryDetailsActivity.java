@@ -110,7 +110,7 @@ public class ManageInventoryDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean submitted){
             if (submitted)
-                finishActivity(-1);
+                finish();
             else
                 Toast.makeText(ManageInventoryDetailsActivity.this, "An error has occured and submission has failed. Please try again", Toast.LENGTH_SHORT).show();
         }
