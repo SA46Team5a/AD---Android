@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,7 +108,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom().toString());
             quantitycollectedLabel.setText("Quantity Collected:");
-            quantitycollectedView.setText(String.valueOf(detail.getDisbursedQuantity()));
+            quantitycollectedView.setText(String.valueOf(detail.getCollectedQuantity()));
         }
 
         private void setEventHandlers( int position) {
@@ -131,6 +130,24 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
                         data.get(p).setCollectedQuantity(qty);
                     } else {
                         Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            reasonView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String reason= reasonView.getText().toString();
+                    if (!reason.equals("")) {
+                        data.get(position).setReason(reason);
                     }
                 }
             });

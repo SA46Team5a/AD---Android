@@ -89,7 +89,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedDept= adapterView.getItemAtPosition(i).toString();
                 selectedDeptId =deptIDList.get(deptNameList.indexOf(selectedDept));
-                new getDisbursementList().execute(deptIDList.get(0));
+                new getDisbursementList().execute(selectedDeptId);
                 new getCollectionPoint().execute(selectedDeptId);
                 new getDepRep().execute(selectedDeptId);
             }
