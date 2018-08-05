@@ -3,8 +3,10 @@ package com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDis
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,8 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
     Button submitBtn;
     ListView listView;
     DiscrepancyItemsAdapter adapter;
+    public SharedPreferences pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
     private void initializeViews() {
         listView = findViewById(R.id.discrepencyItemListView);
         submitBtn = (Button) findViewById(R.id.submitButton);
+        pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     private void setEventHandlers() {
@@ -71,7 +76,13 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
     private class getStockVouchers extends AsyncTask<Void, Void, List<DiscrepancyItemsModel>> {
         @Override
         protected List<DiscrepancyItemsModel> doInBackground(Void... voids) {
-            return DiscrepancyItemsModel.getStockVouchers();
+            boolean isManager;
+            if(pref.getString("empID","no name").equals("E011"))
+                isManager=true;
+            else
+                isManager=false;
+
+            return DiscrepancyItemsModel.getStockVouchers(isManager);
         }
 
         @Override
@@ -86,7 +97,7 @@ public class DiscrepancyItemsActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             if (adapter.validateData()) {
-                return DiscrepancyItemsModel.submitStockVouchers(adapter.getData());
+                return DiscrepancyItemsModel.submitStockVouchers(adapter.getData(),pref.getString("empID","no name"));
             }
             else
                 return false;

@@ -66,6 +66,18 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     intent.setClass(this, NavigationForClerk.class);
                     startActivity(intent);
                 }
+                else if (userName.equals("Pavana")&&passWord.equals("Pavana@10"))//clerk login
+                {
+
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E013");
+                    editor.putString("deptID","STOR");
+                    editor.commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this, NavigationForClerk.class);
+                    startActivity(intent);
+                }
                 else if (userName.equals("Anthony")&&passWord.equals("Anthony@2"))//clerk login
                 {
 
@@ -125,6 +137,42 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     intent.setClass(this,NavigationForHead.class);
                     startActivity(intent);
                 }
+                else if (userName.equals("Sho Kian Wee")&&passWord.equals("ShoKWLogic@2"))//Computer science head
+                {
+
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E003");
+                    editor.putString("deptID","CPSC");
+                    editor.commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForHead.class);
+                    startActivity(intent);
+                }
+                else if (userName.equals("Wang Lu")&&passWord.equals("Wanglu"))//store supervisor
+                {
+
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E001");
+                    editor.putString("deptID","STOR");
+                    editor.commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForManager.class);
+                    startActivity(intent);
+                }
+                else if (userName.equals("Robert")&&passWord.equals("Robert"))//store manager
+                {
+
+                    SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor=pref.edit();
+                    editor.putString("empID","E011");
+                    editor.putString("deptID","STOR");
+                    editor.commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this,NavigationForManager.class);
+                    startActivity(intent);
+                }
                 else if (userName.equals("manager")){
                     SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor=pref.edit();
@@ -135,6 +183,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
                     intent.setClass(this,NavigationForManager.class);
                     startActivity(intent);
                 }
+
                 else  {
                     Toast.makeText(this, "Please use correct user name and password", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent();

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
+import com.example.wanglu.stationerystore.StockAdjustment.ManageMonthlyStockDiscrepency.DiscrepancyItemsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,8 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
     private static String voucherRaiserId = "VoucherRaiserID";
     private static String voucherApproverId = "VoucherApproverID";
     private static String reason = "Reason";
+
+
 
     public String getItemId() { return (String) get(itemId);}
     private void setItemId(String id) { put(itemId, id);}
@@ -124,14 +127,14 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         return details ;
     }
 
-    public static boolean submitStockCountResults(List<DiscrepancyItemsModel> data) {
+    public static boolean submitStockCountResults(List<DiscrepancyItemsModel> data,String empId) {
         try {
             JSONArray array = new JSONArray();
             for (DiscrepancyItemsModel datum : data){
                 array.put(datum.toJSONObject());
             }
 
-            String empId = "E001"; // TODO: get from SharedPreferences
+            //String empId = "E001"; // TODO: get from SharedPreferences
             String url = Constant.BASE_URL + "/store/stockcount/submit/" + empId;
             boolean result = JSONParser.postStream(url, array.toString()).equals("true\n");
             return result;
@@ -141,10 +144,10 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         }
     }
 
-    public static List<DiscrepancyItemsModel> getStockVouchers() {
+    public static List<DiscrepancyItemsModel> getStockVouchers(boolean isManager) {
         List<DiscrepancyItemsModel> details = new ArrayList<DiscrepancyItemsModel>();
         try {
-            boolean isManager = true; // TODO: get from SharedPreferences
+            //boolean isManager = true; // TODO: get from SharedPreferences
             JSONArray array = JSONParser.getJSONArrayFromUrl(Constant.BASE_URL + "/store/vouchers/retrieve/" + isManager);
             DiscrepancyItemsModel detail;
             for (int i = 0; i < array.length(); i++) {
@@ -158,14 +161,14 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         return details;
     }
 
-    public static boolean submitStockVouchers(List<DiscrepancyItemsModel> data) {
+    public static boolean submitStockVouchers(List<DiscrepancyItemsModel> data,String empId) {
         try {
             JSONArray array = new JSONArray();
             for (DiscrepancyItemsModel datum : data){
                 array.put(datum.toJSONObject());
             }
 
-            String empId = "E001"; // TODO: get from SharedPreferences
+            //String empId = "E001"; // TODO: get from SharedPreferences
             String url = Constant.BASE_URL + "/store/submit/" + empId;
             return JSONParser.postStream(url, array.toString()).equals("true");
         } catch (JSONException e) {

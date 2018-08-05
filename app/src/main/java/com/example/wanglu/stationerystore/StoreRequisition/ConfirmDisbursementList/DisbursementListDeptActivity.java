@@ -20,10 +20,13 @@ import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Adapter.DisbursementListDeptAdapter;
 import com.example.wanglu.stationerystore.Model.ChangeCollectionPointModel;
+import com.example.wanglu.stationerystore.Model.ConstantAndMethod.Constant;
 import com.example.wanglu.stationerystore.Model.DeptRepModel;
 import com.example.wanglu.stationerystore.Model.DisbursementDetailModel;
 import com.example.wanglu.stationerystore.Model.DisbursementListDeptModel;
-import com.example.wanglu.stationerystore.Navigation.NavigationForClerk;
+
+import com.example.wanglu.stationerystore.Model.JSON.JSONParser;
+
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
@@ -35,12 +38,12 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
     private ConstraintLayout disbursementInclude=null;
     ListView itemsListView;
     Spinner departmentDropdownlist;
-    TextView collectionlLabel;
     TextView collectionView;
     TextView representativeLabel;
     TextView representativenameView;
     EditText codeView;
     Button confirmBtn;
+    Button genPasscodeBtn;
     String selectedDept;
     String selectedDeptId;
     ArrayList<String > deptIDList = new ArrayList<>();
@@ -62,6 +65,7 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
         disbursementInclude = findViewById(R.id.disbursementInclude);
         itemsListView = findViewById(R.id.itemsListView);
         confirmBtn = findViewById(R.id.confirmButton);
+        genPasscodeBtn = findViewById(R.id.genPasscodeButton);
         adapter = new DisbursementListDeptAdapter(this);
         representativeLabel = findViewById(R.id.representativeLabel);
         collectionView = findViewById(R.id.collectionView);
@@ -101,6 +105,13 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(getApplicationContext(),"You must select one department",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        genPasscodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new genPasscode().execute();
             }
         });
     }
@@ -174,6 +185,19 @@ public class DisbursementListDeptActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(DisbursementListDeptActivity.this, "No disbursements for this department", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    protected class genPasscode extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            JSONParser.getStream(Constant.BASE_URL + "/deprep/newpasscode/" + selectedDeptId);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void voids) {
+            Toast.makeText(DisbursementListDeptActivity.this, "Passcode has been sent", Toast.LENGTH_SHORT).show();
         }
     }
 
