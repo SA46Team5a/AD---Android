@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,7 +108,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantityLabel.setText("Quantity:");
             quantityView.setText(detail.getQtyAndUom().toString());
             quantitycollectedLabel.setText("Quantity Collected:");
-            quantitycollectedView.setText(String.valueOf(detail.getDisbursedQuantity()));
+            quantitycollectedView.setText(String.valueOf(detail.getCollectedQuantity()));
         }
 
         private void setEventHandlers(final int position) {
