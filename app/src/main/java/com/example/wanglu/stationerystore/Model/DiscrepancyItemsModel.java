@@ -84,7 +84,9 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         d.setItemId(o.getString(itemId));
         d.setItemName(o.getString(itemName));
         d.setUnitOfMeasure(o.getString(unitOfMeasure));
+        d.setUnitCost(o.getDouble(unitCost));
         d.setOriginalQty(o.getInt(originalQty));
+        d.setActualQty(o.getInt(originalQty));
         return d;
     }
 
@@ -96,7 +98,9 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         jsonObject.put(unitCost, getUnitCost());
         jsonObject.put(originalQty, getOriginalQty());
         jsonObject.put(actualQty, getActualQty());
-        jsonObject.put(discrepancyId, getDiscrepancyId());
+        try {
+            jsonObject.put(discrepancyId, getDiscrepancyId());
+        } catch (Exception e){}
         jsonObject.put(voucherRaiserId, getVoucherRaiserId());
         jsonObject.put(voucherApproverId, getVoucherApproverId());
         jsonObject.put(reason, getReason());
@@ -129,7 +133,8 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
 
             String empId = "E001"; // TODO: get from SharedPreferences
             String url = Constant.BASE_URL + "/store/stockcount/submit/" + empId;
-            return JSONParser.postStream(url, array.toString()).equals("true");
+            boolean result = JSONParser.postStream(url, array.toString()).equals("true\n");
+            return result;
         } catch (JSONException e) {
             Log.e("submitStockCountResults()", "JSONArray error");
             return false;
