@@ -42,8 +42,8 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
     public int getOriginalQty() { return (int) get(originalQty);}
     private void setOriginalQty(int qty) { put(originalQty, qty);}
 
-    public int getActualQty() { return (int) get(originalQty);}
-    public void setActualQty(int qty) { put(originalQty, qty);}
+    public int getActualQty() { return (int) get(actualQty);}
+    public void setActualQty(int qty) { put(actualQty, qty);}
 
     public int getDiscrepancyId() { return (int) get(discrepancyId);}
     private void setDiscrepancyId(int id) { put(discrepancyId, id);}
@@ -158,16 +158,16 @@ public class DiscrepancyItemsModel extends HashMap<String, Object> {
         return details;
     }
 
-    public static boolean submitStockVouchers(List<DiscrepancyItemsModel> data) {
+    public static boolean submitStockVouchers(List<DiscrepancyItemsModel> data, String empId) {
         try {
             JSONArray array = new JSONArray();
             for (DiscrepancyItemsModel datum : data){
                 array.put(datum.toJSONObject());
             }
 
-            String empId = "E001"; // TODO: get from SharedPreferences
-            String url = Constant.BASE_URL + "/store/submit/" + empId;
-            return JSONParser.postStream(url, array.toString()).equals("true");
+            String url = Constant.BASE_URL + "/store/vouchers/submit/" + empId;
+            String result = JSONParser.postStream(url, array.toString());
+            return result.equals("true\n");
         } catch (JSONException e) {
             Log.e("submitStockVouchers()", "JSONArray error");
             return false;
