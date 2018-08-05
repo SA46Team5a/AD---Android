@@ -61,7 +61,10 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return data.size();
+        if (data != null)
+            return data.size();
+        else
+            return 0;
     }
 
     @Override
@@ -72,6 +75,16 @@ public class DiscrepancyItemsAdapter extends BaseAdapter{
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     private class ViewHolder {
