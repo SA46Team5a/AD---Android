@@ -132,6 +132,24 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
                     }
                 }
             });
+
+            reasonView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String reason= reasonView.getText().toString();
+                    if (!reason.equals("")) {
+                        data.get(position).setReason(reason);
+                    }
+                }
+            });
         }
     }
 
