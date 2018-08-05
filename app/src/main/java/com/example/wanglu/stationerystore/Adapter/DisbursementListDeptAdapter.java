@@ -111,7 +111,7 @@ public class DisbursementListDeptAdapter extends BaseAdapter{
             quantitycollectedView.setText(String.valueOf(detail.getCollectedQuantity()));
         }
 
-        private void setEventHandlers( int position) {
+        private void setEventHandlers(final int position) {
              final int p= position;
             quantitycollectedView.addTextChangedListener(new TextWatcher() {
                 @Override

@@ -91,7 +91,8 @@ public class RestockInventoryAdapter extends BaseAdapter {
         holder.AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            addStockQtyDialogBuilder alertBuilder=new addStockQtyDialogBuilder(stockActivity,position);
+
+            addStockQtyDialogBuilder alertBuilder=new addStockQtyDialogBuilder(stockActivity,position,view);
                 alertBuilder.show();
             }
         });
@@ -104,7 +105,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) stockActivity.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = mInflater.inflate(R.layout.activity_restock_popupwindows, null);
 
-        private addStockQtyDialogBuilder (@NonNull final Context context, final int position) {
+        private addStockQtyDialogBuilder (@NonNull final Context context, final int position, final View addBtn) {
             super(context);
             final EditText quantityView = v.findViewById(R.id.quantityView);
             quantityView.setText(restock.get("OrderedQty").get(position));
@@ -143,8 +144,8 @@ public class RestockInventoryAdapter extends BaseAdapter {
                         }.execute();
 
                         Toast.makeText(context, "Added successful!", Toast.LENGTH_SHORT).show();
-                        holder.AddBtn.setEnabled(false);
-                        holder.AddBtn.setBackgroundResource(R.drawable.disable_button);
+                        addBtn.setEnabled(false);
+                        addBtn.setBackgroundResource(R.drawable.disable_button);
                     }
 
                 }
