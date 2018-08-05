@@ -37,7 +37,7 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
 
     public boolean validateData() {
         for (DiscrepancyItemsModel datum : data) {
-            if (datum.getActualQty() != datum.getOriginalQty() && datum.getReason().trim().equals(""))
+            if (datum.getActualQty() != datum.getOriginalQty() && datum.getReason() == null)
                 return false;
         }
         return true;
@@ -73,8 +73,8 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
 
         public ViewHolder(View view, int position) {
             initializeViews(view);
-            setEventHandlers(position);
             setValues(position);
+            setEventHandlers(position);
         }
 
         private void initializeViews(View view) {
@@ -111,11 +111,29 @@ public class ManageInventoryDetailsAdapter extends BaseAdapter {
                 @Override
                 public void afterTextChanged(Editable editable) {
                     String text = actualCount.getText().toString().trim();
-                    if (text.equals("")) {
+                    if (!text.equals("")) {
                         int qty = Integer.valueOf(text);
                         data.get(position).setActualQty(qty);
                     } else {
                         Toast.makeText(context, "Quantity collected must not be blank", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            reason.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String text = reason.getText().toString().trim();
+                    if (!text.equals("")) {
+                        data.get(position).setReason(text);
                     }
                 }
             });
