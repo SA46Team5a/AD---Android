@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Store Manager"
+            android:text="Store Manager/Supervisor"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <Button

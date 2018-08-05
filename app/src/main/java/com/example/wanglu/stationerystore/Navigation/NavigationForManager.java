@@ -3,7 +3,9 @@ package com.example.wanglu.stationerystore.Navigation;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.LoginActivity;
@@ -29,6 +32,10 @@ public class NavigationForManager extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_manager);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+
+
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
