@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,13 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanglu.stationerystore.Model.RestockInventoryModel;
-import com.example.wanglu.stationerystore.Model.StationeryRetrievalFormModel;
 import com.example.wanglu.stationerystore.Orders.restockInventory.RestockInventoryActivity;
 import com.example.wanglu.stationerystore.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 //Author:Luo Chao
@@ -92,7 +87,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
 
         holder.categoryView.setText((String ) restock.get("ItemID").get(position));
         holder.descriptionView.setText((String )restock.get("ItemName").get(position));
-        holder.stockView.setText((String ) restock.get("QtyInStock").get(position)+" "+ restock.get("UnitOfMeasure").get(position));
+        holder.stockView.setText((String ) restock.get("OrderedQty").get(position)+" "+ restock.get("UnitOfMeasure").get(position));
         holder.AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +107,7 @@ public class RestockInventoryAdapter extends BaseAdapter {
         private addStockQtyDialogBuilder (@NonNull final Context context, final int position) {
             super(context);
             final EditText quantityView = v.findViewById(R.id.quantityView);
+            quantityView.setText(restock.get("OrderedQty").get(position));
             quantityView.setHint("e.g. 5");
 
             setCancelable(true);
